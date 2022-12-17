@@ -8,6 +8,7 @@ This is the second beta of the program. I hope to launch with more features late
 
 ## How to Install 
 After unzipping the .zip file and navigating forward to where the main.py file is located, press on the address bar then type cmd.
+![howto](https://user-images.githubusercontent.com/15097797/207977194-3e161530-18eb-4beb-99d3-f19d815392e8.png)
 
 Run 'pip install -r requirements.txt' to download all the required packages.
 
