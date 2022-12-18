@@ -1,0 +1,5 @@
+1.0
+-Added toggle for light/dark mode
+-Small enhancements
+-Added version checker in the background to make sure you are using the latest update!
+-Added the ability to choose where your data.txt file is being saved
