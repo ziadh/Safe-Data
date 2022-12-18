@@ -1,3 +1,5 @@
 1.10
--QoL changes including confirming the location of the newly selected destination for data.txt
--Updated readMe with screenshot of light mode
+What's new?
+-Small tweaks
+-Accelerated the startup process
+

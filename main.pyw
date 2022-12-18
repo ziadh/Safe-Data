@@ -11,7 +11,7 @@ from tkinter import ttk
 import json
 import requests
 import webbrowser
-version = "1.05"
+version = "1.10"
 
 file_path = None
 
@@ -22,7 +22,7 @@ def download_update(event):
 
 
 class splash():
-    version = "1.0"
+    version = "1.10"
     ss = Tk()
     ss.overrideredirect(True)
     ss.configure(bg="#453C67")
@@ -165,6 +165,7 @@ def toggle_theme():
         change_dir_button.config(bg="#AED6F1", fg="black")
         settings['theme'] = 'light'
     else:
+
         window.config(bg="#2A3990")
         canvas.config(bg="#2A3990")
         logo_img.config(file="media\wide.png")
