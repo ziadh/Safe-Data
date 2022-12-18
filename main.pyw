@@ -11,7 +11,7 @@ from tkinter import ttk
 import json
 import requests
 import webbrowser
-version = "1.0"
+version = "1.05"
 
 file_path = None
 
@@ -93,16 +93,28 @@ def save():
         messagebox.showinfo(
             title="Oops", message="All fields are required.")
     else:
-        is_ok = messagebox.askokcancel(title=website, message=f"Please confirm your details: \n \nWebsite/Service: {website} \nEmail: {email} "
-                                       f"\nPassword: {password} \n \nConfirm saving credentials?")
-        if is_ok:
-            with open(file_path or "data.txt", "a") as data_file:
-                data_file.write(
-                    f"Service/Website: {website} | Email: {email} | Password: {password}\n")
-                website_entry.delete(0, END)
-                password_entry.delete(0, END)
-                email_entry.delete(0, END)
-                password_saved.destroy()
+        if file_path == None:
+            is_ok = messagebox.askokcancel(title=website, message=f"Please confirm your details: \n\n(Saving this info to locally saved data.txt) \n\nWebsite/Service: {website} \nEmail: {email} "
+                                           f"\nPassword: {password} \n \nConfirm saving credentials?")
+            if is_ok:
+                with open(file_path or "data.txt", "a") as data_file:
+                    data_file.write(
+                        f"Service/Website: {website} | Email: {email} | Password: {password}\n")
+                    website_entry.delete(0, END)
+                    password_entry.delete(0, END)
+                    email_entry.delete(0, END)
+                    password_saved.destroy()
+        else:
+            is_ok = messagebox.askokcancel(title=website, message=f"Please confirm your details: \n\n(Saving this info to {file_path}) \n\nWebsite/Service: {website} \nEmail: {email} "
+                                           f"\nPassword: {password} \n \nConfirm saving credentials?")
+            if is_ok:
+                with open(file_path or "data.txt", "a") as data_file:
+                    data_file.write(
+                        f"Service/Website: {website} | Email: {email} | Password: {password}\n")
+                    website_entry.delete(0, END)
+                    password_entry.delete(0, END)
+                    email_entry.delete(0, END)
+                    password_saved.destroy()
 
 
 def change_dir():

@@ -1,4 +1,4 @@
-# Safe Data - 1.0 Release
+# Safe Data
 
 
  Python GUI program that stores your logins LOCALLY. Nothing is being sent to the cloud or any online database. The main inspiration behind this project was me getting fed up with large password storing companies getting breached and having to worry if my data got breached. 
@@ -22,11 +22,14 @@ When it is finished, close the cmd and simply double click the main.pyw file.
 -Saves your logins LOCALLY to your machine. It does not upload it anywhere.
 ![data-ss](https://user-images.githubusercontent.com/15097797/208266440-90f0823c-4430-4230-89cd-842d8ec0bd72.png)
 
+-Change your application to use light mode (for some reason!)
+![lightmode-ss](https://user-images.githubusercontent.com/15097797/208319961-735d26ab-87f3-42ae-aa48-efa21d792bf2.png)
 
-(Might add a lock function or an encryption function in the near future)
-## What's new in 1.0?
-- Light/Dark mode toggle
-- Now gives you the option to choose where to save the file and will remember that for future uses
+
+-Choose where to save your data
+
+
+![saving-ss](https://user-images.githubusercontent.com/15097797/208320068-7ea508b8-721e-44c1-9962-eb533a716871.png)
 
 ## Contributions
 Contributions are appreciated.
