@@ -11,7 +11,8 @@ from tkinter import ttk
 import json
 import requests
 import webbrowser
-version = "1.10"
+
+version = "1.11"
 
 file_path = None
 
@@ -146,7 +147,7 @@ def toggle_theme():
 
     if 'theme' not in settings:
         settings['theme'] = default_settings['theme']
-    if window.cget("bg") != "light blue":
+    if window.cget("bg") != "light blue":  # if its set dark switch to light
         logo_img.config(file="media\wide-light.png")
         window.wm_iconbitmap('media\logo-light.ico')
         window.config(bg="light blue")
@@ -271,7 +272,7 @@ change_dir_button = Button(
 change_dir_button.grid(row=5, column=2, padx=15)
 password_saved = Label(
     text="Randomized password added\nto clipboard.", bg="light green", fg="blue")
-toggle_button = Button(text="\u2600", width=15,
+toggle_button = Button(text="\u263E", width=3,
                        command=toggle_theme, bg="#251749", fg="white")
 toggle_button.grid(row=7, column=1)
 if settings['theme'] == 'light':

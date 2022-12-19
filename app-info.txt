@@ -1,5 +1,5 @@
-1.10
+1.11
 What's new?
--Small tweaks
--Accelerated the startup process
+-Adjusted the theme button to better show its functionality
+-QoL changes
 
