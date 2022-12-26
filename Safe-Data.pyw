@@ -11,8 +11,9 @@ from tkinter import ttk
 import json
 import requests
 import webbrowser
+import datetime
 
-version = "1.11"
+version = "1.20"
 
 file_path = None
 
@@ -23,7 +24,6 @@ def download_update(event):
 
 
 class splash():
-    version = "1.10"
     ss = Tk()
     ss.overrideredirect(True)
     ss.configure(bg="#453C67")
@@ -31,16 +31,16 @@ class splash():
     screen_height = ss.winfo_screenheight()
     x_coord = int((screen_width / 2) - (500 / 2))
     y_coord = int((screen_height / 2) - (300 / 2))
-    ss.geometry(f"500x275+{x_coord}+{y_coord}")
+    ss.geometry(f"500x250+{x_coord}+{y_coord}")
 
     with open('settings.json', 'r') as f:
         settings = json.load(f)
 
     if settings['theme'] == 'light':
-        label = tk.Label(ss, text="0%", bg="light blue")
+        label = tk.Label(ss, text="", bg="light blue")
         image = PhotoImage(file='media/splash-light.png')
     elif settings['theme'] == 'dark':
-        label = tk.Label(ss, text="0%", bg="#2A3990")
+        label = tk.Label(ss, text="", bg="#2A3990")
         image = PhotoImage(file='media/splash-dark.png')
 
     label.pack()
@@ -95,12 +95,15 @@ def save():
             title="Oops", message="All fields are required.")
     else:
         if file_path == None:
-            is_ok = messagebox.askokcancel(title=website, message=f"Please confirm your details: \n\n(Saving this info to locally saved data.txt) \n\nWebsite/Service: {website} \nEmail: {email} "
+            is_ok = messagebox.askokcancel(title="Save data?", message=f"Please confirm your details: \n\n(Saving this info to locally saved data.txt) \n\nWebsite/Service: {website} \nEmail: {email} "
                                            f"\nPassword: {password} \n \nConfirm saving credentials?")
             if is_ok:
+                now = datetime.datetime.now()
+                date_string = now.strftime("%m/%d/%Y")
+
                 with open(file_path or "data.txt", "a") as data_file:
                     data_file.write(
-                        f"Service/Website: {website} | Email: {email} | Password: {password}\n")
+                        f"Service/Website: {website} | Email: {email} | Password: {password} | Saved on: {date_string}  \n")
                     website_entry.delete(0, END)
                     password_entry.delete(0, END)
                     email_entry.delete(0, END)
@@ -109,9 +112,12 @@ def save():
             is_ok = messagebox.askokcancel(title=website, message=f"Please confirm your details: \n\n(Saving this info to {file_path}) \n\nWebsite/Service: {website} \nEmail: {email} "
                                            f"\nPassword: {password} \n \nConfirm saving credentials?")
             if is_ok:
+                now = datetime.datetime.now()
+                date_string = now.strftime("%m/%d/%Y")
                 with open(file_path or "data.txt", "a") as data_file:
                     data_file.write(
-                        f"Service/Website: {website} | Email: {email} | Password: {password}\n")
+                        f"Service/Website: {website} | Email: {email} | Password: {password} | Saved on: {date_string}\n")
+                    data_file.write(f"Saved on {date_string}\n")
                     website_entry.delete(0, END)
                     password_entry.delete(0, END)
                     email_entry.delete(0, END)
@@ -122,6 +128,15 @@ def change_dir():
     global file_path
     # Display a file save dialog to choose the directory
     file_path = tkinter.filedialog.asksaveasfilename(initialfile="data.txt")
+
+
+def clear_all():
+    yes_clear = messagebox.askokcancel(
+        title="Confirm clear all?", message=f"Are you sure you would like to clear all information in this window?")
+    if yes_clear:
+        website_entry.delete(0, END)
+        email_entry.delete(0, END)
+        password_entry.delete(0, END)
 
 
 def safety():
@@ -164,6 +179,8 @@ def toggle_theme():
         toggle_button.config(text='\u263E')
         version_message.config(bg="light blue", fg="black")
         change_dir_button.config(bg="#AED6F1", fg="black")
+        clear_all_button.config(bg="#AED6F1", fg="black")
+
         settings['theme'] = 'light'
     else:
 
@@ -183,6 +200,8 @@ def toggle_theme():
         toggle_button.config(text='\u2600')
         version_message.config(bg="#2A3990", fg="light green")
         change_dir_button.config(bg="#251749", fg="white")
+        clear_all_button.config(bg="#251749", fg="white")
+
         settings['theme'] = 'dark'
 
     with open('settings.json', 'w') as f:
@@ -202,7 +221,8 @@ screen_height = window.winfo_screenheight()
 x_coord = int((screen_width / 2) - (500 / 2))
 y_coord = int((screen_height / 2) - (300 / 2))
 
-window.geometry(f"700x450+{x_coord}+{y_coord}")
+window.resizable(True, True)
+window.geometry(f"700x400+{x_coord}+{y_coord}")
 
 with open('settings.json', 'r') as f:
     settings = json.load(f)
@@ -275,6 +295,9 @@ password_saved = Label(
 toggle_button = Button(text="\u263E", width=3,
                        command=toggle_theme, bg="#251749", fg="white")
 toggle_button.grid(row=7, column=1)
+clear_all_button = Button(text="Clear all", width=12,
+                          command=clear_all, bg="#251749", fg="white")
+clear_all_button.grid(row=7, column=0)
 if settings['theme'] == 'light':
     logo_img.config(file="media\wide-light.png")
     window.wm_iconbitmap('media\logo-light.ico')
@@ -292,7 +315,7 @@ if settings['theme'] == 'light':
     toggle_button.config(text='\u263E')
     version_message.config(bg="light blue", fg="black")
     change_dir_button.config(bg="#AED6F1", fg="black")
-
+    clear_all_button.config(bg="#AED6F1", fg="black")
 else:
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
@@ -310,4 +333,6 @@ else:
     toggle_button.config(text='\u2600')
     version_message.config(bg="#2A3990", fg="light green")
     change_dir_button.config(bg="#251749", fg="white")
+    clear_all_button.config(bg="#251749", fg="white")
+
 window.mainloop()

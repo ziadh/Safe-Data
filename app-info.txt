@@ -1,5 +1,5 @@
-1.11
-What's new?
--Adjusted the theme button to better show its functionality
--QoL changes
+1.20
+- Added feature that keeps track of when each login was added
+- Added clear all button
+- QoL updates
 

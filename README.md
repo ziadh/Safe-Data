@@ -7,12 +7,15 @@ Safe Data has now fully launched with a handful of new features!
 
 
 ## How to Install 
-After unzipping the .zip file and navigating forward to where the main.py file is located, press on the address bar then type cmd.
+
+- Download [Python](https://www.python.org/downloads/) from here
+- Download [source](https://github.com/ziadh/Safe-Data/archive/refs/heads/main.zip) from here
+- After unzipping the source file and navigating forward to where the main.py file is located, press on the address bar then type cmd.
 ![howto](https://user-images.githubusercontent.com/15097797/207977194-3e161530-18eb-4beb-99d3-f19d815392e8.png)
 
 Run 'pip install -r requirements.txt' to download all the required packages.
 
-When it is finished, close the cmd and simply double click the main.pyw file.
+When it is finished, close the cmd and simply double click the Safe-Data.pyw file.
 
 ## Features
 -Ability to generate a random hard-to-guess password and add it to your clipboard
