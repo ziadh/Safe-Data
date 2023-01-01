@@ -1,4 +1,6 @@
-1.30
-- Significant improvements to the UI
-- Various updates to readMe
-- Now optimized for Mac
+1.40
+- Can now be opened as an .exe file
+- Added password checker that ensures the password isn't easily guessed. 
+    -This feature will be updated and improved with time
+- Added version checker button instead of the always showing label
+- Minor improvements to the splash screen

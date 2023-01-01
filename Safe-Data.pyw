@@ -1,23 +1,38 @@
 import tkinter.filedialog
-import json
 from tkinter import *
 from tkinter import messagebox, Canvas, PhotoImage, Label
+import tkinter as tk
+from tkinter import ttk
+
+import json
 from random import choice, randint, shuffle
 import pyperclip
-import tkinter as tk
 import time
-from tkinter import ttk
 import json
 import requests
 import webbrowser
 import datetime
 
-version = "1.30"
-
 file_path = None
 
 
+def version_checker():
+    r = requests.get("https://api.github.com/repos/ziadh/Safe-Data/releases")
+    json_data = r.json()
+    newest_version = json_data[0]["tag_name"]
+    if float(newest_version) > float(version):
+        version_message.config(fg="light green")
+        version_message.config(
+            text="New version available!\nClick here to update")
+    else:
+        version_message.config(
+            text=f"You are running the latest version v{version}. Thank you for using Safe Data.")
+
+
 def download_update(event):
+    r = requests.get("https://api.github.com/repos/ziadh/Safe-Data/releases")
+    json_data = r.json()
+    newest_version = json_data[0]["tag_name"]
     link = "https://github.com/ziadh/Safe-Data/archive/refs/tags/"+newest_version+".zip"
     webbrowser.open(link)
 
@@ -37,16 +52,16 @@ class splash():
 
     if settings['theme'] == 'light':
         label = tk.Label(ss, text="", bg="light blue")
-        image = PhotoImage(file='media/splash-light.png')
+        image = PhotoImage(file='assets/splash-light.png')
     elif settings['theme'] == 'dark':
         label = tk.Label(ss, text="", bg="#2A3990")
-        image = PhotoImage(file='media/splash-dark.png')
-
-    label.pack()
+        image = PhotoImage(file='assets/splash-dark.png')
+    label.place(x=-10, y=-10)
     image_label = Label(ss, image=image)
-    image_label.pack()
+    image_label.place(x=0, y=0)
     progress = ttk.Progressbar(ss, orient=tk.HORIZONTAL, length=300)
-    progress.pack()
+    progress.configure(style='orange.Horizontal.TProgressbar')
+    progress.place(x=100, y=200)
     progress['value'] = 0
     interval = 0.01
     for i in range(100):
@@ -74,8 +89,31 @@ def randomize_password():
     password = "".join(password_list)
     password_entry.insert(0, password)
     pyperclip.copy(password)
-
+    password_saved.config(text="Randomized password added\nto clipboard")
     password_saved.place(x=20, y=120)
+
+
+def check_pass():
+    password = password_entry.get().lower()
+    username = email_entry.get()
+    weak_pass = ["pass", "password", "123456", "123", "000"]
+    safe = True
+    for word in weak_pass:
+        if word in password:
+            safe = False
+            break
+    if safe:
+        pass_check_label.config(
+            text="Password looks solid.", bg="light green", fg="blue")
+    else:
+        pass_check_label.config(
+            text="Password is not safe and might be easily guessed. Changing it is recommended.", bg="red", fg="white")
+    if password == "":
+        pass_check_label.config(
+            text="Please type in the password.", bg="yellow", fg="blue")
+    if len(password) < 7 and len(password) > 0:
+        pass_check_label.config(
+            text="The password is too short.", bg="yellow", fg="blue")
 
 
 def toggle_password_visibility():
@@ -88,7 +126,7 @@ def save():
 
     website = website_entry.get()
     email = email_entry.get()
-
+    password = password_entry.get()
     if len(website) == 0 or len(password) == 0:
         messagebox.showinfo(
             title="Oops", message="All fields are required.")
@@ -132,15 +170,35 @@ def clear_all():
     yes_clear = messagebox.askokcancel(
         title="Confirm clear all?", message=f"Are you sure you would like to clear all information in this window?")
     if yes_clear:
-        password_saved.destroy()
+        default_settings = {
+            'theme': 'dark'
+        }
+
+        with open('settings.json', 'r') as f:
+            try:
+                settings = json.load(f)
+            except json.decoder.JSONDecodeError:
+                settings = default_settings
         website_entry.delete(0, END)
         email_entry.delete(0, END)
         password_entry.delete(0, END)
+        if settings['theme'] == 'dark':
+            pass_check_label.config(text="", bg="#2A3990", fg="#2A3990")
+            password_saved.config(text="", bg="#2A3990", fg="#2A3990")
+            version_message.config(text="", bg="#2A3990", fg="#2A3990")
+        if settings['theme'] == 'light':
+            pass_check_label.config(text="", bg="light blue", fg="light blue")
+            password_saved.config(text="", bg="light blue", fg="light blue")
+            version_message.config(text="", bg="light blue", fg="light blue")
 
 
 def safety():
-    messagebox.showinfo(
-        title="Safety", message="Safe Data is a program that allows you to save your logins locally so you won't have to panic when a major password database gets breached through. \nWe do not store your data anywhere on our database nor do we want to. \nThe code is open-source for everyone on github.com/ziadh/Safe-Data and you can check the code yourself.")
+    message = """
+        Safe Data is a program that allows you to save your logins locally so you won't have to panic when a major password database gets breached through. 
+        We do not store your data anywhere on our database nor do we want to. 
+        The code is open-source for everyone on github.com/ziadh/Safe-Data and you can check the code yourself.
+    """
+    messagebox.showinfo(title="Safety", message=message)
 
 
 def toggle_theme():
@@ -162,43 +220,53 @@ def toggle_theme():
     if 'theme' not in settings:
         settings['theme'] = default_settings['theme']
     if toggle_button.cget("text") == "\u2600":  # if button has sun symbol
-        logo_img.config(file="media\wide-light.png")
-        window.wm_iconbitmap('media\logo-light.ico')
+        logo_img.config(file="assets\wide-light.png")
+        window.wm_iconbitmap('assets\logo-light.ico')
         window.config(bg="light blue")
         canvas.config(bg="light blue")
-        website_label.config(bg="light blue", fg="black")
+        # LABELS
         email_label.config(bg="light blue", fg="black")
+        password_check.config(bg="#AED6F1", fg="black")
         password_label.config(bg="light blue", fg="black")
-        save_button.config(bg="#AED6F1", fg="black")
-        privacy_button.config(bg="#AED6F1", fg="black")
+        password_saved.config(bg="#AED6F1", fg="black")
+        pass_check_label.config(bg="#AED6F1", fg="black")
+        version_message.config(bg="#AED6F1", fg="black")
+        website_label.config(bg="light blue", fg="black")
+        # BUTTONS
+        clear_all_button.config(bg="#AED6F1", fg="black")
+        change_dir_button.config(bg="#AED6F1", fg="black")
+        check_for_update_button.config(bg="#AED6F1", fg="black")
         exit_button.config(bg="#AED6F1", fg="black")
         generate_password_button.config(bg="#AED6F1", fg="black")
-        toggle_button.config(bg="#AED6F1", fg="black")
+        privacy_button.config(bg="#AED6F1", fg="black")
+        save_button.config(bg="#AED6F1", fg="black")
         show_button.config(bg="#AED6F1", fg="black")
-        toggle_button.config(text='\u263E')
-        version_message.config(bg="light blue", fg="black")
-        change_dir_button.config(bg="#AED6F1", fg="black")
-        clear_all_button.config(bg="#AED6F1", fg="black")
-
+        toggle_button.config(text='\u263E', bg="#AED6F1", fg="black")
         settings['theme'] = 'light'
     elif toggle_button.cget("text") == "\u263E":  # if button has moon symbol
+        logo_img.config(file="assets\wide.png")
+        window.wm_iconbitmap('assets\logo-dark.ico')
         window.config(bg="#2A3990")
         canvas.config(bg="#2A3990")
-        logo_img.config(file="media\wide.png")
-        window.wm_iconbitmap('media\logo-dark.ico')
-        website_label.config(bg="#2A3990", fg="white")
+        # LABELS
         email_label.config(bg="#2A3990", fg="white")
+        password_check.config(bg="#251749", fg="white")
         password_label.config(bg="#2A3990", fg="white")
-        save_button.config(bg="#251749", fg="white")
-        privacy_button.config(bg="#251749", fg="white")
+        password_saved.config(bg="#2A3990", fg="white")
+        pass_check_label.config(bg="#2A3990", fg="light green")
+        version_message.config(bg="#2A3990", fg="light green")
+        website_label.config(bg="#2A3990", fg="white")
+        # BUTTONS
+        clear_all_button.config(bg="#251749", fg="white")
+        change_dir_button.config(bg="#251749", fg="white")
+        check_for_update_button.config(bg="#251749", fg="white")
         exit_button.config(bg="#251749", fg="white")
         generate_password_button.config(bg="#251749", fg="white")
-        toggle_button.config(bg="#251749", fg="white")
+        privacy_button.config(bg="#251749", fg="white")
+        save_button.config(bg="#251749", fg="white")
         show_button.config(bg="#251749", fg="white")
-        toggle_button.config(text='\u2600')
-        version_message.config(bg="#2A3990", fg="light green")
-        change_dir_button.config(bg="#251749", fg="white")
-        clear_all_button.config(bg="#251749", fg="white")
+        toggle_button.config(text='\u2600', bg="#251749", fg="white")
+
         settings['theme'] = 'dark'
 
     with open('settings.json', 'w') as f:
@@ -212,12 +280,15 @@ def on_exit():
         window.destroy()
 
 
+with open('settings.json', 'r') as f:
+    settings = json.load(f)
+version = settings['version']
+
 window = Tk()
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 x_coord = int((screen_width / 2) - (500 / 2))
-y_coord = int((screen_height / 2) - (300 / 2))
-
+y_coord = int((screen_height / 2) - (300))
 window.resizable(True, True)
 window.geometry(f"700x450+{x_coord}+{y_coord}")
 
@@ -227,24 +298,16 @@ with open('settings.json', 'r') as f:
 version_message = Label(
     text="", fg="blue", cursor="hand2", bg="#2A3990")
 version_message.bind("<Button-1>", download_update)
-version_message.place(x=51, y=80)
-
-r = requests.get("https://api.github.com/repos/ziadh/Safe-Data/releases")
-json_data = r.json()
-newest_version = json_data[0]["tag_name"]
-if float(newest_version) > float(version):
-    version_message.config(fg="light green")
-    version_message.config(text="New version available!\nClick me to update!")
-
+version_message.place(x=51, y=-20)
 
 window.config(bg="#2A3990")
 window.title(f"Safe Data v{version}")
 window.config(padx=50, pady=50)
 window.resizable(width=False, height=False)
-window.wm_iconbitmap('media\logo-dark.ico')
+window.wm_iconbitmap('assets\logo-dark.ico')
 
 canvas = Canvas(height=150, width=275)
-logo_img = PhotoImage(file="media\wide.png")
+logo_img = PhotoImage(file="assets\wide.png")
 canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
@@ -267,7 +330,7 @@ password_entry = Entry(show="*", width=21)
 password_entry.place(x=200, y=240)
 
 password_saved = Label(
-    text="Randomized password added\nto clipboard.", bg="light green", fg="blue")
+    text="Randomized password saved\nto clipboard.", bg="light green", fg="blue")
 
 show_button = tk.Button(window, text="\U0001F441",
                         command=toggle_password_visibility, bg="#251749", fg="white")
@@ -277,11 +340,18 @@ generate_password_button = Button(
     text="Randomize", command=randomize_password, bg="#251749", fg="white", width=12)
 generate_password_button.place(x=390, y=240)
 
+password_check = Button(text="Evaluate Password",
+                        bg="#251749", fg="white", command=check_pass, width=16)
+password_check.place(x=40, y=270)
+
+check_for_update_button = Button(text="Check for Updates", bg="#251749",
+                                 fg="white", command=version_checker, width=16)
+check_for_update_button.place(x=40, y=300)
 save_button = Button(text="Save", width=39, command=save,
                      bg="#251749", fg="white")
 save_button.place(x=200, y=270)
 
-privacy_button = Button(text="Is this safe?", width=12,
+privacy_button = Button(text="Is this safe?", width=15,
                         command=safety, bg="#251749", fg="white")
 privacy_button.place(x=200, y=300)
 
@@ -299,44 +369,59 @@ toggle_button.place(x=230, y=330)
 password_saved = Label(
     text="Randomized password added\nto clipboard.", bg="light green", fg="blue")
 
-clear_all_button = Button(text="Clear all", width=12,
+clear_all_button = Button(text="Clear all", width=16,
                           command=clear_all, bg="#251749", fg="white")
 clear_all_button.place(x=40, y=330)
+
+pass_check_label = Label(text="", bg="#2A3990")
+pass_check_label.place(x=40, y=360)
+
 if settings['theme'] == 'light':
-    logo_img.config(file="media\wide-light.png")
-    window.wm_iconbitmap('media\logo-light.ico')
+    logo_img.config(file="assets\wide-light.png")
+    window.wm_iconbitmap('assets\logo-light.ico')
     window.config(bg="light blue")
     canvas.config(bg="light blue")
-    website_label.config(bg="light blue", fg="black")
+    # LABELS
     email_label.config(bg="light blue", fg="black")
+    password_check.config(bg="#AED6F1", fg="black")
     password_label.config(bg="light blue", fg="black")
-    save_button.config(bg="#AED6F1", fg="black")
-    privacy_button.config(bg="#AED6F1", fg="black")
+    password_saved.config(bg="#AED6F1", fg="black")
+    pass_check_label.config(bg="#AED6F1", fg="black")
+    version_message.config(bg="#AED6F1", fg="black")
+    website_label.config(bg="light blue", fg="black")
+    # BUTTONS
+    clear_all_button.config(bg="#AED6F1", fg="black")
+    check_for_update_button.config(bg="#AED6F1", fg="black")
+    change_dir_button.config(bg="#AED6F1", fg="black")
     exit_button.config(bg="#AED6F1", fg="black")
     generate_password_button.config(bg="#AED6F1", fg="black")
-    toggle_button.config(bg="#AED6F1", fg="black")
+    privacy_button.config(bg="#AED6F1", fg="black")
+    save_button.config(bg="#AED6F1", fg="black")
     show_button.config(bg="#AED6F1", fg="black")
+    toggle_button.config(bg="#AED6F1", fg="black")
     toggle_button.config(text='\u263E')
-    version_message.config(bg="light blue", fg="black")
-    change_dir_button.config(bg="#AED6F1", fg="black")
-    clear_all_button.config(bg="#AED6F1", fg="black")
 else:
+    logo_img.config(file="assets\wide.png")
+    window.wm_iconbitmap('assets\logo-dark.ico')
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
-    logo_img.config(file="media\wide.png")
-    window.wm_iconbitmap('media\logo-dark.ico')
-    website_label.config(bg="#2A3990", fg="white")
+    # LABELS
+    check_for_update_button.config(bg="#251749", fg="white")
     email_label.config(bg="#2A3990", fg="white")
+    pass_check_label.config(bg="#2A3990", fg="light green")
+    password_check.config(bg="#251749", fg="white")
     password_label.config(bg="#2A3990", fg="white")
-    save_button.config(bg="#251749", fg="white")
-    privacy_button.config(bg="#251749", fg="white")
+    version_message.config(bg="#2A3990", fg="light green")
+    website_label.config(bg="#2A3990", fg="white")
+    # BUTTONS
+    clear_all_button.config(bg="#251749", fg="white")
+    change_dir_button.config(bg="#251749", fg="white")
     exit_button.config(bg="#251749", fg="white")
     generate_password_button.config(bg="#251749", fg="white")
-    toggle_button.config(bg="#251749", fg="white")
+    privacy_button.config(bg="#251749", fg="white")
+    save_button.config(bg="#251749", fg="white")
     show_button.config(bg="#251749", fg="white")
+    toggle_button.config(bg="#251749", fg="white")
     toggle_button.config(text='\u2600')
-    version_message.config(bg="#2A3990", fg="light green")
-    change_dir_button.config(bg="#251749", fg="white")
-    clear_all_button.config(bg="#251749", fg="white")
 
 window.mainloop()
