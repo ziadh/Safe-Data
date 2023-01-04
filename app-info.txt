@@ -1,6 +1,5 @@
-1.40
-- Can now be opened as an .exe file
-- Added password checker that ensures the password isn't easily guessed. 
-    -This feature will be updated and improved with time
-- Added version checker button instead of the always showing label
-- Minor improvements to the splash screen
+1.41
+- Added confirmation message for changing the file directory
+- Minor improvements to the pass_check, more in future updates
+- Re-adjusted a handful of labels to make them aligned with similar ones
+- Added the ability to view patch notes if you are not running the latest release

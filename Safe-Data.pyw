@@ -21,12 +21,14 @@ def version_checker():
     json_data = r.json()
     newest_version = json_data[0]["tag_name"]
     if float(newest_version) > float(version):
-        version_message.config(fg="light green")
-        version_message.config(
-            text="New version available!\nClick here to update")
+        version_message.config(fg="light green",
+                               text=f"New version v{newest_version} available! Click here to update.")
+        whats_new_label.config(fg="light green",
+                               text="Click here to view the latest\nchanges.")
     else:
         version_message.config(
-            text=f"You are running the latest version v{version}. Thank you for using Safe Data.")
+            text=f"You are running the latest version v{version}.", cursor="")
+        version_message.unbind("<Button-1>")
 
 
 def download_update(event):
@@ -34,6 +36,14 @@ def download_update(event):
     json_data = r.json()
     newest_version = json_data[0]["tag_name"]
     link = "https://github.com/ziadh/Safe-Data/archive/refs/tags/"+newest_version+".zip"
+    webbrowser.open(link)
+
+
+def open_patch_notes(event):
+    r = requests.get("https://api.github.com/repos/ziadh/Safe-Data/releases")
+    json_data = r.json()
+    newest_version = json_data[0]["tag_name"]
+    link = f"https://github.com/ziadh/Safe-Data/releases/tag/{newest_version}"
     webbrowser.open(link)
 
 
@@ -52,10 +62,10 @@ class splash():
 
     if settings['theme'] == 'light':
         label = tk.Label(ss, text="", bg="light blue")
-        image = PhotoImage(file='assets/splash-light.png')
+        image = PhotoImage(file='assets/logos/splash-light.png')
     elif settings['theme'] == 'dark':
         label = tk.Label(ss, text="", bg="#2A3990")
-        image = PhotoImage(file='assets/splash-dark.png')
+        image = PhotoImage(file='assets/logos/splash-dark.png')
     label.place(x=-10, y=-10)
     image_label = Label(ss, image=image)
     image_label.place(x=0, y=0)
@@ -89,14 +99,15 @@ def randomize_password():
     password = "".join(password_list)
     password_entry.insert(0, password)
     pyperclip.copy(password)
-    password_saved.config(text="Randomized password added\nto clipboard")
-    password_saved.place(x=20, y=120)
+    password_saved.config(text="Randomized password\nadded to clipboard.")
+    password_saved.place(x=40, y=120)
 
 
 def check_pass():
     password = password_entry.get().lower()
     username = email_entry.get()
-    weak_pass = ["pass", "password", "123456", "123", "000"]
+    weak_pass = ["pass", "password", "123456",
+                 "123", "000", "qwerty", "1111", "2222"]
     safe = True
     for word in weak_pass:
         if word in password:
@@ -107,7 +118,7 @@ def check_pass():
             text="Password looks solid.", bg="light green", fg="blue")
     else:
         pass_check_label.config(
-            text="Password is not safe and might be easily guessed. Changing it is recommended.", bg="red", fg="white")
+            text="Password is not safe and \nmight be easily guessed. \nChanging it is recommended.", bg="red", fg="white")
     if password == "":
         pass_check_label.config(
             text="Please type in the password.", bg="yellow", fg="blue")
@@ -164,6 +175,8 @@ def save():
 def change_dir():
     global file_path
     file_path = tkinter.filedialog.asksaveasfilename(initialfile="data.txt")
+    confirm_changed_dir.config(
+        text=f"Set the path for the data.txt file to {file_path}", bg="light green", fg="blue")
 
 
 def clear_all():
@@ -183,13 +196,19 @@ def clear_all():
         email_entry.delete(0, END)
         password_entry.delete(0, END)
         if settings['theme'] == 'dark':
+            confirm_changed_dir.config(text="", bg="#2A3990", fg="#2A3990")
             pass_check_label.config(text="", bg="#2A3990", fg="#2A3990")
             password_saved.config(text="", bg="#2A3990", fg="#2A3990")
             version_message.config(text="", bg="#2A3990", fg="#2A3990")
+            whats_new_label.config(text="", bg="#2A3990", fg="#2A3990")
+
         if settings['theme'] == 'light':
+            confirm_changed_dir.config(
+                text="", bg="light blue", fg="light blue")
             pass_check_label.config(text="", bg="light blue", fg="light blue")
             password_saved.config(text="", bg="light blue", fg="light blue")
             version_message.config(text="", bg="light blue", fg="light blue")
+            whats_new_label.config(text="", bg="light blue", fg="light blue")
 
 
 def safety():
@@ -220,17 +239,19 @@ def toggle_theme():
     if 'theme' not in settings:
         settings['theme'] = default_settings['theme']
     if toggle_button.cget("text") == "\u2600":  # if button has sun symbol
-        logo_img.config(file="assets\wide-light.png")
-        window.wm_iconbitmap('assets\logo-light.ico')
+        logo_img.config(file="assets/logos/wide-light.png")
+        window.wm_iconbitmap('assets/logos/logo-light.ico')
         window.config(bg="light blue")
         canvas.config(bg="light blue")
         # LABELS
+        confirm_changed_dir.config(bg="#AED6F1", fg="black")
         email_label.config(bg="light blue", fg="black")
         password_check.config(bg="#AED6F1", fg="black")
         password_label.config(bg="light blue", fg="black")
         password_saved.config(bg="#AED6F1", fg="black")
         pass_check_label.config(bg="#AED6F1", fg="black")
         version_message.config(bg="#AED6F1", fg="black")
+        whats_new_label.config(bg="#AED6F1", fg="black")
         website_label.config(bg="light blue", fg="black")
         # BUTTONS
         clear_all_button.config(bg="#AED6F1", fg="black")
@@ -244,17 +265,19 @@ def toggle_theme():
         toggle_button.config(text='\u263E', bg="#AED6F1", fg="black")
         settings['theme'] = 'light'
     elif toggle_button.cget("text") == "\u263E":  # if button has moon symbol
-        logo_img.config(file="assets\wide.png")
-        window.wm_iconbitmap('assets\logo-dark.ico')
+        logo_img.config(file="assets/logos/wide.png")
+        window.wm_iconbitmap('assets/logos/logo-dark.ico')
         window.config(bg="#2A3990")
         canvas.config(bg="#2A3990")
         # LABELS
+        confirm_changed_dir.config(bg="#2A3990", fg="white")
         email_label.config(bg="#2A3990", fg="white")
         password_check.config(bg="#251749", fg="white")
         password_label.config(bg="#2A3990", fg="white")
         password_saved.config(bg="#2A3990", fg="white")
         pass_check_label.config(bg="#2A3990", fg="light green")
         version_message.config(bg="#2A3990", fg="light green")
+        whats_new_label.config(bg="#2A3990", fg="light green")
         website_label.config(bg="#2A3990", fg="white")
         # BUTTONS
         clear_all_button.config(bg="#251749", fg="white")
@@ -298,16 +321,19 @@ with open('settings.json', 'r') as f:
 version_message = Label(
     text="", fg="blue", cursor="hand2", bg="#2A3990")
 version_message.bind("<Button-1>", download_update)
-version_message.place(x=51, y=-20)
+version_message.place(x=40, y=-20)
+whats_new_label = Label(text="", fg="blue", cursor="hand2", bg="#2A3990")
+whats_new_label.bind("<Button-1>", open_patch_notes)
+whats_new_label.place(x=40, y=20)
 
 window.config(bg="#2A3990")
 window.title(f"Safe Data v{version}")
 window.config(padx=50, pady=50)
 window.resizable(width=False, height=False)
-window.wm_iconbitmap('assets\logo-dark.ico')
+window.wm_iconbitmap('assets/logos/logo-dark.ico')
 
 canvas = Canvas(height=150, width=275)
-logo_img = PhotoImage(file="assets\wide.png")
+logo_img = PhotoImage(file="assets/logos/wide.png")
 canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
@@ -374,14 +400,17 @@ clear_all_button = Button(text="Clear all", width=16,
 clear_all_button.place(x=40, y=330)
 
 pass_check_label = Label(text="", bg="#2A3990")
-pass_check_label.place(x=40, y=360)
+pass_check_label.place(x=485, y=240)
 
+confirm_changed_dir = Label(text="", bg="#2A3990")
+confirm_changed_dir.place(x=40, y=360)
 if settings['theme'] == 'light':
-    logo_img.config(file="assets\wide-light.png")
-    window.wm_iconbitmap('assets\logo-light.ico')
+    logo_img.config(file="assets/logos/wide-light.png")
+    window.wm_iconbitmap('assets/logos/logo-light.ico')
     window.config(bg="light blue")
     canvas.config(bg="light blue")
     # LABELS
+    confirm_changed_dir.config(bg="#AED6F1", fg="black")
     email_label.config(bg="light blue", fg="black")
     password_check.config(bg="#AED6F1", fg="black")
     password_label.config(bg="light blue", fg="black")
@@ -389,6 +418,7 @@ if settings['theme'] == 'light':
     pass_check_label.config(bg="#AED6F1", fg="black")
     version_message.config(bg="#AED6F1", fg="black")
     website_label.config(bg="light blue", fg="black")
+    whats_new_label.config(bg="#AED6F1", fg="black")
     # BUTTONS
     clear_all_button.config(bg="#AED6F1", fg="black")
     check_for_update_button.config(bg="#AED6F1", fg="black")
@@ -401,11 +431,12 @@ if settings['theme'] == 'light':
     toggle_button.config(bg="#AED6F1", fg="black")
     toggle_button.config(text='\u263E')
 else:
-    logo_img.config(file="assets\wide.png")
-    window.wm_iconbitmap('assets\logo-dark.ico')
+    logo_img.config(file="assets/logos/wide.png")
+    window.wm_iconbitmap('assets/logos/logo-dark.ico')
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
     # LABELS
+
     check_for_update_button.config(bg="#251749", fg="white")
     email_label.config(bg="#2A3990", fg="white")
     pass_check_label.config(bg="#2A3990", fg="light green")
@@ -413,6 +444,7 @@ else:
     password_label.config(bg="#2A3990", fg="white")
     version_message.config(bg="#2A3990", fg="light green")
     website_label.config(bg="#2A3990", fg="white")
+    whats_new_label.config(bg="#2A3990", fg="white")
     # BUTTONS
     clear_all_button.config(bg="#251749", fg="white")
     change_dir_button.config(bg="#251749", fg="white")
