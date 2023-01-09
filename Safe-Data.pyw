@@ -14,6 +14,24 @@ import webbrowser
 import datetime
 
 file_path = None
+language = None
+
+with open('settings.json', 'r') as f:
+    settings = json.load(f)
+version = settings['version']
+
+with open('settings.json', 'r') as f:
+    settings = json.load(f)
+language = settings['language']
+
+with open('languages.json', 'r', encoding='utf8') as f:
+    language_data = json.load(f)
+for lang in language_data['languages']:
+    if lang['language'] == language:
+        chosen_lang = lang
+        break
+with open('settings.json', 'w') as f:
+    json.dump(settings, f)
 
 
 def version_checker():
@@ -22,12 +40,12 @@ def version_checker():
     newest_version = json_data[0]["tag_name"]
     if float(newest_version) > float(version):
         version_message.config(fg="light green",
-                               text=f"New version v{newest_version} available! Click here to update.")
+                               text=chosen_lang["version_needs_update"].format(newest_version))
         whats_new_label.config(fg="light green",
-                               text="Click here to view the latest\nchanges.")
+                               text=chosen_lang["view_patch_notes"])
     else:
         version_message.config(
-            text=f"You are running the latest version v{version}.", cursor="")
+            text=chosen_lang["latest_version_message"].format(version), cursor="")
         version_message.unbind("<Button-1>")
 
 
@@ -39,11 +57,30 @@ def download_update(event):
     webbrowser.open(link)
 
 
-def open_patch_notes(event):
+def open_patch_notes(event, language, chosen_lang):
+    # Load language data
+    with open('assets/languages.json', 'r', encoding='utf8') as f:
+        language_data = json.load(f)
+
+    # Get language data for the chosen language
+    for lang in language_data['languages']:
+        if lang['language'] == language:
+            chosen_lang = lang
+            break
+
+    # Get release data from GitHub
     r = requests.get("https://api.github.com/repos/ziadh/Safe-Data/releases")
     json_data = r.json()
     newest_version = json_data[0]["tag_name"]
     link = f"https://github.com/ziadh/Safe-Data/releases/tag/{newest_version}"
+
+    if language != "EN":
+        # Use release_link from JSON file to generate translated link
+        translated_link = chosen_lang['release_link'].format(
+            newest_version=newest_version)
+        link = translated_link
+
+    # Open link in web browser
     webbrowser.open(link)
 
 
@@ -82,6 +119,12 @@ class splash():
     ss.destroy()
 
 
+def toggle_password_visibility():
+    global is_password_visible
+    is_password_visible = not is_password_visible
+    password_entry.config(show=("" if is_password_visible else "*"))
+
+
 def randomize_password():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
                'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -99,7 +142,7 @@ def randomize_password():
     password = "".join(password_list)
     password_entry.insert(0, password)
     pyperclip.copy(password)
-    password_saved.config(text="Randomized password\nadded to clipboard.")
+    password_saved.config(text=chosen_lang["password_saved_label"])
     password_saved.place(x=40, y=120)
 
 
@@ -107,7 +150,7 @@ def check_pass():
     password = password_entry.get().lower()
     username = email_entry.get()
     weak_pass = ["pass", "password", "123456",
-                 "123", "000", "qwerty", "1111", "2222"]
+                 "123", "000", "qwerty", "1111", "2222", "qwerty123", "abc123", "password123"]
     safe = True
     for word in weak_pass:
         if word in password:
@@ -115,22 +158,16 @@ def check_pass():
             break
     if safe:
         pass_check_label.config(
-            text="Password looks solid.", bg="light green", fg="blue")
+            text=chosen_lang["check_pass_good"], bg="light green", fg="blue")
     else:
         pass_check_label.config(
-            text="Password is not safe and \nmight be easily guessed. \nChanging it is recommended.", bg="red", fg="white")
+            text=chosen_lang["check_pass_bad"], bg="red", fg="white")
     if password == "":
         pass_check_label.config(
-            text="Please type in the password.", bg="yellow", fg="blue")
+            text=chosen_lang["check_pass_missing"], bg="yellow", fg="blue")
     if len(password) < 7 and len(password) > 0:
         pass_check_label.config(
-            text="The password is too short.", bg="yellow", fg="blue")
-
-
-def toggle_password_visibility():
-    global is_password_visible
-    is_password_visible = not is_password_visible
-    password_entry.config(show=("" if is_password_visible else "*"))
+            text=chosen_lang["check_pass_short"], bg="yellow", fg="blue")
 
 
 def save():
@@ -140,32 +177,36 @@ def save():
     password = password_entry.get()
     if len(website) == 0 or len(password) == 0:
         messagebox.showinfo(
-            title="Oops", message="All fields are required.")
+            title="Oops", message=chosen_lang["all_fields_error"])
     else:
         if file_path == None:
-            is_ok = messagebox.askokcancel(title="Save data?", message=f"Please confirm your details: \n\n(Saving this info to locally saved data.txt) \n\nWebsite/Service: {website} \nEmail: {email} "
-                                           f"\nPassword: {password} \n \nConfirm saving credentials?")
+            is_ok = messagebox.askokcancel(
+                title=chosen_lang["save_data_title"],
+                message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+
             if is_ok:
                 now = datetime.datetime.now()
                 date_string = now.strftime("%m/%d/%Y")
 
                 with open(file_path or "data.txt", "a") as data_file:
-                    data_file.write(
-                        f"Service/Website: {website} | Email: {email} | Password: {password} | Saved on: {date_string}  \n")
+                    data_file.write(chosen_lang[f"saved_data_txt"].format(
+                        website=website, email=email, password=password, date_string=date_string))
                     website_entry.delete(0, END)
                     password_entry.delete(0, END)
                     email_entry.delete(0, END)
                     password_saved.destroy()
         else:
-            is_ok = messagebox.askokcancel(title=website, message=f"Please confirm your details: \n\n(Saving this info to {file_path}) \n\nWebsite/Service: {website} \nEmail: {email} "
-                                           f"\nPassword: {password} \n \nConfirm saving credentials?")
+            is_ok = messagebox.askokcancel(
+                title=chosen_lang["save_data_title"],
+                message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+
             if is_ok:
                 now = datetime.datetime.now()
                 date_string = now.strftime("%m/%d/%Y")
                 with open(file_path or "data.txt", "a") as data_file:
-                    data_file.write(
-                        f"Service/Website: {website} | Email: {email} | Password: {password} | Saved on: {date_string}\n")
-                    data_file.write(f"Saved on {date_string}\n")
+                    data_file.write(chosen_lang[f"saved_data_txt"].format(
+                        website=website, email=email, password=password, date_string=date_string))
+
                     website_entry.delete(0, END)
                     password_entry.delete(0, END)
                     email_entry.delete(0, END)
@@ -175,13 +216,14 @@ def save():
 def change_dir():
     global file_path
     file_path = tkinter.filedialog.asksaveasfilename(initialfile="data.txt")
-    confirm_changed_dir.config(
-        text=f"Set the path for the data.txt file to {file_path}", bg="light green", fg="blue")
+    if file_path:
+        confirm_changed_dir.config(
+            text=chosen_lang["path_set"].format(file_path=file_path), bg="light green", fg="blue")
 
 
 def clear_all():
     yes_clear = messagebox.askokcancel(
-        title="Confirm clear all?", message=f"Are you sure you would like to clear all information in this window?")
+        title=chosen_lang["confirm_clear_title"], message=chosen_lang["clear_all_confirmation"])
     if yes_clear:
         default_settings = {
             'theme': 'dark'
@@ -212,11 +254,7 @@ def clear_all():
 
 
 def safety():
-    message = """
-        Safe Data is a program that allows you to save your logins locally so you won't have to panic when a major password database gets breached through. 
-        We do not store your data anywhere on our database nor do we want to. 
-        The code is open-source for everyone on github.com/ziadh/Safe-Data and you can check the code yourself.
-    """
+    message = chosen_lang["""privacy_message"""]
     messagebox.showinfo(title="Safety", message=message)
 
 
@@ -263,6 +301,7 @@ def toggle_theme():
         save_button.config(bg="#AED6F1", fg="black")
         show_button.config(bg="#AED6F1", fg="black")
         toggle_button.config(text='\u263E', bg="#AED6F1", fg="black")
+        toggle_language_button.config(bg="#AED6F1", fg="black")
         settings['theme'] = 'light'
     elif toggle_button.cget("text") == "\u263E":  # if button has moon symbol
         logo_img.config(file="assets/logos/wide.png")
@@ -289,6 +328,7 @@ def toggle_theme():
         save_button.config(bg="#251749", fg="white")
         show_button.config(bg="#251749", fg="white")
         toggle_button.config(text='\u2600', bg="#251749", fg="white")
+        toggle_language_button.config(bg="#251749", fg="white")
 
         settings['theme'] = 'dark'
 
@@ -296,16 +336,90 @@ def toggle_theme():
         json.dump(settings, f)
 
 
-def on_exit():
-    result = messagebox.askquestion(
-        "Confirm", "Are you sure you want to exit?")
-    if result == 'yes':
+def toggle_language():
+
+    default_settings = {
+        'language': 'EN'
+    }
+    try:
+        with open('settings.json', 'r') as f:
+            try:
+                settings = json.load(f)
+            except json.decoder.JSONDecodeError:
+                settings = default_settings
+    except FileNotFoundError:
+        with open('settings.json', 'w') as f:
+            json.dump(default_settings, f)
+        settings = default_settings
+
+    if 'language' not in settings:
+        settings['language'] = default_settings['language']
+    with open('languages.json', 'r', encoding='utf8') as f:
+        language_data = json.load(f)
+    language = settings['language']
+
+    for lang in language_data['languages']:
+        if lang['language'] == language:
+            chosen_lang = lang
+            break
+
+    if toggle_language_button.cget("text") == "ES":  # switches lang to EN
+        toggle_language_button.config(text='EN')
+        settings['language'] = 'ES'
+        with open('languages.json', 'r', encoding='utf8') as f:
+            language_data = json.load(f)
+        for lang in language_data['languages']:
+            if lang['language'] == settings['language']:
+                chosen_lang = lang
+                break
+
+    elif toggle_language_button.cget("text") == "EN":  # switches lang to ES
+        toggle_language_button.config(text='ES')
+        settings['language'] = 'EN'
+        with open('languages.json', 'r', encoding='utf8') as f:
+            language_data = json.load(f)
+        for lang in language_data['languages']:
+            if lang['language'] == settings['language']:
+                chosen_lang = lang
+                break
+    website_label.config(
+        text=chosen_lang['website_label'])
+    email_label.config(
+        text=chosen_lang['email_label'])
+    password_label.config(
+        text=chosen_lang['password_label'])
+    password_check.config(
+        text=chosen_lang['check_pass_button'])
+    check_for_update_button.config(
+        text=chosen_lang['check_for_updates_button'])
+    clear_all_button.config(
+        text=chosen_lang['clear_all_button'])
+    generate_password_button.config(
+        text=chosen_lang['generate_button'])
+    save_button.config(
+        text=chosen_lang['save_button'])
+    privacy_button.config(
+        text=chosen_lang['privacy_button'])
+    change_dir_button.config(
+        text=chosen_lang['change_dir_button'])
+    exit_button.config(
+        text=chosen_lang['exit_button'])
+
+    with open('settings.json', 'w') as f:
+        json.dump(settings, f)
+
+    result = tk.messagebox.askyesno(
+        "Language Switch Notice", "A restart is highly recommended for the app to work properly. Would you like to restart now?")
+    if result:
         window.destroy()
 
 
-with open('settings.json', 'r') as f:
-    settings = json.load(f)
-version = settings['version']
+def on_exit():
+    result = messagebox.askquestion(
+        "Confirm", chosen_lang["confirm_exit"])
+    if result == 'yes':
+        window.destroy()
+
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
@@ -323,11 +437,12 @@ version_message = Label(
 version_message.bind("<Button-1>", download_update)
 version_message.place(x=40, y=-20)
 whats_new_label = Label(text="", fg="blue", cursor="hand2", bg="#2A3990")
-whats_new_label.bind("<Button-1>", open_patch_notes)
+whats_new_label.bind(
+    "<Button-1>", lambda event: open_patch_notes(event, language, chosen_lang))
 whats_new_label.place(x=40, y=20)
 
 window.config(bg="#2A3990")
-window.title(f"Safe Data v{version}")
+window.title(chosen_lang["window_title"].format(version=version))
 window.config(padx=50, pady=50)
 window.resizable(width=False, height=False)
 window.wm_iconbitmap('assets/logos/logo-dark.ico')
@@ -337,65 +452,71 @@ logo_img = PhotoImage(file="assets/logos/wide.png")
 canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
-website_label = Label(text="Website/Service name", bg="#2A3990", fg="white")
+website_label = Label(
+    text=chosen_lang['website_label'], bg="#2A3990", fg="white")
 website_label.place(x=40, y=180)
 website_entry = Entry(width=46)
 website_entry.place(x=200, y=180)
 website_entry.focus()
 
-email_label = Label(text="Email/Username", bg="#2A3990", fg="white")
+email_label = Label(text=chosen_lang['email_label'], bg="#2A3990", fg="white")
 email_label.place(x=40, y=210)
 email_entry = Entry(width=46)
 email_entry.place(x=200, y=210)
 email_entry.insert(0, "")
 
 is_password_visible = False
-password_label = Label(text="Password", bg="#2A3990", fg="white")
+password_label = Label(
+    text=chosen_lang["password_label"], bg="#2A3990", fg="white")
 password_label.place(x=40, y=240)
 password_entry = Entry(show="*", width=21)
 password_entry.place(x=200, y=240)
 
 password_saved = Label(
-    text="Randomized password saved\nto clipboard.", bg="light green", fg="blue")
+    text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
 
 show_button = tk.Button(window, text="\U0001F441",
                         command=toggle_password_visibility, bg="#251749", fg="white")
 show_button.place(x=350, y=240)
 
 generate_password_button = Button(
-    text="Randomize", command=randomize_password, bg="#251749", fg="white", width=12)
+    text=chosen_lang["generate_button"], command=randomize_password, bg="#251749", fg="white", width=12)
 generate_password_button.place(x=390, y=240)
 
-password_check = Button(text="Evaluate Password",
-                        bg="#251749", fg="white", command=check_pass, width=16)
+password_check = Button(text=chosen_lang["check_pass_button"],
+                        bg="#251749", fg="white", command=check_pass, width=17)
 password_check.place(x=40, y=270)
 
-check_for_update_button = Button(text="Check for Updates", bg="#251749",
-                                 fg="white", command=version_checker, width=16)
+check_for_update_button = Button(text=chosen_lang["check_for_updates_button"], bg="#251749",
+                                 fg="white", command=version_checker, width=17)
 check_for_update_button.place(x=40, y=300)
-save_button = Button(text="Save", width=39, command=save,
+save_button = Button(text=chosen_lang["save_button"], width=39, command=save,
                      bg="#251749", fg="white")
 save_button.place(x=200, y=270)
 
-privacy_button = Button(text="Is this safe?", width=15,
+privacy_button = Button(text=chosen_lang["privacy_button"], width=15,
                         command=safety, bg="#251749", fg="white")
 privacy_button.place(x=200, y=300)
 
 change_dir_button = Button(
-    text="Change Directory", width=15, command=change_dir, bg="#251749", fg="white")
-change_dir_button.place(x=367, y=300)
+    text=chosen_lang["change_dir_button"], width=17, command=change_dir, bg="#251749", fg="white")
+change_dir_button.place(x=353, y=300)
 
-exit_button = Button(text="Exit", width=15,
+exit_button = Button(text=chosen_lang["exit_button"], width=17,
                      command=on_exit, bg="#251749", fg="white")
-exit_button.place(x=367, y=330)
+exit_button.place(x=353, y=330)
 
 toggle_button = Button(text="\u263E", width=3,
                        command=toggle_theme, bg="#251749", fg="white")
-toggle_button.place(x=230, y=330)
-password_saved = Label(
-    text="Randomized password added\nto clipboard.", bg="light green", fg="blue")
+toggle_button.place(x=200, y=330)
 
-clear_all_button = Button(text="Clear all", width=16,
+toggle_language_button = Button(text="ES", width=5,
+                                command=toggle_language, bg="#251749", fg="white")
+toggle_language_button.place(x=270, y=330)
+password_saved = Label(
+    text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
+
+clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
                           command=clear_all, bg="#251749", fg="white")
 clear_all_button.place(x=40, y=330)
 
@@ -428,15 +549,16 @@ if settings['theme'] == 'light':
     privacy_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
     show_button.config(bg="#AED6F1", fg="black")
-    toggle_button.config(bg="#AED6F1", fg="black")
-    toggle_button.config(text='\u263E')
+    toggle_button.config(text='\u263E', bg="#AED6F1", fg="black")
+    toggle_language_button.config(bg="#AED6F1", fg="black")
+
 else:
     logo_img.config(file="assets/logos/wide.png")
     window.wm_iconbitmap('assets/logos/logo-dark.ico')
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
-    # LABELS
 
+    # LABELS
     check_for_update_button.config(bg="#251749", fg="white")
     email_label.config(bg="#2A3990", fg="white")
     pass_check_label.config(bg="#2A3990", fg="light green")
@@ -453,7 +575,7 @@ else:
     privacy_button.config(bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
     show_button.config(bg="#251749", fg="white")
-    toggle_button.config(bg="#251749", fg="white")
-    toggle_button.config(text='\u2600')
+    toggle_button.config(text='\u2600', bg="#251749", fg="white")
+    toggle_language_button.config(bg="#251749", fg="white")
 
 window.mainloop()

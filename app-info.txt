@@ -1,5 +1,4 @@
-1.41
-- Added confirmation message for changing the file directory
-- Minor improvements to the pass_check, more in future updates
-- Re-adjusted a handful of labels to make them aligned with similar ones
-- Added the ability to view patch notes if you are not running the latest release
+1.50
+- Added support for Spanish language, more languages to come in the future
+- QoL improvements to the change directory function
+- Improvements to check pass function
