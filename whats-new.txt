@@ -1,0 +1,5 @@
+1.60
+- Added logs functionality as an easier way for users to report errors
+- Made widelogo in readme wider
+- Improvements behind the scenes (buttons positioning, theme functionality, etc.)
+- Improvements to pass safety functionality
