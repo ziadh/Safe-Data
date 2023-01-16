@@ -1,4 +1,5 @@
-![read-me-wide](https://user-images.githubusercontent.com/15097797/211224781-d62d2577-d4fc-45be-a02e-8d0eaf0dc53c.png)
+![read-me-wide](https://user-images.githubusercontent.com/15097797/212562951-a410fd11-3d34-406d-bfdb-8d33993e906c.png)
+
 
 
 
@@ -9,8 +10,9 @@
 [![License][license-shield]][license-url]
 [![Language][language-shield]][language-url]
  [<img src="https://img.shields.io/github/v/release/ziadh/Safe-Data?style=for-the-badge&color=red" alt="Latest Release">](https://github.com/ziadh/Safe-Data/releases)</p>
- Python GUI program that stores your logins LOCALLY. Nothing is being sent to the cloud or any online database. The main inspiration behind this project was me getting fed up with large password storing companies getting breached and having to worry if my data got compromised. 
-
+ Python project that stores your logins LOCALLY. Nothing is being sent to the cloud or any online database. The main inspiration behind this project was me getting fed up with large password storing companies getting breached and having to worry if my data got compromised. 
+ 
+ I am constantly looking for ways to add unique features and make the user experience better; Please if you have any ideas or suggestions let me know in the [Issues](https://github.com/ziadh/Safe-Data/issues) section.
 - [Safe Data](#safe-data)
   - [How to Install](#how-to-install)
   - [Features](#features)
@@ -40,33 +42,33 @@ When it is finished, close the cmd and simply double click the Safe-Data.pyw fil
 ## Features
 - Generates a random hard-to-guess password and add it to your clipboard
   
-![randomizer-ss](https://user-images.githubusercontent.com/15097797/211224571-8867dae0-57be-47d9-b7dd-3f5ee56b0fb8.png)
+![randomizer-ss](https://user-images.githubusercontent.com/15097797/212149504-ad699d92-0923-407e-ae3f-645638a30d34.png)
 
 
-- Saves your logins LOCALLY to your machine. It does not upload it anywhere.
+- Saves your logins LOCALLY to your machine. It does not upload them anywhere.
   
 ![data-ss](https://user-images.githubusercontent.com/15097797/209582469-6c4e33f7-e413-42d1-a244-a9a81bdf6ef8.png)
 
 
-- Change your application to use light mode (for some reason!)
-  
-![lightmode-ss](https://user-images.githubusercontent.com/15097797/211224580-9bc16406-b5e2-4f46-8aa0-3cef40774dac.png)
+- Light mode is also available (for psychos!)
+![lightmode-ss](https://user-images.githubusercontent.com/15097797/212149697-307dd9a9-563b-4b9a-965f-5e7cd881fd6d.png)
 
 - Choose where to save your data
 
 ![save-as-screenshot](https://user-images.githubusercontent.com/15097797/210636370-c96545a5-a9a4-411c-a23d-22b189881441.png)
 
 
-![change_dir_confirmation-ss](https://user-images.githubusercontent.com/15097797/211224586-4084de78-4b73-489a-8693-a51a6c2aac1b.png)
+![change_dir_confirmation-ss](https://user-images.githubusercontent.com/15097797/212563004-93b9830c-e915-4d65-b768-f63cedb079d0.png)
 
-- Checks if your password is safe enough (This feature will be improved by time)
+- Checks if your password passes basic safety measures
 
-![check-pass-ss](https://user-images.githubusercontent.com/15097797/211224592-aa8af164-b7f9-4844-9cdd-de68d291da06.png)
+![check-pass-ss](https://user-images.githubusercontent.com/15097797/212150131-1e63c154-5c50-41c6-8fde-a9a9867e3232.png)
 
 - Now supports Spanish, more languages to come!
 
 
-![spanish-support-ss](https://user-images.githubusercontent.com/15097797/211224612-431c6682-8ec6-4bc7-91e1-c891ebfa089e.png)
+![spanish-support-ss](https://user-images.githubusercontent.com/15097797/212150240-e6f4425a-17e6-437e-91a9-468efad3b829.png)
+
 
 
 ## Contributions

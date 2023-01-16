@@ -1,4 +1,0 @@
-1.50
-- Added support for Spanish language, more languages to come in the future
-- QoL improvements to the change directory function
-- Improvements to check pass function
