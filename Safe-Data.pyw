@@ -14,7 +14,6 @@ import webbrowser
 import datetime
 import os
 import sys
-import logging
 
 
 file_path = None
@@ -25,15 +24,11 @@ log_prefix = "errors_log_from_.txt"
 
 if not os.path.exists(log_folder):
     os.makedirs(log_folder)
-
 current_time = time.strftime("%m%d%Y-%H-%M-%S")
 log_file = log_prefix + current_time + ".txt"
 log_path = os.path.join(log_folder, log_file)
+sys.stderr = open(log_path, "a")
 
-logging.basicConfig(level=logging.ERROR,
-                    format='%(asctime)s %(levelname)s %(message)s',
-                    handlers=[logging.FileHandler(log_path),
-                              logging.StreamHandler()])
 
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
@@ -320,14 +315,14 @@ def Dark_Mode():
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
     # LABELS
-    confirm_changed_dir.config(bg="#2A3990", fg="#A5F1E9")
-    email_label.config(bg="#2A3990", fg="#A5F1E9")
-    password_label.config(bg="#2A3990", fg="#A5F1E9")
-    password_saved.config(bg="#2A3990", fg="#A5F1E9")
+    confirm_changed_dir.config(bg="#2A3990", fg="white")
+    email_label.config(bg="#2A3990", fg="white")
+    password_label.config(bg="#2A3990", fg="white")
+    password_saved.config(bg="#2A3990", fg="white")
     pass_check_label.config(bg="#2A3990", fg="light green")
     version_message.config(bg="#2A3990", fg="light green")
     whats_new_label.config(bg="#2A3990", fg="light green")
-    website_label.config(bg="#2A3990", fg="#A5F1E9")
+    website_label.config(bg="#2A3990", fg="white")
     # BUTTONS
     clear_all_button.config(bg="#251749", fg="white")
     change_dir_button.config(bg="#251749", fg="white")
@@ -477,7 +472,7 @@ def on_enter(e, btn):
     theme = settings['theme']
 
     if theme == "dark":
-        btn.config(bg='#3F0071')
+        btn.config(bg='black')
     else:
         btn.config(bg='#ECECEC')
 
