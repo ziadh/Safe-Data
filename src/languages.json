@@ -31,6 +31,7 @@
     "save_data_title": "Save data?",
     "saved_data_txt": "Service/Website: {website} | Email: {email} | Password: {password} | Saved on: {date_string}  \n",
     "settings_button":"Settings",
+    "settings_label":"Settings",
     "path_set": "Set the path for the data.txt file to {file_path}",
     "view_patch_notes": "Click here to view the latest\nchanges.",
     "version_needs_update": "New version v{} available! Click here to update.",
@@ -58,7 +59,6 @@
     "generate_button": "Aleatorizar",
     "help_title": "¿Necesitas Ayuda?",
     "help_needed": "¿Tiene errores o necesita enviar comentarios?\nHaga clic en Aceptar para ser redirigido a la página de Problemas en Github y asegúrese de incluir el registro de errores ubicado en la carpeta errors_logged, haga clic en Cancelar para volver.",
-
     "latest_version_message": "Está ejecutando la última versión v{}.",
     "password_label": "Clave",
     "password_saved_label": "Contraseña aleatoria añadida\nal portapapeles.",
@@ -68,6 +68,7 @@
     "save_button": "Guardar",
     "save_data_message": "Por favor, confirme sus datos: \n\n(Guardando esta información en data.txt guardado localmente) \n\nSitio web/Servicio: {website} \nEmail: {email} \nClave: {password} \n \n¿Confirmar guardlas credenciales?",
     "settings_button":"Ajustes",
+    "settings_label":"Ajustes",
     "path_set":"Establezca la ruta del archivo data.txt en {file_path}",
     "view_patch_notes":"Haga clic aquí para ver los \núltimos cambios",
     "version_needs_update":"Nueva versión v{} disponible! Haga clic aquí para actualizar.",

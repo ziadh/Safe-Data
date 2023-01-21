@@ -14,6 +14,8 @@ import webbrowser
 import datetime
 import os
 import sys
+import logging
+
 
 file_path = None
 language = None
@@ -23,10 +25,15 @@ log_prefix = "errors_log_from_.txt"
 
 if not os.path.exists(log_folder):
     os.makedirs(log_folder)
+
 current_time = time.strftime("%m%d%Y-%H-%M-%S")
 log_file = log_prefix + current_time + ".txt"
 log_path = os.path.join(log_folder, log_file)
-sys.stderr = open(log_path, "a")
+
+logging.basicConfig(level=logging.ERROR,
+                    format='%(asctime)s %(levelname)s %(message)s',
+                    handlers=[logging.FileHandler(log_path),
+                              logging.StreamHandler()])
 
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
@@ -301,9 +308,6 @@ def Light_Mode():
     privacy_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
     show_button.config(bg="#AED6F1", fg="black")
-    toggle_theme_button.config(text='\u263E', bg="#AED6F1", fg="black")
-    help_needed_button.config(bg="#AED6F1", fg="black")
-    toggle_language_button.config(bg="#AED6F1", fg="black")
 
 
 def Dark_Mode():
@@ -330,9 +334,6 @@ def Dark_Mode():
     privacy_button.config(bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
     show_button.config(bg="#251749", fg="white")
-    toggle_theme_button.config(text='\u2600', bg="#251749", fg="white")
-    help_needed_button.config(bg="#251749", fg="white")
-    toggle_language_button.config(bg="#251749", fg="white")
 
 
 def toggle_theme():
@@ -487,7 +488,7 @@ def on_leave(e, btn):
 
 def open_settings():
     settings_window = tk.Toplevel(window)
-    settings_window.title("Mini Window")
+    settings_window.title("Settings")
     main_window_x = window.winfo_x()
     main_window_y = window.winfo_y()
     main_window_width = window.winfo_width()
@@ -496,11 +497,39 @@ def open_settings():
     settings_window_height = 400
     settings_window.geometry(
         f"{settings_window_width}x{settings_window_height}+{main_window_x + main_window_width - settings_window_width}+{main_window_y + main_window_height - settings_window_height}")
+    settings_label = Label(
+        settings_window, text=chosen_lang["settings_label"], bg="#2A3990", fg="white")
+    settings_label.place(x=10, y=30)
+    theme=settings['theme']
+    theme_label = Label(settings_window,text=f"Theme: {theme}")
+    theme_label.place(x=40,y=90)
+    toggle_theme_button = Button(settings_window, text="\u263E", width=3,
+                                 command=toggle_theme, bg="#251749", fg="white")
+    toggle_theme_button.place(x=180, y=90)
+    help_needed_button = Button(settings_window, text="Submit Feedback", width=17,
+                                command=help_function, bg="#251749", fg="white")
+    help_needed_button.place(x=83, y=140)
+    toggle_language_button = Button(settings_window, text="ES", width=3,
+                                    command=toggle_language, bg="#251749", fg="white")
+    toggle_language_button.place(x=85, y=170)
+
     if settings['theme'] == 'dark':
         settings_window.config(bg="#2A3990")
+        toggle_theme_button.config(text='\u2600', bg="#251749", fg="white")
+        help_needed_button.config(bg="#251749", fg="white")
+        toggle_language_button.config(bg="#251749", fg="white")
+        settings_window.wm_iconbitmap('assets/logos/logo-dark.ico')
     else:
         settings_window.config(bg="white blue")
+        toggle_theme_button.config(text='\u263E', bg="#AED6F1", fg="black")
+        help_needed_button.config(bg="#AED6F1", fg="black")
+        toggle_language_button.config(bg="#AED6F1", fg="black")
+        settings_window.wm_iconbitmap('assets/logos/logo-light.ico')
 
+
+global toggle_theme_button
+global help_needed_button
+global toggle_language_button
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
@@ -587,15 +616,6 @@ exit_button = Button(text=chosen_lang["exit_button"], width=17,
                      command=on_exit, bg="#251749", fg="white")
 exit_button.place(x=353, y=330)
 
-toggle_theme_button = Button(text="\u263E", width=3,
-                             command=toggle_theme, bg="#251749", fg="white")
-toggle_theme_button.place(x=200, y=330)
-help_needed_button = Button(text="?", width=3,
-                            command=help_function, bg="#251749", fg="white")
-help_needed_button.place(x=243, y=330)
-toggle_language_button = Button(text="ES", width=3,
-                                command=toggle_language, bg="#251749", fg="white")
-toggle_language_button.place(x=285, y=330)
 password_saved = Label(
     text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
 
@@ -604,8 +624,8 @@ clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
 clear_all_button.place(x=40, y=330)
 
 open_settings_button = Button(
-    text=chosen_lang["settings_button"], width=17, command=open_settings, bg="#251749", fg="white")
-open_settings_button.place(x=40, y=360)
+    text=chosen_lang["settings_button"], width=15, command=open_settings, bg="#251749", fg="white")
+open_settings_button.place(x=200, y=330)
 
 pass_check_label = Label(text="", bg="#2A3990")
 pass_check_label.place(x=485, y=240)
@@ -613,8 +633,8 @@ pass_check_label.place(x=485, y=240)
 confirm_changed_dir = Label(text="", bg="#2A3990")
 confirm_changed_dir.place(x=40, y=360)
 
-buttons = [generate_password_button,  clear_all_button, save_button, password_check_button,open_settings_button, show_button, help_needed_button,
-           privacy_button, toggle_language_button, toggle_theme_button, change_dir_button, exit_button, check_for_update_button]
+buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, open_settings_button, show_button,
+           privacy_button,  change_dir_button, exit_button, check_for_update_button]
 
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
