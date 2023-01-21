@@ -236,6 +236,7 @@ def change_dir():
 
 
 def clear_all():
+
     yes_clear = messagebox.askokcancel(
         title=chosen_lang["confirm_clear_title"], message=chosen_lang["clear_all_confirmation"])
     if yes_clear:
@@ -261,10 +262,14 @@ def clear_all():
         if settings['theme'] == 'light':
             confirm_changed_dir.config(
                 text="", bg="light blue", fg="light blue")
-            pass_check_label.config(text="", bg="light blue", fg="light blue")
-            password_saved.config(text="", bg="light blue", fg="light blue")
-            version_message.config(text="", bg="light blue", fg="light blue")
-            whats_new_label.config(text="", bg="light blue", fg="light blue")
+            pass_check_label.config(
+                text="", bg="light blue", fg="light blue")
+            password_saved.config(
+                text="", bg="light blue", fg="light blue")
+            version_message.config(
+                text="", bg="light blue", fg="light blue")
+            whats_new_label.config(
+                text="", bg="light blue", fg="light blue")
 
 
 def safety():
@@ -280,7 +285,7 @@ def Light_Mode():
     # LABELS
     confirm_changed_dir.config(bg="#AED6F1", fg="black")
     email_label.config(bg="light blue", fg="black")
-    password_check.config(bg="#AED6F1", fg="black")
+    password_check_button.config(bg="#AED6F1", fg="black")
     password_label.config(bg="light blue", fg="black")
     password_saved.config(bg="#AED6F1", fg="black")
     pass_check_label.config(bg="#AED6F1", fg="black")
@@ -307,21 +312,21 @@ def Dark_Mode():
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
     # LABELS
-    confirm_changed_dir.config(bg="#2A3990", fg="white")
-    email_label.config(bg="#2A3990", fg="white")
-    password_check.config(bg="#251749", fg="white")
-    password_label.config(bg="#2A3990", fg="white")
-    password_saved.config(bg="#2A3990", fg="white")
+    confirm_changed_dir.config(bg="#2A3990", fg="#A5F1E9")
+    email_label.config(bg="#2A3990", fg="#A5F1E9")
+    password_label.config(bg="#2A3990", fg="#A5F1E9")
+    password_saved.config(bg="#2A3990", fg="#A5F1E9")
     pass_check_label.config(bg="#2A3990", fg="light green")
     version_message.config(bg="#2A3990", fg="light green")
     whats_new_label.config(bg="#2A3990", fg="light green")
-    website_label.config(bg="#2A3990", fg="white")
+    website_label.config(bg="#2A3990", fg="#A5F1E9")
     # BUTTONS
     clear_all_button.config(bg="#251749", fg="white")
     change_dir_button.config(bg="#251749", fg="white")
     check_for_update_button.config(bg="#251749", fg="white")
     exit_button.config(bg="#251749", fg="white")
     generate_password_button.config(bg="#251749", fg="white")
+    password_check_button.config(bg="#251749", fg="white")
     privacy_button.config(bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
     show_button.config(bg="#251749", fg="white")
@@ -425,7 +430,7 @@ def toggle_language():
         text=chosen_lang['email_label'])
     password_label.config(
         text=chosen_lang['password_label'])
-    password_check.config(
+    password_check_button.config(
         text=chosen_lang['check_pass_button'])
     check_for_update_button.config(
         text=chosen_lang['check_for_updates_button'])
@@ -456,6 +461,45 @@ def on_exit():
         "Confirm", chosen_lang["confirm_exit"])
     if result == 'yes':
         window.destroy()
+
+
+def on_enter(e, btn):
+    with open('src/settings.json', 'r') as f:
+        settings = json.load(f)
+    theme = settings['theme']
+
+    if theme == "dark":
+        btn.config(bg='#3F0071')
+    else:
+        btn.config(bg='#ECECEC')
+
+
+def on_leave(e, btn):
+    with open('src/settings.json', 'r') as f:
+        settings = json.load(f)
+    theme = settings['theme']
+
+    if theme == "dark":
+        btn.config(bg='#251749')
+    else:
+        btn.config(bg='light blue')
+
+
+def open_settings():
+    settings_window = tk.Toplevel(window)
+    settings_window.title("Mini Window")
+    main_window_x = window.winfo_x()
+    main_window_y = window.winfo_y()
+    main_window_width = window.winfo_width()
+    main_window_height = window.winfo_height()
+    settings_window_width = 400
+    settings_window_height = 400
+    settings_window.geometry(
+        f"{settings_window_width}x{settings_window_height}+{main_window_x + main_window_width - settings_window_width}+{main_window_y + main_window_height - settings_window_height}")
+    if settings['theme'] == 'dark':
+        settings_window.config(bg="#2A3990")
+    else:
+        settings_window.config(bg="white blue")
 
 
 window = Tk()
@@ -520,9 +564,9 @@ generate_password_button = Button(
     text=chosen_lang["generate_button"], command=randomize_password, bg="#251749", fg="white", width=12)
 generate_password_button.place(x=390, y=240)
 
-password_check = Button(text=chosen_lang["check_pass_button"],
-                        bg="#251749", fg="white", command=check_pass, width=17)
-password_check.place(x=40, y=270)
+password_check_button = Button(text=chosen_lang["check_pass_button"],
+                               bg="#251749", fg="white", command=check_pass, width=17)
+password_check_button.place(x=40, y=270)
 
 check_for_update_button = Button(text=chosen_lang["check_for_updates_button"], bg="#251749",
                                  fg="white", command=version_checker, width=17)
@@ -559,11 +603,22 @@ clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
                           command=clear_all, bg="#251749", fg="white")
 clear_all_button.place(x=40, y=330)
 
+open_settings_button = Button(
+    text=chosen_lang["settings_button"], width=17, command=open_settings, bg="#251749", fg="white")
+open_settings_button.place(x=40, y=360)
+
 pass_check_label = Label(text="", bg="#2A3990")
 pass_check_label.place(x=485, y=240)
 
 confirm_changed_dir = Label(text="", bg="#2A3990")
 confirm_changed_dir.place(x=40, y=360)
+
+buttons = [generate_password_button,  clear_all_button, save_button, password_check_button,open_settings_button, show_button, help_needed_button,
+           privacy_button, toggle_language_button, toggle_theme_button, change_dir_button, exit_button, check_for_update_button]
+
+for btn in buttons:
+    btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
+    btn.bind("<Leave>", lambda e, btn=btn: on_leave(e, btn))
 
 if settings['theme'] == 'light':
     Light_Mode()
