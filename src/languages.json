@@ -33,7 +33,8 @@
             "save_data_title": "Save data?",
             "saved_data_txt": "Service/Website: {website} | Email: {email} | Password: {password} | Saved on: {date_string}  \n",
             "path_set": "Set the path for the data.txt file to {file_path}",
-            "view_patch_notes": "Click here to view the latest\nchanges.",
+            "view_patch_notes": "Click here to view the latest\nchanges.",  
+            "view_patch_notes_mac": "Click here to view the \n latest changes.",
             "version_needs_update": "New version v{} available! Click here to update.",
             "website_label": "Website/Service",
             "window_title": "Safe Data v{version}"
@@ -70,6 +71,7 @@
             "save_data_message": "Por favor, confirme sus datos: \n\n(Guardando esta información en data.txt guardado localmente) \n\nSitio web/Servicio: {website} \nEmail: {email} \nClave: {password} \n \n¿Confirmar guardlas credenciales?",
             "path_set": "Establezca la ruta del archivo data.txt en {file_path}",
             "view_patch_notes": "Haga clic aquí para ver los \núltimos cambios",
+            "view_patch_notes_mac": "Haga clic aquí para ver \nlos últimos cambios",
             "version_needs_update": "Nueva versión v{} disponible! Haga clic aquí para actualizar.",
             "website_label": "Ssitio Web/Servicio",
             "window_title": "Safe Data v{version}"
