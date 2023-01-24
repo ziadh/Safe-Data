@@ -9,7 +9,9 @@
 [![Downloads][downloads-shield]][downloads-url]
 [![License][license-shield]][license-url]
 [![Language][language-shield]][language-url]
- [<img src="https://img.shields.io/github/v/release/ziadh/Safe-Data?style=for-the-badge&color=red" alt="Latest Release">](https://github.com/ziadh/Safe-Data/releases)</p>
+ [<img src="https://img.shields.io/github/v/release/ziadh/Safe-Data?style=for-the-badge&color=red" alt="Latest Release">](https://github.com/ziadh/Safe-Data/releases)
+ 
+
  Python project that stores your logins LOCALLY. Nothing is being sent to the cloud or any online database. The main inspiration behind this project was me getting fed up with large password storing companies getting breached and having to worry if my data got compromised. 
  
  I am constantly looking for ways to add unique features and make the user experience better; Please if you have any ideas or suggestions let me know in the [Issues](https://github.com/ziadh/Safe-Data/issues) section.

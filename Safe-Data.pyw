@@ -280,7 +280,6 @@ def safety():
 
 
 def Light_Mode():
-
     logo_img.config(file="assets/logos/wide-light.png")
     window.wm_iconbitmap('assets/logos/logo-light.ico')
     window.config(bg="light blue")
@@ -331,6 +330,7 @@ def Dark_Mode():
     generate_password_button.config(bg="#251749", fg="white")
     password_check_button.config(bg="#251749", fg="white")
     privacy_button.config(bg="#251749", fg="white")
+
     help_needed_button.config(bg="#251749", fg="white")
     toggle_language_button.config(bg="#251749", fg="white")
     toggle_theme_button.config(bg="#251749", fg="white")
@@ -544,6 +544,7 @@ password_saved = Label(
 
 show_button = tk.Button(window, text="\U0001F441",
                         command=toggle_password_visibility, bg="#251749", fg="white")
+show_button.bind("<Control-b>", toggle_password_visibility)
 show_button.place(x=350, y=240)
 
 generate_password_button = Button(
@@ -566,11 +567,12 @@ toggle_theme_button = Button(text="\u263E", width=3,
 toggle_theme_button.place(x=200, y=330)
 help_needed_button = Button(text="?", width=3,
                             command=help_function, bg="#251749", fg="white")
-help_needed_button.place(x=243, y=330)
+help_needed_button.place(x=250, y=330)
 toggle_language_button = Button(text="ES", width=3,
                                 command=toggle_language, bg="#251749", fg="white")
-toggle_language_button.place(x=285, y=330)
-privacy_button = Button(text=chosen_lang["privacy_button"], width=15,
+toggle_language_button.place(x=299, y=330)
+
+privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
                         command=safety, bg="#251749", fg="white")
 privacy_button.place(x=200, y=300)
 
@@ -597,7 +599,6 @@ confirm_changed_dir.place(x=40, y=360)
 
 buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button]
-
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
     btn.bind("<Leave>", lambda e, btn=btn: on_leave(e, btn))
