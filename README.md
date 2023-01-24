@@ -44,32 +44,34 @@ When it is finished, close the cmd and simply double click the Safe-Data.pyw fil
 ## Features
 - Generates a random hard-to-guess password and add it to your clipboard
   
-![randomizer-ss](https://user-images.githubusercontent.com/15097797/212149504-ad699d92-0923-407e-ae3f-645638a30d34.png)
 
-
+![randomizer-ss](assets/ss/randomizer-ss.png)
 - Saves your logins LOCALLY to your machine. It does not upload them anywhere.
   
-![data-ss](https://user-images.githubusercontent.com/15097797/209582469-6c4e33f7-e413-42d1-a244-a9a81bdf6ef8.png)
+![data-ss](assets/ss/data-ss.png)
 
 
 - Light mode is also available (for psychos!)
-![lightmode-ss](https://user-images.githubusercontent.com/15097797/212149697-307dd9a9-563b-4b9a-965f-5e7cd881fd6d.png)
+![data-ss](assets/ss/lightmode-ss.png)
+
 
 - Choose where to save your data
 
-![save-as-screenshot](https://user-images.githubusercontent.com/15097797/210636370-c96545a5-a9a4-411c-a23d-22b189881441.png)
+![data-ss](assets/ss/save-as-screenshot.png)
 
 
-![change_dir_confirmation-ss](https://user-images.githubusercontent.com/15097797/212563004-93b9830c-e915-4d65-b768-f63cedb079d0.png)
+![data-ss](assets/ss/change_dir_confirmation-ss.png)
+
 
 - Checks if your password passes basic safety measures
 
-![check-pass-ss](https://user-images.githubusercontent.com/15097797/212150131-1e63c154-5c50-41c6-8fde-a9a9867e3232.png)
+![check-pass-ss](assets/ss/check-pass-ss.png)
 
 - Now supports Spanish, more languages to come!
 
 
-![spanish-support-ss](https://user-images.githubusercontent.com/15097797/212150240-e6f4425a-17e6-437e-91a9-468efad3b829.png)
+![check-pass-ss](assets/ss/spanish-support-ss.png)
+
 
 
 
