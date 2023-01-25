@@ -155,18 +155,14 @@ def randomize_password():
     pyperclip.copy(password)
     password_saved.config(text=chosen_lang["password_saved_label"])
     password_saved.place(x=40, y=120)
-    if settings['theme'] == 'light':
-        pass_check_label.config(text="", bg="light blue")
-    if settings['theme'] == 'dark':
-        pass_check_label.config(text="", bg="#2A3990")
 
 
 def check_pass():
     password = password_entry.get().lower()
     username = email_entry.get()
-    weak_pass = ["pass", "password", "123456",
-                 "123", "000", "qwerty", "1111", "2222", "qwerty123", "abc123", "password123"]
-    weak_pass.append(username)
+    weak_pass = ["pass", "password", "123456", "123", "000", "qwerty", "1111", "2222", "qwerty123", "abc123", "password123", "!@#%^&*", "qazwsxedcrfv", "qwertyuiopasdfghjklzxcvbnm",
+                 "qwertyuio", "qwerasdfzxcv", "1qaz2wsx3edc", "1q2w3e4r5t", "admin", "letmein", "welcome", "monkey", "sunshine", "superman", "666666", "121212", "123123", "abcabc", "aaa111",
+                 "password"]
     safe = True
     for word in weak_pass:
         if word in password:
@@ -181,10 +177,9 @@ def check_pass():
     if password == "":
         pass_check_label.config(
             text=chosen_lang["check_pass_missing"], bg="yellow", fg="blue")
-    if len(password) < 7 and len(password) > 0:
+    if len(password) < 8 and len(password) > 0:
         pass_check_label.config(
             text=chosen_lang["check_pass_short"], bg="yellow", fg="blue")
-
 
 def save():
 
