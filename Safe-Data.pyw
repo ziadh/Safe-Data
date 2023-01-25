@@ -119,7 +119,7 @@ class splash():
     image_label.place(x=0, y=0)
     progress = ttk.Progressbar(ss, orient=tk.HORIZONTAL, length=300)
     progress.configure(style='orange.Horizontal.TProgressbar')
-    progress.place(x=100, y=200)
+    progress.place(x=100, y=150)
     progress['value'] = 0
     interval = 0.01
     for i in range(100):
@@ -498,7 +498,7 @@ window.geometry(f"700x450+{x_coord}+{y_coord}")
 
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
-
+is_released = settings['is_released?']
 version_message = Label(
     text="", fg="blue", cursor="hand2", bg="#2A3990")
 version_message.bind("<Button-1>", download_update)
@@ -509,7 +509,7 @@ whats_new_label.bind(
 whats_new_label.place(x=40, y=20)
 
 window.config(bg="#2A3990")
-window.title(chosen_lang["window_title"].format(version=version))
+window.title(chosen_lang["window_title"].format(version=version)+is_released)
 window.config(padx=50, pady=50)
 window.resizable(width=False, height=False)
 window.wm_iconbitmap('assets/logos/logo-dark.ico')
