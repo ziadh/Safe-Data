@@ -108,10 +108,10 @@ class splash():
     with open('src/settings.json', 'r') as f:
         settings = json.load(f)
 
-    if settings['theme'] == 'light':
+    if settings['theme'] == 'Light':
         label = tk.Label(ss, text="", bg="light blue")
         image = PhotoImage(file='assets/logos/splash-light.png')
-    elif settings['theme'] == 'dark':
+    elif settings['theme'] == 'Dark':
         label = tk.Label(ss, text="", bg="#2A3990")
         image = PhotoImage(file='assets/logos/splash-dark.png')
     label.place(x=-10, y=-10)
@@ -136,39 +136,93 @@ def toggle_password_visibility():
     password_entry.config(show=("" if is_password_visible else "*"))
 
 
+def open_dev():
+    global settings_window
+    settings_window = tk.Toplevel(window)
+    settings_window.title("Settings")
+    main_window_x = window.winfo_x()
+    main_window_y = window.winfo_y()
+    main_window_width = window.winfo_width()
+    main_window_height = window.winfo_height()
+    settings_window_height = 400
+    settings_window_width = 400
+    settings_window.resizable(False, False)
+    settings_window.geometry(
+        f"{settings_window_width}x{settings_window_height}+{main_window_x + main_window_width - settings_window_width}+{main_window_y + main_window_height - settings_window_height}")
+    settings_label = Label(
+        settings_window, text=chosen_lang["settings_label"], bg="#2A3990", fg="black", font=("Arial", 25))
+    settings_label.place(x=10, y=30)
+    theme = settings['theme']
+
+    theme_label = Label(
+        settings_window, text=f"Theme: {theme}", bg="#2A3990", fg="black", font=("Arial", 18))
+    theme_label.place(x=10, y=90)
+    toggle_theme_button = Button(
+        settings_window, text="Toggle", command=toggle_theme, bg="#251749", fg="white")
+    toggle_theme_button.place(x=200, y=90)
+
+    language_label = Label(
+        settings_window, text=f"Language: {language}", bg="#2A3990", fg="black", font=("Arial", 18))
+    language_label.place(x=10, y=140)
+    toggle_language_button = Button(
+        settings_window, text="Toggle", command=toggle_language, bg="#251749", fg="white")
+    toggle_language_button.place(x=200, y=140)
+
+    help_needed_button = Button(settings_window, text="Submit Feedback", width=17,
+                                command=help_function, bg="#251749", fg="white")
+    help_needed_button.place(x=50, y=300)
+    if theme == "Dark":
+        settings_window.config(bg="#2A3990")
+        settings_window.wm_iconbitmap('assets/logos/logo-dark.ico')
+        settings_label.config(bg="#2A3990", fg="white")
+        theme_label.config(bg="#2A3990", fg="white")
+        language_label.config(bg="#2A3990", fg="white")
+
+    else:
+        settings_window.config(bg="light blue")
+        settings_window.wm_iconbitmap('assets/logos/logo-light.ico')
+        settings_label.config(bg="#AED6F1", fg="black")
+        theme_label.config(bg="#AED6F1", fg="black")
+        language_label.config(bg="#AED6F1", fg="black")
+
+
 def randomize_password():
-    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
-               'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+    global website_entry
+    website = website_entry.get()
+    if website == "dev":
+        open_dev()
+    else:
+        letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+                   'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
-    password_letters = [choice(letters) for _ in range(randint(8, 10))]
-    password_symbols = [choice(symbols) for _ in range(randint(2, 4))]
-    password_numbers = [choice(numbers) for _ in range(randint(2, 4))]
+        password_letters = [choice(letters) for _ in range(randint(8, 10))]
+        password_symbols = [choice(symbols) for _ in range(randint(2, 4))]
+        password_numbers = [choice(numbers) for _ in range(randint(2, 4))]
 
-    password_list = password_letters + password_symbols + password_numbers
-    shuffle(password_list)
+        password_list = password_letters + password_symbols + password_numbers
+        shuffle(password_list)
 
-    password_entry.delete(0, END)
-    password = "".join(password_list)
-    password_entry.insert(0, password)
-    pyperclip.copy(password)
-    password_saved.config(text=chosen_lang["password_saved_label"])
-    password_saved.place(x=40, y=120)
+        password_entry.delete(0, END)
+        password = "".join(password_list)
+        password_entry.insert(0, password)
+        pyperclip.copy(password)
+        password_saved.config(text=chosen_lang["password_saved_label"])
+        password_saved.place(x=40, y=120)
 
 
 def check_pass():
     password = password_entry.get().lower()
-    username = email_entry.get()
     weak_pass = ["pass", "password", "123456", "123", "000", "qwerty", "1111", "2222", "qwerty123", "abc123", "password123", "!@#%^&*", "qazwsxedcrfv", "qwertyuiopasdfghjklzxcvbnm",
                  "qwertyuio", "qwerasdfzxcv", "1qaz2wsx3edc", "1q2w3e4r5t", "admin", "letmein", "welcome", "monkey", "sunshine", "superman", "666666", "121212", "123123", "abcabc", "aaa111",
                  "password"]
-    safe = True
+    is_safe = True
     for word in weak_pass:
         if word in password:
-            safe = False
+            is_safe = False
             break
-    if safe:
+    if is_safe:
         pass_check_label.config(
             text=chosen_lang["check_pass_good"], bg="light green", fg="blue")
     else:
@@ -181,8 +235,8 @@ def check_pass():
         pass_check_label.config(
             text=chosen_lang["check_pass_short"], bg="yellow", fg="blue")
 
-def save():
 
+def save():
     website = website_entry.get()
     email = email_entry.get()
     password = password_entry.get()
@@ -249,14 +303,14 @@ def clear_all():
         website_entry.delete(0, END)
         email_entry.delete(0, END)
         password_entry.delete(0, END)
-        if settings['theme'] == 'dark':
+        if settings['theme'] == 'Dark':
             confirm_changed_dir.config(text="", bg="#2A3990", fg="#2A3990")
             pass_check_label.config(text="", bg="#2A3990", fg="#2A3990")
             password_saved.config(text="", bg="#2A3990", fg="#2A3990")
             version_message.config(text="", bg="#2A3990", fg="#2A3990")
             whats_new_label.config(text="", bg="#2A3990", fg="#2A3990")
 
-        if settings['theme'] == 'light':
+        if settings['theme'] == 'Light':
             confirm_changed_dir.config(
                 text="", bg="light blue", fg="light blue")
             pass_check_label.config(
@@ -325,7 +379,6 @@ def Dark_Mode():
     generate_password_button.config(bg="#251749", fg="white")
     password_check_button.config(bg="#251749", fg="white")
     privacy_button.config(bg="#251749", fg="white")
-
     help_needed_button.config(bg="#251749", fg="white")
     toggle_language_button.config(bg="#251749", fg="white")
     toggle_theme_button.config(bg="#251749", fg="white")
@@ -352,13 +405,13 @@ def toggle_theme():
 
     if 'theme' not in settings:
         settings['theme'] = default_settings['theme']
-    if settings['theme'] == 'dark':
+    if settings['theme'] == 'Dark':
         Light_Mode()
-        settings['theme'] = 'light'
+        settings['theme'] = 'Light'
 
-    elif settings['theme'] == 'light':
+    elif settings['theme'] == 'Light':
         Dark_Mode()
-        settings['theme'] = 'dark'
+        settings['theme'] = 'Dark'
 
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
@@ -466,7 +519,7 @@ def on_enter(e, btn):
         settings = json.load(f)
     theme = settings['theme']
 
-    if theme == "dark":
+    if theme == "Dark":
         btn.config(bg='black')
     else:
         btn.config(bg='#ECECEC')
@@ -477,10 +530,12 @@ def on_leave(e, btn):
         settings = json.load(f)
     theme = settings['theme']
 
-    if theme == "dark":
+    if theme == "Dark":
         btn.config(bg='#251749')
     else:
         btn.config(bg='light blue')
+
+    global website_entry
 
 
 window = Tk()
@@ -516,13 +571,14 @@ canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
 website_label = Label(
-    text=chosen_lang['website_label'], bg="#2A3990", fg="white")
+    text=chosen_lang['website_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
 website_label.place(x=40, y=180)
 website_entry = Entry(width=46)
 website_entry.place(x=200, y=180)
 website_entry.focus()
 
-email_label = Label(text=chosen_lang['email_label'], bg="#2A3990", fg="white")
+email_label = Label(
+    text=chosen_lang['email_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
 email_label.place(x=40, y=210)
 email_entry = Entry(width=46)
 email_entry.place(x=200, y=210)
@@ -530,11 +586,10 @@ email_entry.insert(0, "")
 
 is_password_visible = False
 password_label = Label(
-    text=chosen_lang["password_label"], bg="#2A3990", fg="white")
+    text=chosen_lang["password_label"], bg="#2A3990", fg="white", font=("Verdana", 11))
 password_label.place(x=40, y=240)
 password_entry = Entry(show="*", width=21)
 password_entry.place(x=200, y=240)
-
 password_saved = Label(
     text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
 
@@ -544,47 +599,47 @@ show_button.bind("<Control-b>", toggle_password_visibility)
 show_button.place(x=350, y=240)
 
 generate_password_button = Button(
-    text=chosen_lang["generate_button"], command=randomize_password, bg="#251749", fg="white", width=12)
+    text=chosen_lang["generate_button"], command=randomize_password, bg="#251749", fg="white", width=12, font=("Verdana", 8))
 generate_password_button.place(x=390, y=240)
 
 password_check_button = Button(text=chosen_lang["check_pass_button"],
-                               bg="#251749", fg="white", command=check_pass, width=17)
+                               bg="#251749", fg="white", command=check_pass, width=17, font=("Verdana", 8))
 password_check_button.place(x=40, y=270)
 
 check_for_update_button = Button(text=chosen_lang["check_for_updates_button"], bg="#251749",
-                                 fg="white", command=version_checker, width=17)
+                                 fg="white", command=version_checker, width=17, font=("Verdana", 8))
 check_for_update_button.place(x=40, y=300)
 save_button = Button(text=chosen_lang["save_button"], width=39, command=save,
-                     bg="#251749", fg="white")
+                     bg="#251749", fg="white", font=("Verdana", 8))
 save_button.place(x=200, y=270)
 
 toggle_theme_button = Button(text="\u263E", width=3,
                              command=toggle_theme, bg="#251749", fg="white")
 toggle_theme_button.place(x=200, y=330)
 help_needed_button = Button(text="?", width=3,
-                            command=help_function, bg="#251749", fg="white")
+                            command=help_function, bg="#251749", fg="white", font=("Verdana", 8))
 help_needed_button.place(x=250, y=330)
 toggle_language_button = Button(text="ES", width=3,
-                                command=toggle_language, bg="#251749", fg="white")
+                                command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
 toggle_language_button.place(x=299, y=330)
 
 privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
-                        command=safety, bg="#251749", fg="white")
+                        command=safety, bg="#251749", fg="white", font=("Verdana", 8))
 privacy_button.place(x=200, y=300)
 
 change_dir_button = Button(
-    text=chosen_lang["change_dir_button"], width=17, command=change_dir, bg="#251749", fg="white")
+    text=chosen_lang["change_dir_button"], width=17, command=change_dir, bg="#251749", fg="white", font=("Verdana", 8))
 change_dir_button.place(x=353, y=300)
 
 exit_button = Button(text=chosen_lang["exit_button"], width=17,
-                     command=on_exit, bg="#251749", fg="white")
+                     command=on_exit, bg="#251749", fg="white", font=("Verdana", 8))
 exit_button.place(x=353, y=330)
 
 password_saved = Label(
     text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
 
 clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
-                          command=clear_all, bg="#251749", fg="white")
+                          command=clear_all, bg="#251749", fg="white", font=("Verdana", 8))
 clear_all_button.place(x=40, y=330)
 
 pass_check_label = Label(text="", bg="#2A3990")
@@ -599,7 +654,7 @@ for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
     btn.bind("<Leave>", lambda e, btn=btn: on_leave(e, btn))
 
-if settings['theme'] == 'light':
+if settings['theme'] == 'Light':
     Light_Mode()
 else:
     Dark_Mode()
