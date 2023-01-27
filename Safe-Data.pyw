@@ -535,8 +535,7 @@ def on_leave(e, btn):
     else:
         btn.config(bg='light blue')
 
-    global website_entry
-
+global website_entry
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
