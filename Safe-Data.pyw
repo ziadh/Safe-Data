@@ -29,7 +29,6 @@ log_file = log_prefix + current_time + ".txt"
 log_path = os.path.join(log_folder, log_file)
 sys.stderr = open(log_path, "a")
 
-
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
 version = settings['version']
@@ -137,6 +136,7 @@ def toggle_password_visibility():
 
 
 def open_dev():
+    website_entry.delete(0, END)
     global settings_window
     settings_window = tk.Toplevel(window)
     settings_window.title("Settings")
@@ -458,6 +458,10 @@ def toggle_language():
 
     if toggle_language_button.cget("text") == "ES":  # switches lang to EN
         toggle_language_button.config(text='EN')
+        change_dir_button.config(width=19)
+        check_for_update_button.config(width=19)
+        email_label.config(font=("Verdana", 8))
+
         settings['language'] = 'ES'
         with open('src/languages.json', 'r', encoding='utf8') as f:
             language_data = json.load(f)
@@ -468,6 +472,10 @@ def toggle_language():
 
     elif toggle_language_button.cget("text") == "EN":  # switches lang to ES
         toggle_language_button.config(text='ES')
+        change_dir_button.config(width=17)
+        check_for_update_button.config(width=17)
+        email_label.config(font=("Verdana", 11))
+
         settings['language'] = 'EN'
         with open('src/languages.json', 'r', encoding='utf8') as f:
             language_data = json.load(f)
@@ -534,6 +542,7 @@ def on_leave(e, btn):
         btn.config(bg='#251749')
     else:
         btn.config(bg='light blue')
+
 
 global website_entry
 

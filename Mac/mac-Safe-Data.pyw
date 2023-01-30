@@ -507,7 +507,7 @@ whats_new_label.bind(
 whats_new_label.place(x=40, y=20)
 
 window.config(bg="#2A3990")
-window.title(chosen_lang["window_title"].format(version=version)+" - Mac Version")
+window.title(chosen_lang["window_title"].format(version=version)+" - Mac")
 window.config(padx=50, pady=50)
 window.resizable(width=False, height=False)
 window.wm_iconbitmap('assets/logos/logo-dark.ico')

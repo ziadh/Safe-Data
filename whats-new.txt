@@ -1,5 +1,6 @@
-1.70
+1.80
 What's New?
-- Added a seperate client for Mac, more improvements with future updates
-- Improved positioning of a handful of buttons to better align with other elements
-- Added hover-on animations for all buttons
+- Fixed a bug that would misevaluate a pass & more check_pass improvements
+- Improved fonts across the app
+- Improved all photo assets used in the app
+- Improved splash screen
