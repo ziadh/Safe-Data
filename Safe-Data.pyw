@@ -191,6 +191,8 @@ def randomize_password():
     website = website_entry.get()
     if website == "dev":
         open_dev()
+    elif website == "!":
+        dev_show_all()
     else:
         letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
                    'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -355,6 +357,7 @@ def Light_Mode():
     privacy_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
     show_button.config(bg="#AED6F1", fg="black")
+    shortcuts_button.config(bg="#AED6F1", fg="black")
 
 
 def Dark_Mode():
@@ -384,6 +387,7 @@ def Dark_Mode():
     toggle_theme_button.config(bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
     show_button.config(bg="#251749", fg="white")
+    shortcuts_button.config(bg="#251749", fg="white")
 
 
 def toggle_theme():
@@ -505,7 +509,7 @@ def toggle_language():
         text=chosen_lang['change_dir_button'])
     exit_button.config(
         text=chosen_lang['exit_button'])
-
+    shortcuts_button.config(text=chosen_lang['shortcuts'])
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
 
@@ -544,6 +548,48 @@ def on_leave(e, btn):
         btn.config(bg='light blue')
 
 
+def dev_show_all():
+    confirm_changed_dir.config(text=chosen_lang["path_set"].format(
+        file_path=file_path), bg="light green", fg="blue")
+    pass_check_label.config(
+        text=chosen_lang["check_pass_bad"], bg="red", fg="white")
+    password_saved.config(text=chosen_lang["password_saved_label"])
+    version_message.config(fg="light green",
+                           text=chosen_lang["version_needs_update"])
+    whats_new_label.config(fg="light green",
+                           text=chosen_lang["view_patch_notes"])
+
+
+def show_shortcuts():
+    shortcuts_window = tk.Toplevel(window)
+    shortcuts_window.withdraw()
+    shortcuts_window.title("Shortcuts")
+    shortcuts_window.wm_iconbitmap('assets/logos/logo-dark.ico')
+    shortcuts_window_height = 600
+    shortcuts_window_width = 600
+    shortcuts_window.resizable(False, False)
+    shortcuts_window.config(bg="#2A3990")
+    main_window_x = window.winfo_x()
+    main_window_y = window.winfo_y()
+    main_window_width = window.winfo_width()
+    main_window_height = window.winfo_height()
+    x = main_window_x + main_window_width/2 - shortcuts_window_width/2
+    y = main_window_y + main_window_height/2 - shortcuts_window_height/2
+    shortcuts_window.geometry(
+        f"{shortcuts_window_width}x{shortcuts_window_height}+{int(x)}+{int(y)}")
+    shortcuts_window.deiconify()
+    shortcuts_top_label = Label(
+        shortcuts_window, text=chosen_lang["shortcuts"], bg="#2A3990", fg="white", font=("Arial", 25))
+    shortcuts_top_label.place(x=220, y=30)
+
+    shortcuts = "Change Directory: Control+C\n\nClear All: Control+X\n\nRandomize Password: Control+G\n\nHelp: Control+H\n\nEvaluate Password: Control+E\n\nIs This Safe?: Control+P\n\nSave: Control+S\n\nShortcuts Window: Control+`\n\nToggle Language: Control+L\n\nToggle Theme: Control+T"
+
+    shortcuts_label = Label(shortcuts_window, text=shortcuts,
+                            bg="#2A3990", fg="white", font=("Arial", 16), pady=20)
+
+    shortcuts_label.place(x=180, y=80)
+
+
 global website_entry
 
 window = Tk()
@@ -561,6 +607,8 @@ is_released = settings['is_released?']
 version_message = Label(
     text="", fg="blue", cursor="hand2", bg="#2A3990")
 version_message.bind("<Button-1>", download_update)
+window_title = chosen_lang["window_title"].format(version=version)+is_released
+
 version_message.place(x=40, y=-20)
 whats_new_label = Label(text="", fg="blue", cursor="hand2", bg="#2A3990")
 whats_new_label.bind(
@@ -568,7 +616,7 @@ whats_new_label.bind(
 whats_new_label.place(x=40, y=20)
 
 window.config(bg="#2A3990")
-window.title(chosen_lang["window_title"].format(version=version)+is_released)
+window.title(window_title)
 window.config(padx=50, pady=50)
 window.resizable(width=False, height=False)
 window.wm_iconbitmap('assets/logos/logo-dark.ico')
@@ -577,6 +625,30 @@ canvas = Canvas(height=150, width=275)
 logo_img = PhotoImage(file="assets/logos/wide.png")
 canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
+
+#### SHORTCUTS BELOW ####
+window.bind("<Control-S>", lambda _: save_button.invoke())
+window.bind("<Control-s>", lambda _: save_button.invoke())
+window.bind("<Control-G>", lambda _: generate_password_button.invoke())
+window.bind("<Control-g>", lambda _: generate_password_button.invoke())
+window.bind("<Control-U>", lambda _: check_for_update_button.invoke())
+window.bind("<Control-u>", lambda _: check_for_update_button.invoke())
+window.bind("<Control-X>", lambda _: clear_all_button.invoke())
+window.bind("<Control-x>", lambda _: clear_all_button.invoke())
+window.bind("<Control-`>", lambda _: shortcuts_button.invoke())
+window.bind("<Control-E>", lambda _: password_check_button.invoke())
+window.bind("<Control-e>", lambda _: password_check_button.invoke())
+window.bind("<Control-P>", lambda _: privacy_button.invoke())
+window.bind("<Control-p>", lambda _: privacy_button.invoke())
+window.bind("<Control-C>", lambda _: change_dir_button.invoke())
+window.bind("<Control-c>", lambda _: change_dir_button.invoke())
+window.bind("<Control-T>", lambda _: toggle_theme_button.invoke())
+window.bind("<Control-t>", lambda _: toggle_theme_button.invoke())
+window.bind("<Control-H>", lambda _: help_needed_button.invoke())
+window.bind("<Control-h>", lambda _: help_needed_button.invoke())
+window.bind("<Control-L>", lambda _: toggle_language_button.invoke())
+window.bind("<Control-l>", lambda _: toggle_language_button.invoke())
+#### SHORTCUTS ABOVE ####
 
 website_label = Label(
     text=chosen_lang['website_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
@@ -656,8 +728,11 @@ pass_check_label.place(x=485, y=240)
 confirm_changed_dir = Label(text="", bg="#2A3990")
 confirm_changed_dir.place(x=40, y=360)
 
+shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
+                          command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
+shortcuts_button.place(x=350, y=-30)
 buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, show_button,
-           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button]
+           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button, shortcuts_button]
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
     btn.bind("<Leave>", lambda e, btn=btn: on_leave(e, btn))
