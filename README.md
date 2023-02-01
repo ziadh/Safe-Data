@@ -41,6 +41,9 @@ pip install -r requirements.txt
 
 When it is finished, close the cmd and simply double click the Safe-Data.pyw file or the .exe file.
 
+![safe-data-ss](assets/ss/safe-data-ss.png)
+
+
 ## Features
 - Generates a random hard-to-guess password and add it to your clipboard
   

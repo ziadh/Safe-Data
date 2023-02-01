@@ -565,7 +565,7 @@ def show_shortcuts():
     shortcuts_window.withdraw()
     shortcuts_window.title("Shortcuts")
     shortcuts_window.wm_iconbitmap('assets/logos/logo-dark.ico')
-    shortcuts_window_height = 600
+    shortcuts_window_height = 650
     shortcuts_window_width = 600
     shortcuts_window.resizable(False, False)
     shortcuts_window.config(bg="#2A3990")
@@ -582,7 +582,9 @@ def show_shortcuts():
         shortcuts_window, text=chosen_lang["shortcuts"], bg="#2A3990", fg="white", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
 
-    shortcuts = "Change Directory: Control+C\n\nClear All: Control+X\n\nRandomize Password: Control+G\n\nHelp: Control+H\n\nEvaluate Password: Control+E\n\nIs This Safe?: Control+P\n\nSave: Control+S\n\nShortcuts Window: Control+`\n\nToggle Language: Control+L\n\nToggle Theme: Control+T"
+    shortcuts = """Change Directory: Control + D\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
+    Evaluate Password: Control + E\n\nIs This Safe?: Control + P\n\nSave: Control + S\n\nShortcuts Window: Control + `\n
+    Toggle Language: Control + L\n\nToggle Theme: Control + T"""
 
     shortcuts_label = Label(shortcuts_window, text=shortcuts,
                             bg="#2A3990", fg="white", font=("Arial", 16), pady=20)
@@ -640,8 +642,8 @@ window.bind("<Control-E>", lambda _: password_check_button.invoke())
 window.bind("<Control-e>", lambda _: password_check_button.invoke())
 window.bind("<Control-P>", lambda _: privacy_button.invoke())
 window.bind("<Control-p>", lambda _: privacy_button.invoke())
-window.bind("<Control-C>", lambda _: change_dir_button.invoke())
-window.bind("<Control-c>", lambda _: change_dir_button.invoke())
+window.bind("<Control-D>", lambda _: change_dir_button.invoke())
+window.bind("<Control-d>", lambda _: change_dir_button.invoke())
 window.bind("<Control-T>", lambda _: toggle_theme_button.invoke())
 window.bind("<Control-t>", lambda _: toggle_theme_button.invoke())
 window.bind("<Control-H>", lambda _: help_needed_button.invoke())
