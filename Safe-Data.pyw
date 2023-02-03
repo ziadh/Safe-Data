@@ -14,7 +14,7 @@ import webbrowser
 import datetime
 import os
 import sys
-
+import textwrap
 
 file_path = None
 language = None
@@ -170,26 +170,37 @@ def open_dev():
 
     help_needed_button = Button(settings_window, text="Submit Feedback", width=17,
                                 command=help_function, bg="#251749", fg="white")
-    help_needed_button.place(x=50, y=300)
+    help_needed_button.place(x=260, y=360)
     if theme == "Dark":
         settings_window.config(bg="#2A3990")
         settings_window.wm_iconbitmap('assets/logos/logo-dark.ico')
         settings_label.config(bg="#2A3990", fg="white")
-        theme_label.config(bg="#2A3990", fg="white")
         language_label.config(bg="#2A3990", fg="white")
-
+        theme_label.config(text=f"Theme: {theme}",bg="#2A3990", fg="white")
     else:
         settings_window.config(bg="light blue")
         settings_window.wm_iconbitmap('assets/logos/logo-light.ico')
         settings_label.config(bg="#AED6F1", fg="black")
         theme_label.config(bg="#AED6F1", fg="black")
         language_label.config(bg="#AED6F1", fg="black")
+        theme_label.config(text=f"Theme: {theme}",bg="#2A3990", fg="white")
+
+def dev_show_all():
+    confirm_changed_dir.config(text=chosen_lang["path_set"].format(
+        file_path=file_path), bg="light green", fg="blue")
+    pass_check_label.config(
+        text=chosen_lang["check_pass_bad"], bg="red", fg="white")
+    password_saved.config(text=chosen_lang["password_saved_label"])
+    version_message.config(fg="light green",
+                           text=chosen_lang["version_needs_update"])
+    whats_new_label.config(fg="light green",
+                           text=chosen_lang["view_patch_notes"])
 
 
 def randomize_password():
     global website_entry
     website = website_entry.get()
-    if website == "dev":
+    if website == "?":
         open_dev()
     elif website == "!":
         dev_show_all()
@@ -548,18 +559,6 @@ def on_leave(e, btn):
         btn.config(bg='light blue')
 
 
-def dev_show_all():
-    confirm_changed_dir.config(text=chosen_lang["path_set"].format(
-        file_path=file_path), bg="light green", fg="blue")
-    pass_check_label.config(
-        text=chosen_lang["check_pass_bad"], bg="red", fg="white")
-    password_saved.config(text=chosen_lang["password_saved_label"])
-    version_message.config(fg="light green",
-                           text=chosen_lang["version_needs_update"])
-    whats_new_label.config(fg="light green",
-                           text=chosen_lang["view_patch_notes"])
-
-
 def show_shortcuts():
     shortcuts_window = tk.Toplevel(window)
     shortcuts_window.withdraw()
@@ -578,6 +577,7 @@ def show_shortcuts():
     shortcuts_window.geometry(
         f"{shortcuts_window_width}x{shortcuts_window_height}+{int(x)}+{int(y)}")
     shortcuts_window.deiconify()
+
     shortcuts_top_label = Label(
         shortcuts_window, text=chosen_lang["shortcuts"], bg="#2A3990", fg="white", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
@@ -585,11 +585,11 @@ def show_shortcuts():
     shortcuts = """Change Directory: Control + D\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
     Evaluate Password: Control + E\n\nIs This Safe?: Control + P\n\nSave: Control + S\n\nShortcuts Window: Control + `\n
     Toggle Language: Control + L\n\nToggle Theme: Control + T"""
-
-    shortcuts_label = Label(shortcuts_window, text=shortcuts,
+    indentend_shortcuts=textwrap.indent(shortcuts,'    ')
+    shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
                             bg="#2A3990", fg="white", font=("Arial", 16), pady=20)
 
-    shortcuts_label.place(x=180, y=80)
+    shortcuts_label.place(x=110, y=110)
 
 
 global website_entry
