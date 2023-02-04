@@ -353,11 +353,11 @@ def change_data_type():
     if data_type == "TXT":
         data_type = "JSON"
         settings['data_type'] = 'JSON'
-        saving_as_button.config(text=f"Saving As: {data_type}")
+        saving_as_button.config(text=chosen_lang["saving_as_button"].format(data_type=data_type))
     else:
         data_type = "TXT"
         settings['data_type'] = 'TXT'
-        saving_as_button.config(text=f"Saving As: {data_type}")
+        saving_as_button.config(text=chosen_lang["saving_as_button"].format(data_type=data_type))
 
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
