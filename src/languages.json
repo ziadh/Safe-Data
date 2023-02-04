@@ -29,7 +29,7 @@
             "privacy_message": "Safe Data is a program that allows you to save your logins locally so you won't have to panic when a major password database gets breached through. We do not store your data anywhere on our database nor do we want to. The code is open-source for everyone on github.com/ziadh/Safe-Data and you can check the code yourself.",
             "release_link": "https://github.com/ziadh/Safe-Data/releases/tag/{newest_version}",
             "save_button": "Save",
-            "save_data_message": "Please confirm your details: \n\n(Saving this info to locally saved data.txt) \n\nWebsite/Service: {website} \nEmail: {email} \nPassword: {password} \n \nConfirm saving credentials?",
+            "save_data_message": "Please confirm your details: \n\n(Saving this info to the default local saving file(data.txt or data.json) \n\nWebsite/Service: {website} \nEmail: {email} \nPassword: {password} \n \nConfirm saving credentials?",
             "save_data_title": "Save data?",
             "saved_data_txt": "Service/Website: {website} | Email: {email} | Password: {password} | Saved on: {date_string}  \n",
             "settings_label": "Settings",

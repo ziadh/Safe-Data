@@ -177,14 +177,15 @@ def open_dev():
         settings_window.wm_iconbitmap('assets/logos/logo-dark.ico')
         settings_label.config(bg="#2A3990", fg="white")
         language_label.config(bg="#2A3990", fg="white")
-        theme_label.config(text=f"Theme: {theme}",bg="#2A3990", fg="white")
+        theme_label.config(text=f"Theme: {theme}", bg="#2A3990", fg="white")
     else:
         settings_window.config(bg="light blue")
         settings_window.wm_iconbitmap('assets/logos/logo-light.ico')
         settings_label.config(bg="#AED6F1", fg="black")
         theme_label.config(bg="#AED6F1", fg="black")
         language_label.config(bg="#AED6F1", fg="black")
-        theme_label.config(text=f"Theme: {theme}",bg="#2A3990", fg="white")
+        theme_label.config(text=f"Theme: {theme}", bg="#2A3990", fg="white")
+
 
 def dev_show_all():
     confirm_changed_dir.config(text=chosen_lang["path_set"].format(
@@ -258,38 +259,83 @@ def save():
         messagebox.showinfo(
             title="Oops", message=chosen_lang["all_fields_error"])
     else:
-        if file_path == None:
-            is_ok = messagebox.askokcancel(
-                title=chosen_lang["save_data_title"],
-                message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+        if data_type == "TXT":
+            if file_path == None:
+                is_ok = messagebox.askokcancel(
+                    title=chosen_lang["save_data_title"],
+                    message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
 
-            if is_ok:
-                now = datetime.datetime.now()
-                date_string = now.strftime("%m/%d/%Y")
+                if is_ok:
+                    now = datetime.datetime.now()
+                    date_string = now.strftime("%m/%d/%Y")
 
-                with open(file_path or "data.txt", "a") as data_file:
-                    data_file.write(chosen_lang[f"saved_data_txt"].format(
-                        website=website, email=email, password=password, date_string=date_string))
-                    website_entry.delete(0, END)
-                    password_entry.delete(0, END)
-                    email_entry.delete(0, END)
-                    password_saved.destroy()
-        else:
-            is_ok = messagebox.askokcancel(
-                title=chosen_lang["save_data_title"],
-                message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+                    with open(file_path or "data.txt", "a") as data_file:
+                        data_file.write(chosen_lang[f"saved_data_txt"].format(
+                            website=website, email=email, password=password, date_string=date_string))
+                        website_entry.delete(0, END)
+                        password_entry.delete(0, END)
+                        email_entry.delete(0, END)
+                        password_saved.destroy()
+            else:
+                is_ok = messagebox.askokcancel(
+                    title=chosen_lang["save_data_title"],
+                    message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
 
-            if is_ok:
-                now = datetime.datetime.now()
-                date_string = now.strftime("%m/%d/%Y")
-                with open(file_path or "data.txt", "a") as data_file:
-                    data_file.write(chosen_lang[f"saved_data_txt"].format(
-                        website=website, email=email, password=password, date_string=date_string))
+                if is_ok:
+                    now = datetime.datetime.now()
+                    date_string = now.strftime("%m/%d/%Y")
+                    with open(file_path or "data.txt", "a") as data_file:
+                        data_file.write(chosen_lang[f"saved_data_txt"].format(
+                            website=website, email=email, password=password, date_string=date_string))
 
-                    website_entry.delete(0, END)
-                    password_entry.delete(0, END)
-                    email_entry.delete(0, END)
-                    password_saved.destroy()
+                        website_entry.delete(0, END)
+                        password_entry.delete(0, END)
+                        email_entry.delete(0, END)
+                        password_saved.destroy()
+        if data_type == "JSON":
+                if file_path == None:
+                    is_ok = messagebox.askokcancel(
+                        title=chosen_lang["save_data_title"],
+                        message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+        
+                    if is_ok:
+                        now = datetime.datetime.now()
+                        date_string = now.strftime("%m/%d/%Y")
+        
+                        data = {
+                            "website": website,
+                            "email": email,
+                            "password": password,
+                            "date": date_string
+                        }
+                        with open(file_path or "data.json", "a") as data_file:
+                            json.dump(data, data_file, indent=2)
+                            website_entry.delete(0, END)
+                            password_entry.delete(0, END)
+                            email_entry.delete(0, END)
+                            password_saved.destroy()
+                else:
+                    is_ok = messagebox.askokcancel(
+                        title=chosen_lang["save_data_title"],
+                        message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+        
+                    if is_ok:
+                        now = datetime.datetime.now()
+                        date_string = now.strftime("%m/%d/%Y")
+        
+                        data = {
+                            "website": website,
+                            "email": email,
+                            "password": password,
+                            "date": date_string
+                        }
+        
+                        with open(file_path or "data.json", "a") as data_file:
+                            json.dump(data, data_file, indent=2)
+                            website_entry.delete(0, END)
+                            password_entry.delete(0, END)
+                            email_entry.delete(0, END)
+                            password_saved.destroy()
 
 
 def change_dir():
@@ -298,6 +344,23 @@ def change_dir():
     if file_path:
         confirm_changed_dir.config(
             text=chosen_lang["path_set"].format(file_path=file_path), bg="light green", fg="blue")
+
+
+def change_data_type():
+    with open('src/settings.json', 'r') as f:
+        settings = json.load(f)
+    data_type = settings['data_type']
+    if data_type == "TXT":
+        data_type = "JSON"
+        settings['data_type'] = 'JSON'
+        saving_as_button.config(text=f"Saving As: {data_type}")
+    else:
+        data_type = "TXT"
+        settings['data_type'] = 'TXT'
+        saving_as_button.config(text=f"Saving As: {data_type}")
+
+    with open('src/settings.json', 'w') as f:
+        json.dump(settings, f)
 
 
 def clear_all():
@@ -368,6 +431,7 @@ def Light_Mode():
     toggle_theme_button.config(bg="#AED6F1", fg="black")
     privacy_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
+    saving_as_button.config(bg="#AED6F1", fg="black")
     show_button.config(bg="#AED6F1", fg="black")
     shortcuts_button.config(bg="#AED6F1", fg="black")
 
@@ -398,6 +462,7 @@ def Dark_Mode():
     toggle_language_button.config(bg="#251749", fg="white")
     toggle_theme_button.config(bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
+    saving_as_button.config(bg="#251749", fg="white")
     show_button.config(bg="#251749", fg="white")
     shortcuts_button.config(bg="#251749", fg="white")
 
@@ -586,7 +651,7 @@ def show_shortcuts():
     shortcuts = """Change Directory: Control + D\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
     Evaluate Password: Control + E\n\nIs This Safe?: Control + P\n\nSave: Control + S\n\nShortcuts Window: Control + `\n
     Toggle Language: Control + L\n\nToggle Theme: Control + T"""
-    indentend_shortcuts=textwrap.indent(shortcuts,'    ')
+    indentend_shortcuts = textwrap.indent(shortcuts, '    ')
     shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
                             bg="#2A3990", fg="white", font=("Arial", 16), pady=20)
 
@@ -709,10 +774,13 @@ toggle_language_button.place(x=299, y=330)
 privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
                         command=safety, bg="#251749", fg="white", font=("Verdana", 8))
 privacy_button.place(x=200, y=300)
-
+data_type = settings['data_type']
+saving_as_button = Button(text=f"Saving As: {data_type}", width=17,
+                          command=change_data_type, bg="#251749", fg="white", font=("Verdana", 8))
+saving_as_button.place(x=353, y=300)
 change_dir_button = Button(
     text=chosen_lang["change_dir_button"], width=17, command=change_dir, bg="#251749", fg="white", font=("Verdana", 8))
-change_dir_button.place(x=353, y=300)
+change_dir_button.place(x=353, y=330)
 
 exit_button = Button(text=chosen_lang["exit_button"], width=17,
                      command=on_exit, bg="#251749", fg="white", font=("Verdana", 8))
@@ -733,8 +801,8 @@ confirm_changed_dir.place(x=40, y=360)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
-shortcuts_button.place(x=353, y=330)
-buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, show_button,
+shortcuts_button.place(x=353, y=360)
+buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, saving_as_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button, shortcuts_button]
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
