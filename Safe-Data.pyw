@@ -136,6 +136,7 @@ def toggle_password_visibility():
 
 
 def open_dev():
+    global theme
     website_entry.delete(0, END)
     global settings_window
     settings_window = tk.Toplevel(window)
@@ -153,7 +154,7 @@ def open_dev():
         settings_window, text=chosen_lang["settings_label"], bg="#2A3990", fg="black", font=("Arial", 25))
     settings_label.place(x=10, y=30)
     theme = settings['theme']
-
+    global theme_label
     theme_label = Label(
         settings_window, text=f"Theme: {theme}", bg="#2A3990", fg="black", font=("Arial", 18))
     theme_label.place(x=10, y=90)
@@ -715,7 +716,7 @@ change_dir_button.place(x=353, y=300)
 
 exit_button = Button(text=chosen_lang["exit_button"], width=17,
                      command=on_exit, bg="#251749", fg="white", font=("Verdana", 8))
-exit_button.place(x=353, y=330)
+exit_button.place(x=200, y=360)
 
 password_saved = Label(
     text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
@@ -732,7 +733,7 @@ confirm_changed_dir.place(x=40, y=360)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
-shortcuts_button.place(x=350, y=-30)
+shortcuts_button.place(x=353, y=330)
 buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button, shortcuts_button]
 for btn in buttons:
