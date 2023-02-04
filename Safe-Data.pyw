@@ -648,7 +648,7 @@ def show_shortcuts():
         shortcuts_window, text=chosen_lang["shortcuts"], bg="#2A3990", fg="white", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
 
-    shortcuts = """Change Directory: Control + D\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
+    shortcuts = """Change Directory: Control + D\n\nChange File Type: Control + .\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
     Evaluate Password: Control + E\n\nIs This Safe?: Control + P\n\nSave: Control + S\n\nShortcuts Window: Control + `\n
     Toggle Language: Control + L\n\nToggle Theme: Control + T"""
     indentend_shortcuts = textwrap.indent(shortcuts, '    ')
@@ -716,6 +716,8 @@ window.bind("<Control-H>", lambda _: help_needed_button.invoke())
 window.bind("<Control-h>", lambda _: help_needed_button.invoke())
 window.bind("<Control-L>", lambda _: toggle_language_button.invoke())
 window.bind("<Control-l>", lambda _: toggle_language_button.invoke())
+window.bind("<Control-.>", lambda _: saving_as_button.invoke())
+
 #### SHORTCUTS ABOVE ####
 
 website_label = Label(
