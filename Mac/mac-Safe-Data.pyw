@@ -14,7 +14,7 @@ import webbrowser
 import datetime
 import os
 import sys
-
+import textwrap
 
 file_path = None
 language = None
@@ -183,9 +183,7 @@ def check_pass():
         pass_check_label.config(
             text=chosen_lang["check_pass_short"], bg="yellow", fg="blue")
 
-
 def save():
-
     website = website_entry.get()
     email = email_entry.get()
     password = password_entry.get()
@@ -193,38 +191,83 @@ def save():
         messagebox.showinfo(
             title="Oops", message=chosen_lang["all_fields_error"])
     else:
-        if file_path == None:
-            is_ok = messagebox.askokcancel(
-                title=chosen_lang["save_data_title"],
-                message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+        if data_type == "TXT":
+            if file_path == None:
+                is_ok = messagebox.askokcancel(
+                    title=chosen_lang["save_data_title"],
+                    message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
 
-            if is_ok:
-                now = datetime.datetime.now()
-                date_string = now.strftime("%m/%d/%Y")
+                if is_ok:
+                    now = datetime.datetime.now()
+                    date_string = now.strftime("%m/%d/%Y")
 
-                with open(file_path or "data.txt", "a") as data_file:
-                    data_file.write(chosen_lang[f"saved_data_txt"].format(
-                        website=website, email=email, password=password, date_string=date_string))
-                    website_entry.delete(0, END)
-                    password_entry.delete(0, END)
-                    email_entry.delete(0, END)
-                    password_saved.destroy()
-        else:
-            is_ok = messagebox.askokcancel(
-                title=chosen_lang["save_data_title"],
-                message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+                    with open(file_path or "data.txt", "a") as data_file:
+                        data_file.write(chosen_lang[f"saved_data_txt"].format(
+                            website=website, email=email, password=password, date_string=date_string))
+                        website_entry.delete(0, END)
+                        password_entry.delete(0, END)
+                        email_entry.delete(0, END)
+                        password_saved.destroy()
+            else:
+                is_ok = messagebox.askokcancel(
+                    title=chosen_lang["save_data_title"],
+                    message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
 
-            if is_ok:
-                now = datetime.datetime.now()
-                date_string = now.strftime("%m/%d/%Y")
-                with open(file_path or "data.txt", "a") as data_file:
-                    data_file.write(chosen_lang[f"saved_data_txt"].format(
-                        website=website, email=email, password=password, date_string=date_string))
+                if is_ok:
+                    now = datetime.datetime.now()
+                    date_string = now.strftime("%m/%d/%Y")
+                    with open(file_path or "data.txt", "a") as data_file:
+                        data_file.write(chosen_lang[f"saved_data_txt"].format(
+                            website=website, email=email, password=password, date_string=date_string))
 
-                    website_entry.delete(0, END)
-                    password_entry.delete(0, END)
-                    email_entry.delete(0, END)
-                    password_saved.destroy()
+                        website_entry.delete(0, END)
+                        password_entry.delete(0, END)
+                        email_entry.delete(0, END)
+                        password_saved.destroy()
+        if data_type == "JSON":
+                if file_path == None:
+                    is_ok = messagebox.askokcancel(
+                        title=chosen_lang["save_data_title"],
+                        message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+        
+                    if is_ok:
+                        now = datetime.datetime.now()
+                        date_string = now.strftime("%m/%d/%Y")
+        
+                        data = {
+                            "website": website,
+                            "email": email,
+                            "password": password,
+                            "date": date_string
+                        }
+                        with open(file_path or "data.json", "a") as data_file:
+                            json.dump(data, data_file, indent=2)
+                            website_entry.delete(0, END)
+                            password_entry.delete(0, END)
+                            email_entry.delete(0, END)
+                            password_saved.destroy()
+                else:
+                    is_ok = messagebox.askokcancel(
+                        title=chosen_lang["save_data_title"],
+                        message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+        
+                    if is_ok:
+                        now = datetime.datetime.now()
+                        date_string = now.strftime("%m/%d/%Y")
+        
+                        data = {
+                            "website": website,
+                            "email": email,
+                            "password": password,
+                            "date": date_string
+                        }
+        
+                        with open(file_path or "data.json", "a") as data_file:
+                            json.dump(data, data_file, indent=2)
+                            website_entry.delete(0, END)
+                            password_entry.delete(0, END)
+                            email_entry.delete(0, END)
+                            password_saved.destroy()
 
 
 def change_dir():
@@ -233,6 +276,23 @@ def change_dir():
     if file_path:
         confirm_changed_dir.config(
             text=chosen_lang["path_set"].format(file_path=file_path), bg="light green", fg="blue")
+
+
+def change_data_type():
+    with open('src/settings.json', 'r') as f:
+        settings = json.load(f)
+    data_type = settings['data_type']
+    if data_type == "TXT":
+        data_type = "JSON"
+        settings['data_type'] = 'JSON'
+        saving_as_button.config(text=chosen_lang["saving_as_button"].format(data_type=data_type))
+    else:
+        data_type = "TXT"
+        settings['data_type'] = 'TXT'
+        saving_as_button.config(text=chosen_lang["saving_as_button"].format(data_type=data_type))
+
+    with open('src/settings.json', 'w') as f:
+        json.dump(settings, f)
 
 
 def clear_all():
@@ -301,7 +361,8 @@ def Light_Mode():
     help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
     toggle_theme_button.config(bg="#AED6F1", fg="black")
-    privacy_button.config(bg="#AED6F1", fg="black")
+    privacy_button.config(bg="#AED6F1", fg="black") 
+    saving_as_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
     show_button.config(bg="#AED6F1", fg="black")
 
@@ -328,7 +389,7 @@ def Dark_Mode():
     generate_password_button.config(bg="#251749", fg="white")
     password_check_button.config(bg="#251749", fg="white")
     privacy_button.config(bg="#251749", fg="white")
-
+    saving_as_button.config(bg="#251749", fg="white")
     help_needed_button.config(bg="#251749", fg="white")
     toggle_language_button.config(bg="#251749", fg="white")
     toggle_theme_button.config(bg="#251749", fg="white")
@@ -486,6 +547,39 @@ def on_leave(e, btn):
         btn.config(bg='light blue')
 
 
+def show_shortcuts():
+    shortcuts_window = tk.Toplevel(window)
+    shortcuts_window.withdraw()
+    shortcuts_window.title("Shortcuts")
+    shortcuts_window.wm_iconbitmap('assets/logos/logo-dark.ico')
+    shortcuts_window_height = 650
+    shortcuts_window_width = 600
+    shortcuts_window.resizable(False, False)
+    shortcuts_window.config(bg="#2A3990")
+    main_window_x = window.winfo_x()
+    main_window_y = window.winfo_y()
+    main_window_width = window.winfo_width()
+    main_window_height = window.winfo_height()
+    x = main_window_x + main_window_width/2 - shortcuts_window_width/2
+    y = main_window_y + main_window_height/2 - shortcuts_window_height/2
+    shortcuts_window.geometry(
+        f"{shortcuts_window_width}x{shortcuts_window_height}+{int(x)}+{int(y)}")
+    shortcuts_window.deiconify()
+
+    shortcuts_top_label = Label(
+        shortcuts_window, text=chosen_lang["shortcuts"], bg="#2A3990", fg="white", font=("Arial", 25))
+    shortcuts_top_label.place(x=220, y=30)
+
+    shortcuts = """Change Directory: Command + 2\n\nChange File Type: Command + .\n\nClear All: Command + X\n\nRandomize Password: Command + G\n\nHelp: Command + H\n
+    Evaluate Password: Command + E\n\nIs This Safe?: Command + P\n\nSave: Command + S\n\nShortcuts Window: Command + `\n
+    Toggle Language: Command + L\n\nToggle Theme: Command + T"""
+    indentend_shortcuts = textwrap.indent(shortcuts, '    ')
+    shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
+                            bg="#2A3990", fg="white", font=("Arial", 16), pady=20)
+
+    shortcuts_label.place(x=110, y=110)
+
+
 window = Tk()
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -516,6 +610,32 @@ canvas = Canvas(height=150, width=275)
 logo_img = PhotoImage(file="assets/logos/wide.png")
 canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
+
+
+#### SHORTCUTS BELOW ####
+window.bind("<Command-S>", lambda _: save_button.invoke())
+window.bind("<Command-s>", lambda _: save_button.invoke())
+window.bind("<Command-G>", lambda _: generate_password_button.invoke())
+window.bind("<Command-g>", lambda _: generate_password_button.invoke())
+window.bind("<Command-U>", lambda _: check_for_update_button.invoke())
+window.bind("<Command-u>", lambda _: check_for_update_button.invoke())
+window.bind("<Command-X>", lambda _: clear_all_button.invoke())
+window.bind("<Command-x>", lambda _: clear_all_button.invoke())
+window.bind("<Command-`>", lambda _: shortcuts_button.invoke())
+window.bind("<Command-E>", lambda _: password_check_button.invoke())
+window.bind("<Command-e>", lambda _: password_check_button.invoke())
+window.bind("<Command-P>", lambda _: privacy_button.invoke())
+window.bind("<Command-p>", lambda _: privacy_button.invoke())
+window.bind("<Command-2>", lambda _: change_dir_button.invoke())
+window.bind("<Command-T>", lambda _: toggle_theme_button.invoke())
+window.bind("<Command-t>", lambda _: toggle_theme_button.invoke())
+window.bind("<Command-H>", lambda _: help_needed_button.invoke())
+window.bind("<Command-h>", lambda _: help_needed_button.invoke())
+window.bind("<Command-L>", lambda _: toggle_language_button.invoke())
+window.bind("<Command-l>", lambda _: toggle_language_button.invoke())
+window.bind("<Command-.>", lambda _: saving_as_button.invoke())
+
+#### SHORTCUTS ABOVE ####
 
 website_label = Label(
     text=chosen_lang['website_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
@@ -573,6 +693,12 @@ toggle_language_button.place(x=350, y=330)
 privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
                         command=safety, bg="#251749", fg="white", font=("Verdana", 8))
 privacy_button.place(x=230, y=300)
+data_type = settings['data_type']
+
+saving_as_button = Button(text=f"Saving As: {data_type}", width=17,
+                          command=change_data_type, bg="#251749", fg="white", font=("Verdana", 8))
+
+saving_as_button.place(x=423, y=330)
 
 change_dir_button = Button(
     text=chosen_lang["change_dir_button"],font=("Verdana", 8), width=17, command=change_dir, bg="#251749", fg="white")
@@ -580,7 +706,7 @@ change_dir_button.place(x=423, y=300)
 
 exit_button = Button(text=chosen_lang["exit_button"], width=17,
                      command=on_exit, bg="#251749", fg="white", font=("Verdana", 8))
-exit_button.place(x=423, y=330)
+exit_button.place(x=230, y=360)
 
 password_saved = Label(
     text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
@@ -595,6 +721,9 @@ pass_check_label.place(x=470, y=10)
 confirm_changed_dir = Label(text="", bg="#2A3990")
 confirm_changed_dir.place(x=40, y=360)
 
+shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
+                          command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
+shortcuts_button.place(x=40, y=360)
 buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button]
 for btn in buttons:
