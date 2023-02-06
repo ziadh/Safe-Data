@@ -428,7 +428,7 @@ def Light_Mode():
     generate_password_button.config(bg="#AED6F1", fg="black")
     help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
-    toggle_theme_button.config(bg="#AED6F1", fg="black")
+    toggle_theme_button.config(text="\u263E",bg="#AED6F1", fg="black")
     privacy_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
     saving_as_button.config(bg="#AED6F1", fg="black")
@@ -460,7 +460,7 @@ def Dark_Mode():
     privacy_button.config(bg="#251749", fg="white")
     help_needed_button.config(bg="#251749", fg="white")
     toggle_language_button.config(bg="#251749", fg="white")
-    toggle_theme_button.config(bg="#251749", fg="white")
+    toggle_theme_button.config(text="\u2600",bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
     saving_as_button.config(bg="#251749", fg="white")
     show_button.config(bg="#251749", fg="white")
@@ -666,7 +666,7 @@ screen_height = window.winfo_screenheight()
 x_coord = int((screen_width / 2) - (500 / 2))
 y_coord = int((screen_height / 2) - (300))
 window.resizable(True, True)
-window.geometry(f"700x450+{x_coord}+{y_coord}")
+window.geometry(f"700x480+{x_coord}+{y_coord}")
 
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
@@ -799,7 +799,7 @@ pass_check_label = Label(text="", bg="#2A3990")
 pass_check_label.place(x=485, y=240)
 
 confirm_changed_dir = Label(text="", bg="#2A3990")
-confirm_changed_dir.place(x=40, y=360)
+confirm_changed_dir.place(x=40, y=390)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))

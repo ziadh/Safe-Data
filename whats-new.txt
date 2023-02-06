@@ -1,6 +1,8 @@
-1.80
+1.90
 What's New?
-- Fixed a bug that would misevaluate a pass & more check_pass improvements
-- Improved fonts across the app
-- Improved all photo assets used in the app
-- Improved splash screen
+- Introducing Shortcuts: Improving your experience
+by now supporting shortcuts for every button. 
+Press Control + ' or Command + ' on Mac to access the 
+new Shortcuts page.
+- Added the ability to save your data file as a JSON file
+instead of a TXT file.

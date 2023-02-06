@@ -586,7 +586,7 @@ screen_height = window.winfo_screenheight()
 x_coord = int((screen_width / 2) - (500 / 2))
 y_coord = int((screen_height / 2) - (300))
 window.resizable(True, True)
-window.geometry(f"700x450+{x_coord}+{y_coord}")
+window.geometry(f"700x480+{x_coord}+{y_coord}")
 
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
@@ -719,7 +719,7 @@ pass_check_label = Label(text="", bg="#2A3990")
 pass_check_label.place(x=470, y=10)
 
 confirm_changed_dir = Label(text="", bg="#2A3990")
-confirm_changed_dir.place(x=40, y=360)
+confirm_changed_dir.place(x=40, y=390)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
