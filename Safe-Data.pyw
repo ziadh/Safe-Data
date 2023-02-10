@@ -62,7 +62,7 @@ def version_checker():
         version_message.unbind("<Button-1>")
 
 
-def download_update(event):
+def download_update():
     r = requests.get("https://api.github.com/repos/ziadh/Safe-Data/releases")
     json_data = r.json()
     newest_version = json_data[0]["tag_name"]
@@ -70,7 +70,7 @@ def download_update(event):
     webbrowser.open(link)
 
 
-def open_patch_notes(event, language, chosen_lang):
+def open_patch_notes(language, chosen_lang):
 
     with open('src/languages.json', 'r', encoding='utf8') as f:
         language_data = json.load(f)
@@ -136,55 +136,7 @@ def toggle_password_visibility():
 
 
 def open_dev():
-    global theme
-    website_entry.delete(0, END)
-    global settings_window
-    settings_window = tk.Toplevel(window)
-    settings_window.title("Settings")
-    main_window_x = window.winfo_x()
-    main_window_y = window.winfo_y()
-    main_window_width = window.winfo_width()
-    main_window_height = window.winfo_height()
-    settings_window_height = 400
-    settings_window_width = 400
-    settings_window.resizable(False, False)
-    settings_window.geometry(
-        f"{settings_window_width}x{settings_window_height}+{main_window_x + main_window_width - settings_window_width}+{main_window_y + main_window_height - settings_window_height}")
-    settings_label = Label(
-        settings_window, text=chosen_lang["settings_label"], bg="#2A3990", fg="black", font=("Arial", 25))
-    settings_label.place(x=10, y=30)
-    theme = settings['theme']
-    global theme_label
-    theme_label = Label(
-        settings_window, text=f"Theme: {theme}", bg="#2A3990", fg="black", font=("Arial", 18))
-    theme_label.place(x=10, y=90)
-    toggle_theme_button = Button(
-        settings_window, text="Toggle", command=toggle_theme, bg="#251749", fg="white")
-    toggle_theme_button.place(x=200, y=90)
-
-    language_label = Label(
-        settings_window, text=f"Language: {language}", bg="#2A3990", fg="black", font=("Arial", 18))
-    language_label.place(x=10, y=140)
-    toggle_language_button = Button(
-        settings_window, text="Toggle", command=toggle_language, bg="#251749", fg="white")
-    toggle_language_button.place(x=200, y=140)
-
-    help_needed_button = Button(settings_window, text="Submit Feedback", width=17,
-                                command=help_function, bg="#251749", fg="white")
-    help_needed_button.place(x=260, y=360)
-    if theme == "Dark":
-        settings_window.config(bg="#2A3990")
-        settings_window.wm_iconbitmap('assets/logos/logo-dark.ico')
-        settings_label.config(bg="#2A3990", fg="white")
-        language_label.config(bg="#2A3990", fg="white")
-        theme_label.config(text=f"Theme: {theme}", bg="#2A3990", fg="white")
-    else:
-        settings_window.config(bg="light blue")
-        settings_window.wm_iconbitmap('assets/logos/logo-light.ico')
-        settings_label.config(bg="#AED6F1", fg="black")
-        theme_label.config(bg="#AED6F1", fg="black")
-        language_label.config(bg="#AED6F1", fg="black")
-        theme_label.config(text=f"Theme: {theme}", bg="#2A3990", fg="white")
+    pass
 
 
 def dev_show_all():
@@ -421,6 +373,7 @@ def Light_Mode():
     whats_new_label.config(bg="#AED6F1", fg="black")
     website_label.config(bg="light blue", fg="black")
     # BUTTONS
+    about_button.config(bg="#AED6F1", fg="black")
     clear_all_button.config(bg="#AED6F1", fg="black")
     change_dir_button.config(bg="#AED6F1", fg="black")
     check_for_update_button.config(bg="#AED6F1", fg="black")
@@ -451,6 +404,7 @@ def Dark_Mode():
     whats_new_label.config(bg="#2A3990", fg="light green")
     website_label.config(bg="#2A3990", fg="white")
     # BUTTONS
+    about_button.config(bg="#251749", fg="white")
     clear_all_button.config(bg="#251749", fg="white")
     change_dir_button.config(bg="#251749", fg="white")
     check_for_update_button.config(bg="#251749", fg="white")
@@ -603,7 +557,7 @@ def on_exit():
         window.destroy()
 
 
-def on_enter(e, btn):
+def on_enter(btn):
     with open('src/settings.json', 'r') as f:
         settings = json.load(f)
     theme = settings['theme']
@@ -614,7 +568,7 @@ def on_enter(e, btn):
         btn.config(bg='#ECECEC')
 
 
-def on_leave(e, btn):
+def on_leave(btn):
     with open('src/settings.json', 'r') as f:
         settings = json.load(f)
     theme = settings['theme']
@@ -657,7 +611,18 @@ def show_shortcuts():
 
     shortcuts_label.place(x=110, y=110)
 
-
+def about():
+    if is_released != '':
+        version_unreleased = messagebox.askokcancel(title='About This Version',
+                                              message="This is an unreleased version.\nClick Ok to download the latest stable release.")
+    else:
+        version_released = messagebox.askokcancel(title='About This Version',
+                                              message=f"This is a stable release v{version}.\nClick the ? button if you encounter any issues.") 
+        
+    if version_unreleased:
+        download_update()
+    if version_released:
+        open_issues()
 global website_entry
 
 window = Tk()
@@ -680,10 +645,10 @@ window_title = chosen_lang["window_title"].format(version=version)+is_released
 version_message.place(x=40, y=-20)
 whats_new_label = Label(text="", fg="blue", cursor="hand2", bg="#2A3990")
 whats_new_label.bind(
-    "<Button-1>", lambda event: open_patch_notes(event, language, chosen_lang))
+    "<Button-1>", lambda event: open_patch_notes(language, chosen_lang))
 whats_new_label.place(x=40, y=20)
 
-window.config(bg="#2A3990")
+window.config(bg="#20262E")
 window.title(window_title)
 window.config(padx=50, pady=50)
 window.resizable(width=False, height=False)
@@ -786,7 +751,7 @@ change_dir_button.place(x=353, y=330)
 
 exit_button = Button(text=chosen_lang["exit_button"], width=17,
                      command=on_exit, bg="#251749", fg="white", font=("Verdana", 8))
-exit_button.place(x=200, y=360)
+exit_button.place(x=353, y=360)
 
 password_saved = Label(
     text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
@@ -803,12 +768,16 @@ confirm_changed_dir.place(x=40, y=390)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
-shortcuts_button.place(x=353, y=360)
-buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, saving_as_button, show_button,
+shortcuts_button.place(x=200, y=360)
+
+about_button = Button(text="About", width=17, bg="#251749", fg="white", font=("Verdana", 8), command=about)
+about_button.place(x=40, y=360)
+
+buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button, shortcuts_button]
 for btn in buttons:
-    btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
-    btn.bind("<Leave>", lambda e, btn=btn: on_leave(e, btn))
+    btn.bind("<Enter>", lambda e, btn=btn: on_enter(btn))
+    btn.bind("<Leave>", lambda e, btn=btn: on_leave(btn))
 
 if settings['theme'] == 'Light':
     Light_Mode()
