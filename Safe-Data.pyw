@@ -338,14 +338,29 @@ def clear_all():
         website_entry.delete(0, END)
         email_entry.delete(0, END)
         password_entry.delete(0, END)
+        
         if settings['theme'] == 'Dark':
+            confirm_changed_dir.config(text="", bg="#13005A", fg="#13005A")
+            pass_check_label.config(text="", bg="#13005A", fg="#13005A")
+            password_saved.config(text="", bg="#13005A", fg="#13005A")
+            version_message.config(text="", bg="#13005A", fg="#13005A")
+            whats_new_label.config(text="", bg="#13005A", fg="#13005A")
+
+        if settings['theme'] == 'Light':
+            confirm_changed_dir.config(text="", bg="#E3F6FF", fg="#E3F6FF")
+            pass_check_label.config(text="", bg="#E3F6FF", fg="#E3F6FF")
+            password_saved.config(text="", bg="#E3F6FF", fg="#E3F6FF")
+            version_message.config(text="", bg="#E3F6FF", fg="#E3F6FF")
+            whats_new_label.config(text="", bg="#E3F6FF", fg="#E3F6FF")
+
+        if settings['theme'] == 'Classic Dark':
             confirm_changed_dir.config(text="", bg="#2A3990", fg="#2A3990")
             pass_check_label.config(text="", bg="#2A3990", fg="#2A3990")
             password_saved.config(text="", bg="#2A3990", fg="#2A3990")
             version_message.config(text="", bg="#2A3990", fg="#2A3990")
             whats_new_label.config(text="", bg="#2A3990", fg="#2A3990")
 
-        if settings['theme'] == 'Light':
+        if settings['theme'] == 'Classic Light':
             confirm_changed_dir.config(
                 text="", bg="light blue", fg="light blue")
             pass_check_label.config(
@@ -842,7 +857,7 @@ password_saved = Label(
 
 clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
                           command=clear_all, bg="#251749", fg="white", font=("Verdana", 8))
-clear_all_button.place(x=40, y=330)
+clear_all_button.place(x=40, y=360)
 
 pass_check_label = Label(text="", bg="#2A3990")
 pass_check_label.place(x=485, y=240)
@@ -855,7 +870,7 @@ shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
 shortcuts_button.place(x=200, y=360)
 
 about_button = Button(text="About", width=17, bg="#251749", fg="white", font=("Verdana", 8), command=about)
-about_button.place(x=40, y=360)
+about_button.place(x=40, y=330)
 
 buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button, shortcuts_button]
