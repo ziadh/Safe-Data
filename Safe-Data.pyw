@@ -364,6 +364,7 @@ def safety():
 
 
 def Dark_Mode():
+    #for buttons #0F6292
     logo_img.config(file="assets/logos/wide.png")
     window.wm_iconbitmap('assets/logos/logo-dark.ico')
     window.config(bg="#13005A")
@@ -378,21 +379,21 @@ def Dark_Mode():
     whats_new_label.config(bg="#13005A", fg="light green")
     website_label.config(bg="#13005A", fg="white")
     # BUTTONS
-    about_button.config(bg="#251749", fg="white")
-    clear_all_button.config(bg="#251749", fg="white")
-    change_dir_button.config(bg="#251749", fg="white")
-    check_for_update_button.config(bg="#251749", fg="white")
-    exit_button.config(bg="#251749", fg="white")
-    generate_password_button.config(bg="#251749", fg="white")
-    password_check_button.config(bg="#251749", fg="white")
-    privacy_button.config(bg="#251749", fg="white")
-    help_needed_button.config(bg="#251749", fg="white")
-    toggle_language_button.config(bg="#251749", fg="white")
-    toggle_theme_button.config(text="\u2600",bg="#251749", fg="white")
-    save_button.config(bg="#251749", fg="white")
-    saving_as_button.config(bg="#251749", fg="white")
-    show_button.config(bg="#251749", fg="white")
-    shortcuts_button.config(bg="#251749", fg="white")
+    about_button.config(bg="#7286D3", fg="white")
+    clear_all_button.config(bg="#7286D3", fg="white")
+    change_dir_button.config(bg="#7286D3", fg="white")
+    check_for_update_button.config(bg="#7286D3", fg="white")
+    exit_button.config(bg="#7286D3", fg="white")
+    generate_password_button.config(bg="#7286D3", fg="white")
+    password_check_button.config(bg="#7286D3", fg="white")
+    privacy_button.config(bg="#7286D3", fg="white")
+    help_needed_button.config(bg="#7286D3", fg="white")
+    toggle_language_button.config(bg="#7286D3", fg="white")
+    toggle_theme_button.config(text="\u263C",bg="#7286D3", fg="white")
+    save_button.config(bg="#7286D3", fg="white")
+    saving_as_button.config(bg="#7286D3", fg="white")
+    show_button.config(bg="#7286D3", fg="white")
+    shortcuts_button.config(bg="#7286D3", fg="white")
 
 
 def Light_Mode():
@@ -401,14 +402,14 @@ def Light_Mode():
     window.config(bg="#E3F6FF")
     canvas.config(bg="#E3F6FF")
     # LABELS
-    confirm_changed_dir.config(bg="#AED6F1", fg="black")
+    confirm_changed_dir.config(bg="#E3F6FF", fg="black")
     email_label.config(bg="#E3F6FF", fg="black")
-    password_check_button.config(bg="#AED6F1", fg="black")
+    password_check_button.config(bg="#E3F6FF", fg="black")
     password_label.config(bg="#E3F6FF", fg="black")
-    password_saved.config(bg="#AED6F1", fg="black")
-    pass_check_label.config(bg="#AED6F1", fg="black")
-    version_message.config(bg="#AED6F1", fg="black")
-    whats_new_label.config(bg="#AED6F1", fg="black")
+    password_saved.config(bg="#E3F6FF", fg="black")
+    pass_check_label.config(bg="#E3F6FF", fg="black")
+    version_message.config(bg="#E3F6FF", fg="black")
+    whats_new_label.config(bg="#E3F6FF", fg="black")
     website_label.config(bg="#E3F6FF", fg="black")
     # BUTTONS
     about_button.config(bg="#AED6F1", fg="black")
@@ -419,7 +420,7 @@ def Light_Mode():
     generate_password_button.config(bg="#AED6F1", fg="black")
     help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
-    toggle_theme_button.config(text="\u263E cl",bg="#AED6F1", fg="black")
+    toggle_theme_button.config(text="\u263E",bg="#AED6F1", fg="black")
     privacy_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
     saving_as_button.config(bg="#AED6F1", fg="black")
@@ -451,7 +452,7 @@ def Classic_Light_Mode():
     generate_password_button.config(bg="#AED6F1", fg="black")
     help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
-    toggle_theme_button.config(text="\u263E",bg="#AED6F1", fg="black")
+    toggle_theme_button.config(text="\u263D",bg="#AED6F1", fg="black")
     privacy_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
     saving_as_button.config(bg="#AED6F1", fg="black")
@@ -484,7 +485,7 @@ def Classic_Dark_Mode():
     privacy_button.config(bg="#251749", fg="white")
     help_needed_button.config(bg="#251749", fg="white")
     toggle_language_button.config(bg="#251749", fg="white")
-    toggle_theme_button.config(text="\u2600 cl",bg="#251749", fg="white")
+    toggle_theme_button.config(text="\u2600",bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
     saving_as_button.config(bg="#251749", fg="white")
     show_button.config(bg="#251749", fg="white")
@@ -639,8 +640,12 @@ def on_enter(btn):
     theme = settings['theme']
 
     if theme == "Dark":
+        btn.config(bg='#86A3B8')
+    if theme == "Light":
+        btn.config(bg='#E5E0FF')
+    if theme == "Classic Dark":
         btn.config(bg='black')
-    else:
+    if theme == "Classic Light":
         btn.config(bg='#ECECEC')
 
 
@@ -650,10 +655,13 @@ def on_leave(btn):
     theme = settings['theme']
 
     if theme == "Dark":
+        btn.config(bg='#7286D3')
+    if theme == "Light":
+        btn.config(bg='#AED6F1')
+    if theme == "Classic Dark":
         btn.config(bg='#251749')
-    else:
+    if theme == "Classic Light":
         btn.config(bg='light blue')
-
 
 def show_shortcuts():
     shortcuts_window = tk.Toplevel(window)
@@ -818,7 +826,7 @@ privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
                         command=safety, bg="#251749", fg="white", font=("Verdana", 8))
 privacy_button.place(x=200, y=300)
 data_type = settings['data_type']
-saving_as_button = Button(text=f"Saving As: {data_type}", width=17,
+saving_as_button = Button(text=f"Saving As {data_type}", width=17,
                           command=change_data_type, bg="#251749", fg="white", font=("Verdana", 8))
 saving_as_button.place(x=353, y=300)
 change_dir_button = Button(
