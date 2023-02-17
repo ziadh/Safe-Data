@@ -1,7 +1,7 @@
-![read-me-wide](https://user-images.githubusercontent.com/15097797/212562951-a410fd11-3d34-406d-bfdb-8d33993e906c.png)
+![read-me-wide](assets/logos/read-me-wide.png)
 
 
-
+<!-- TODO: update links of assets to actual file links -->
 
 
 # Safe Data

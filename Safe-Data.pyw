@@ -118,7 +118,7 @@ class splash():
         image = PhotoImage(file='assets/logos/classic-splash-light.png')
     if settings['theme'] == 'Classic Dark':
         label = tk.Label(ss, text="", bg="#2A3990")
-        image = PhotoImage(file='assets/logos/classic-splash-dark.png')        
+        image = PhotoImage(file='assets/logos/classic-splash-dark.png')
     label.place(x=-10, y=-10)
     image_label = Label(ss, image=image)
     image_label.place(x=0, y=0)
@@ -215,7 +215,7 @@ def save():
     password = password_entry.get()
     if len(website) == 0 or len(password) == 0:
         messagebox.showinfo(
-            "Oops",chosen_lang["all_fields_error"])
+            "Oops", chosen_lang["all_fields_error"])
     else:
         if data_type == "TXT":
             if file_path == None:
@@ -251,49 +251,49 @@ def save():
                         email_entry.delete(0, END)
                         password_saved.destroy()
         if data_type == "JSON":
-                if file_path == None:
-                    is_ok = messagebox.askokcancel(
-                        chosen_lang["save_data_title"],
-                        chosen_lang["save_data_message"].format(website=website, email=email, password=password))
-        
-                    if is_ok:
-                        now = datetime.datetime.now()
-                        date_string = now.strftime("%m/%d/%Y")
-        
-                        data = {
-                            "website": website,
-                            "email": email,
-                            "password": password,
-                            "date": date_string
-                        }
-                        with open(file_path or "data.json", "a") as data_file:
-                            json.dump(data, data_file, indent=2)
-                            website_entry.delete(0, END)
-                            password_entry.delete(0, END)
-                            email_entry.delete(0, END)
-                            password_saved.destroy()
-                else:
-                    is_ok = messagebox.askokcancel(
-                        chosen_lang["save_data_title"],
-                        chosen_lang["save_data_message"].format(website=website, email=email, password=password))
-        
-                    if is_ok:
-                        now = datetime.datetime.now()
-                        date_string = now.strftime("%m/%d/%Y")
-        
-                        data = {
-                            "website": website,
-                            "email": email,
-                            "password": password,
-                            "date": date_string
-                        }
-        
-                        with open(file_path or "data.json", "a") as data_file:
-                            json.dump(data, data_file, indent=2)
-                            website_entry.delete(0, END)
-                            password_entry.delete(0, END)
-                            email_entry.delete(0, END)
-                            password_saved.destroy()
+            if file_path == None:
+                is_ok = messagebox.askokcancel(
+                    chosen_lang["save_data_title"],
+                    chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+
+                if is_ok:
+                    now = datetime.datetime.now()
+                    date_string = now.strftime("%m/%d/%Y")
+
+                    data = {
+                        "website": website,
+                        "email": email,
+                        "password": password,
+                        "date": date_string
+                    }
+                    with open(file_path or "data.json", "a") as data_file:
+                        json.dump(data, data_file, indent=2)
+                        website_entry.delete(0, END)
+                        password_entry.delete(0, END)
+                        email_entry.delete(0, END)
+                        password_saved.destroy()
+            else:
+                is_ok = messagebox.askokcancel(
+                    chosen_lang["save_data_title"],
+                    chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+
+                if is_ok:
+                    now = datetime.datetime.now()
+                    date_string = now.strftime("%m/%d/%Y")
+
+                    data = {
+                        "website": website,
+                        "email": email,
+                        "password": password,
+                        "date": date_string
+                    }
+
+                    with open(file_path or "data.json", "a") as data_file:
+                        json.dump(data, data_file, indent=2)
+                        website_entry.delete(0, END)
+                        password_entry.delete(0, END)
+                        email_entry.delete(0, END)
+                        password_saved.destroy()
 
 
 def change_dir():
@@ -311,11 +311,13 @@ def change_data_type():
     if data_type == "TXT":
         data_type = "JSON"
         settings['data_type'] = 'JSON'
-        saving_as_button.config(text=chosen_lang["saving_as_button"].format(data_type=data_type))
+        saving_as_button.config(
+            text=chosen_lang["saving_as_button"].format(data_type=data_type))
     else:
         data_type = "TXT"
         settings['data_type'] = 'TXT'
-        saving_as_button.config(text=chosen_lang["saving_as_button"].format(data_type=data_type))
+        saving_as_button.config(
+            text=chosen_lang["saving_as_button"].format(data_type=data_type))
 
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
@@ -324,7 +326,7 @@ def change_data_type():
 def clear_all():
 
     yes_clear = messagebox.askokcancel(
-        chosen_lang["confirm_clear_title"],chosen_lang["clear_all_confirmation"])
+        chosen_lang["confirm_clear_title"], chosen_lang["clear_all_confirmation"])
     if yes_clear:
         default_settings = {
             'theme': 'dark'
@@ -338,7 +340,7 @@ def clear_all():
         website_entry.delete(0, END)
         email_entry.delete(0, END)
         password_entry.delete(0, END)
-        
+
         if settings['theme'] == 'Dark':
             confirm_changed_dir.config(text="", bg="#13005A", fg="#13005A")
             pass_check_label.config(text="", bg="#13005A", fg="#13005A")
@@ -375,7 +377,7 @@ def clear_all():
 
 def safety():
     message = chosen_lang["""privacy_message"""]
-    messagebox.showinfo(chosen_lang["privacy_title"],message)
+    messagebox.showinfo(chosen_lang["privacy_title"], message)
 
 
 def Dark_Mode():
@@ -403,7 +405,7 @@ def Dark_Mode():
     privacy_button.config(bg="#7286D3", fg="white")
     help_needed_button.config(bg="#7286D3", fg="white")
     toggle_language_button.config(bg="#7286D3", fg="white")
-    toggle_theme_button.config(text="\u263C",bg="#7286D3", fg="white")
+    toggle_theme_button.config(text="\u263C", bg="#7286D3", fg="white")
     save_button.config(bg="#7286D3", fg="white")
     saving_as_button.config(bg="#7286D3", fg="white")
     show_button.config(bg="#7286D3", fg="white")
@@ -434,7 +436,7 @@ def Light_Mode():
     generate_password_button.config(bg="#AED6F1", fg="black")
     help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
-    toggle_theme_button.config(text="\u263E",bg="#AED6F1", fg="black")
+    toggle_theme_button.config(text="\u263E", bg="#AED6F1", fg="black")
     privacy_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
     saving_as_button.config(bg="#AED6F1", fg="black")
@@ -444,7 +446,7 @@ def Light_Mode():
 
 def Classic_Light_Mode():
     logo_img.config(file="assets/logos/classic-wide-light.png")
-    window.wm_iconbitmap('assets/logos/logo-light.ico')
+    window.wm_iconbitmap('assets/logos/classic-logo-light.ico')
     window.config(bg="light blue")
     canvas.config(bg="light blue")
     # LABELS
@@ -466,7 +468,7 @@ def Classic_Light_Mode():
     generate_password_button.config(bg="#AED6F1", fg="black")
     help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
-    toggle_theme_button.config(text="\u263D",bg="#AED6F1", fg="black")
+    toggle_theme_button.config(text="\u263D", bg="#AED6F1", fg="black")
     privacy_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
     saving_as_button.config(bg="#AED6F1", fg="black")
@@ -476,7 +478,7 @@ def Classic_Light_Mode():
 
 def Classic_Dark_Mode():
     logo_img.config(file="assets/logos/classic-wide.png")
-    window.wm_iconbitmap('assets/logos/logo-dark.ico')
+    window.wm_iconbitmap('assets/logos/classic-logo-dark.ico')
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
     # LABELS
@@ -499,7 +501,7 @@ def Classic_Dark_Mode():
     privacy_button.config(bg="#251749", fg="white")
     help_needed_button.config(bg="#251749", fg="white")
     toggle_language_button.config(bg="#251749", fg="white")
-    toggle_theme_button.config(text="\u2600",bg="#251749", fg="white")
+    toggle_theme_button.config(text="\u2600", bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
     saving_as_button.config(bg="#251749", fg="white")
     show_button.config(bg="#251749", fg="white")
@@ -535,7 +537,7 @@ def toggle_theme():
         settings['theme'] = 'Classic Light'
     elif settings['theme'] == 'Classic Light':
         Dark_Mode()
-        settings['theme'] = 'Dark'    
+        settings['theme'] = 'Dark'
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
 
@@ -621,7 +623,8 @@ def toggle_language():
         text=chosen_lang['generate_button'])
     save_button.config(
         text=chosen_lang['save_button'])
-    saving_as_button.config(text=chosen_lang['saving_as_button'].format(data_type=data_type))
+    saving_as_button.config(
+        text=chosen_lang['saving_as_button'].format(data_type=data_type))
     privacy_button.config(
         text=chosen_lang['privacy_button'])
     change_dir_button.config(
@@ -632,7 +635,8 @@ def toggle_language():
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
 
-    result = tk.messagebox.askyesno(chosen_lang["language_switch_notice_title"],chosen_lang["language_switch_notice_text"])
+    result = tk.messagebox.askyesno(
+        chosen_lang["language_switch_notice_title"], chosen_lang["language_switch_notice_text"])
     if result:
         window.destroy()
 
@@ -679,7 +683,7 @@ def show_shortcuts():
     shortcuts_window.withdraw()
     shortcuts_window.title("Shortcuts")
     shortcuts_window.wm_iconbitmap('assets/logos/logo-dark.ico')
-    shortcuts_window_height = 650
+    shortcuts_window_height = 750
     shortcuts_window_width = 600
     shortcuts_window.resizable(False, False)
     shortcuts_window.config(bg="#13005A")
@@ -693,11 +697,11 @@ def show_shortcuts():
         f"{shortcuts_window_width}x{shortcuts_window_height}+{int(x)}+{int(y)}")
     shortcuts_window.deiconify()
 
-    global shortcuts_top_label,shortcuts_label
+    global shortcuts_top_label, shortcuts_label
     shortcuts_top_label = Label(
         shortcuts_window, text=chosen_lang["shortcuts"], bg="#13005A", fg="white", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
-    shortcuts = """Change Directory: Control + D\n\nChange File Type: Control + .\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
+    shortcuts = """About This Version: Control + A \n\nChange Directory: Control + D\n\nChange File Type: Control + .\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
     Evaluate Password: Control + E\n\nIs This Safe?: Control + P\n\nSave: Control + S\n\nShortcuts Window: Control + `\n
     Toggle Language: Control + L\n\nToggle Theme: Control + T"""
     indentend_shortcuts = textwrap.indent(shortcuts, '    ')
@@ -711,13 +715,16 @@ def about():
     version_released = ''
     version_unreleased = ''
     if is_released != '':
-        version_unreleased = messagebox.askokcancel(chosen_lang['about_title'],chosen_lang['about_unreleased'])
+        version_unreleased = messagebox.askokcancel(
+            chosen_lang['about_title'], chosen_lang['about_unreleased'])
     else:
-        version_released = messagebox.askokcancel(chosen_lang['about_title'],chosen_lang['about_released'].format(version=version))
+        version_released = messagebox.askokcancel(
+            chosen_lang['about_title'], chosen_lang['about_released'].format(version=version))
     if version_unreleased:
         download_update()
     elif version_released:
         open_issues()
+
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
@@ -753,6 +760,8 @@ canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
 #### SHORTCUTS BELOW ####
+window.bind("<Control-A>", lambda _: about_button.invoke())
+window.bind("<Control-a>", lambda _: about_button.invoke())
 window.bind("<Control-S>", lambda _: save_button.invoke())
 window.bind("<Control-s>", lambda _: save_button.invoke())
 window.bind("<Control-G>", lambda _: generate_password_button.invoke())
@@ -864,7 +873,8 @@ shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
 shortcuts_button.place(x=200, y=360)
 
-about_button = Button(text=chosen_lang["about_button"], width=17, bg="#251749", fg="white", font=("Verdana", 8), command=about)
+about_button = Button(text=chosen_lang["about_button"], width=17,
+                      bg="#251749", fg="white", font=("Verdana", 8), command=about)
 about_button.place(x=40, y=330)
 
 buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
