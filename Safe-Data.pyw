@@ -379,20 +379,19 @@ def safety():
 
 
 def Dark_Mode():
-    #for buttons #0F6292
     logo_img.config(file="assets/logos/wide.png")
     window.wm_iconbitmap('assets/logos/logo-dark.ico')
     window.config(bg="#13005A")
     canvas.config(bg="#13005A")
     # LABELS
     confirm_changed_dir.config(bg="#13005A", fg="white")
+    website_label.config(bg="#13005A", fg="white")
     email_label.config(bg="#13005A", fg="white")
     password_label.config(bg="#13005A", fg="white")
     password_saved.config(bg="#13005A", fg="white")
     pass_check_label.config(bg="#13005A", fg="light green")
     version_message.config(bg="#13005A", fg="light green")
     whats_new_label.config(bg="#13005A", fg="light green")
-    website_label.config(bg="#13005A", fg="white")
     # BUTTONS
     about_button.config(bg="#7286D3", fg="white")
     clear_all_button.config(bg="#7286D3", fg="white")
@@ -419,7 +418,6 @@ def Light_Mode():
     # LABELS
     confirm_changed_dir.config(bg="#E3F6FF", fg="black")
     email_label.config(bg="#E3F6FF", fg="black")
-    password_check_button.config(bg="#E3F6FF", fg="black")
     password_label.config(bg="#E3F6FF", fg="black")
     password_saved.config(bg="#E3F6FF", fg="black")
     pass_check_label.config(bg="#E3F6FF", fg="black")
@@ -427,6 +425,7 @@ def Light_Mode():
     whats_new_label.config(bg="#E3F6FF", fg="black")
     website_label.config(bg="#E3F6FF", fg="black")
     # BUTTONS
+    password_check_button.config(bg="#AED6F1", fg="black")
     about_button.config(bg="#AED6F1", fg="black")
     clear_all_button.config(bg="#AED6F1", fg="black")
     change_dir_button.config(bg="#AED6F1", fg="black")
@@ -508,7 +507,6 @@ def Classic_Dark_Mode():
 
 
 def toggle_theme():
-    global settings_window
     default_settings = {
         'theme': 'dark'
     }
@@ -526,14 +524,12 @@ def toggle_theme():
 
     if 'theme' not in settings:
         settings['theme'] = default_settings['theme']
-    if settings['theme'] == 'Dark':
-        Light_Mode()
+    elif settings['theme'] == 'Dark':
         settings['theme'] = 'Light'
-
+        Light_Mode()
     elif settings['theme'] == 'Light':
         Classic_Dark_Mode()
         settings['theme'] = 'Classic Dark'
-
     elif settings['theme'] == 'Classic Dark':
         Classic_Light_Mode()
         settings['theme'] = 'Classic Light'
@@ -542,8 +538,6 @@ def toggle_theme():
         settings['theme'] = 'Dark'    
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
-
-
 def help_function():
     direct_to_issues = messagebox.askokcancel(title=chosen_lang["help_title"],
                                               message=chosen_lang["help_needed"])
@@ -686,7 +680,7 @@ def show_shortcuts():
     shortcuts_window_height = 650
     shortcuts_window_width = 600
     shortcuts_window.resizable(False, False)
-    shortcuts_window.config(bg="#2A3990")
+    shortcuts_window.config(bg="#13005A")
     main_window_x = window.winfo_x()
     main_window_y = window.winfo_y()
     main_window_width = window.winfo_width()
@@ -697,32 +691,31 @@ def show_shortcuts():
         f"{shortcuts_window_width}x{shortcuts_window_height}+{int(x)}+{int(y)}")
     shortcuts_window.deiconify()
 
+    global shortcuts_top_label,shortcuts_label
     shortcuts_top_label = Label(
-        shortcuts_window, text=chosen_lang["shortcuts"], bg="#2A3990", fg="white", font=("Arial", 25))
+        shortcuts_window, text=chosen_lang["shortcuts"], bg="#13005A", fg="white", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
-
     shortcuts = """Change Directory: Control + D\n\nChange File Type: Control + .\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
     Evaluate Password: Control + E\n\nIs This Safe?: Control + P\n\nSave: Control + S\n\nShortcuts Window: Control + `\n
     Toggle Language: Control + L\n\nToggle Theme: Control + T"""
     indentend_shortcuts = textwrap.indent(shortcuts, '    ')
     shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
-                            bg="#2A3990", fg="white", font=("Arial", 16), pady=20)
+                            bg="#13005A", fg="white", font=("Arial", 16), pady=20)
 
     shortcuts_label.place(x=110, y=110)
 
 def about():
+    version_released = ''
     if is_released != '':
         version_unreleased = messagebox.askokcancel(title='About This Version',
                                               message="This is an unreleased version.\nClick Ok to download the latest stable release.")
     else:
         version_released = messagebox.askokcancel(title='About This Version',
                                               message=f"This is a stable release v{version}.\nClick the ? button if you encounter any issues.") 
-        
     if version_unreleased:
         download_update()
-    if version_released:
+    elif version_released:
         open_issues()
-global website_entry
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
@@ -731,7 +724,6 @@ x_coord = int((screen_width / 2) - (500 / 2))
 y_coord = int((screen_height / 2) - (300))
 window.resizable(True, True)
 window.geometry(f"700x480+{x_coord}+{y_coord}")
-
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
 
@@ -784,6 +776,7 @@ window.bind("<Control-.>", lambda _: saving_as_button.invoke())
 
 #### SHORTCUTS ABOVE ####
 
+global website_entry
 website_label = Label(
     text=chosen_lang['website_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
 website_label.place(x=40, y=180)
@@ -886,6 +879,9 @@ if settings['theme'] == 'Classic Dark':
     Classic_Dark_Mode()
 if settings['theme'] == 'Classic Light':
     Classic_Light_Mode()
+
+with open('src/settings.json', 'w') as f:
+    json.dump(settings, f)
 window.mainloop()
 
 
