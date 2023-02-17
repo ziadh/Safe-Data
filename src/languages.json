@@ -2,6 +2,10 @@
     "languages": [
         {
             "language": "EN",
+            "about_button":"About",
+            "about_title":"About This Version",
+            "about_unreleased":"This is an unreleased version.\nClick Ok to download the latest stable release.",
+            "about_released":"This is a stable release v{version}.\nClick the ? button if you encounter any issues.",
             "all_fields_error": "All fields are required.",
             "check_for_updates_button": "Check for Updates",
             "check_pass_bad": "Password is not safe and \nmight be easily guessed. \nChanging it is recommended.",
@@ -26,6 +30,7 @@
             "password_label": "Password",
             "password_saved_label": "Randomized password \nadded to clipboard.",
             "privacy_button": "Is This Safe?",
+            "privacy_title":"Safety",
             "privacy_message": "Safe Data is a program that allows you to save your logins locally so you won't have to panic when a major password database gets breached through. We do not store your data anywhere on our database nor do we want to. The code is open-source for everyone on github.com/ziadh/Safe-Data and you can check the code yourself.",
             "release_link": "https://github.com/ziadh/Safe-Data/releases/tag/{newest_version}",
             "save_button": "Save",
@@ -39,10 +44,17 @@
             "view_patch_notes_mac": "Click here to view the \n latest changes.",
             "version_needs_update": "New version v{} available! Click here to update.",
             "website_label": "Website/Service",
-            "window_title": "Safe Data v{version}"
+            "window_title": "Safe Data v{version}",
+            "language_switch_notice_title":"Language Switch Notice",
+            "language_switch_notice_text":"A restart is highly recommended for the app to work properly. Would you like to restart now?"
+
         },
         {
             "language": "ES",
+            "about_button":"Acerca de",
+            "about_title":"Acerca de esta versión",        
+            "about_unreleased":"Esta es una versión no lanzada. Haga clic en Aceptar para descargar la última versión estable.",
+            "about_released":"Esta es una versión estable v{version}. Haga clic en el botón ? si encuentra algún problema.",
             "all_fields_error": "Todos los campos de texto son obligatorios.",
             "check_for_updates_button": "Buscar Actualizaciones",
             "check_pass_bad": "La contraseña no es segura \ny puede adivinarse fácilmente. \nSe recomienda cambiarlo.",
@@ -67,6 +79,7 @@
             "password_label": "Clave",
             "password_saved_label": "Contraseña aleatoria añadida\nal portapapeles.",
             "privacy_button": "¿Es Seguro?",
+            "privacy_title":"Seguridad",
             "privacy_message": "Safe Data es un programa que le permite guardar sus inicios de sesión localmente para que no tenga que entrar en pánico cuando se viola una importante base de datos de contraseñas. No almacenamos sus datos en ninguna parte de nuestra base de datos ni queremos hacerlo. El código es de código abierto para todos en github.com/ziadh/Safe-Data y puede verificar el código usted mismo.",
             "release_link": "https://github.com/ziadh/Safe-Data/releases/tag/{newest_version}",
             "save_button": "Guardar",
@@ -78,7 +91,10 @@
             "view_patch_notes_mac": "Haga clic aquí para ver \nlos últimos cambios",
             "version_needs_update": "Nueva versión v{} disponible! Haga clic aquí para actualizar.",
             "website_label": "Ssitio Web/Servicio",
-            "window_title": "Safe Data v{version}"
+            "window_title": "Safe Data v{version}",
+            "language_switch_notice_title":"Aviso de cambio de idioma",
+            "language_switch_notice_text":"Se recomienda encarecidamente reiniciar la aplicación para que funcione correctamente. \n¿Desea reiniciar ahora?"
+
         }
     ]
 }

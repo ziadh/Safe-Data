@@ -215,13 +215,13 @@ def save():
     password = password_entry.get()
     if len(website) == 0 or len(password) == 0:
         messagebox.showinfo(
-            title="Oops", message=chosen_lang["all_fields_error"])
+            "Oops",chosen_lang["all_fields_error"])
     else:
         if data_type == "TXT":
             if file_path == None:
                 is_ok = messagebox.askokcancel(
-                    title=chosen_lang["save_data_title"],
-                    message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+                    chosen_lang["save_data_title"],
+                    chosen_lang["save_data_message"].format(website=website, email=email, password=password))
 
                 if is_ok:
                     now = datetime.datetime.now()
@@ -236,8 +236,8 @@ def save():
                         password_saved.destroy()
             else:
                 is_ok = messagebox.askokcancel(
-                    title=chosen_lang["save_data_title"],
-                    message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+                    chosen_lang["save_data_title"],
+                    chosen_lang["save_data_message"].format(website=website, email=email, password=password))
 
                 if is_ok:
                     now = datetime.datetime.now()
@@ -253,8 +253,8 @@ def save():
         if data_type == "JSON":
                 if file_path == None:
                     is_ok = messagebox.askokcancel(
-                        title=chosen_lang["save_data_title"],
-                        message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+                        chosen_lang["save_data_title"],
+                        chosen_lang["save_data_message"].format(website=website, email=email, password=password))
         
                     if is_ok:
                         now = datetime.datetime.now()
@@ -274,8 +274,8 @@ def save():
                             password_saved.destroy()
                 else:
                     is_ok = messagebox.askokcancel(
-                        title=chosen_lang["save_data_title"],
-                        message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+                        chosen_lang["save_data_title"],
+                        chosen_lang["save_data_message"].format(website=website, email=email, password=password))
         
                     if is_ok:
                         now = datetime.datetime.now()
@@ -324,7 +324,7 @@ def change_data_type():
 def clear_all():
 
     yes_clear = messagebox.askokcancel(
-        title=chosen_lang["confirm_clear_title"], message=chosen_lang["clear_all_confirmation"])
+        chosen_lang["confirm_clear_title"],chosen_lang["clear_all_confirmation"])
     if yes_clear:
         default_settings = {
             'theme': 'dark'
@@ -375,7 +375,7 @@ def clear_all():
 
 def safety():
     message = chosen_lang["""privacy_message"""]
-    messagebox.showinfo(title="Safety", message=message)
+    messagebox.showinfo(chosen_lang["privacy_title"],message)
 
 
 def Dark_Mode():
@@ -538,9 +538,11 @@ def toggle_theme():
         settings['theme'] = 'Dark'    
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
+
+
 def help_function():
-    direct_to_issues = messagebox.askokcancel(title=chosen_lang["help_title"],
-                                              message=chosen_lang["help_needed"])
+    direct_to_issues = messagebox.askokcancel(chosen_lang["help_title"],
+                                              chosen_lang["help_needed"])
     if direct_to_issues:
         open_issues()
 
@@ -551,7 +553,6 @@ def open_issues():
 
 
 def toggle_language():
-
     default_settings = {
         'language': 'EN'
     }
@@ -620,6 +621,7 @@ def toggle_language():
         text=chosen_lang['generate_button'])
     save_button.config(
         text=chosen_lang['save_button'])
+    saving_as_button.config(text=chosen_lang['saving_as_button'].format(data_type=data_type))
     privacy_button.config(
         text=chosen_lang['privacy_button'])
     change_dir_button.config(
@@ -630,8 +632,7 @@ def toggle_language():
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
 
-    result = tk.messagebox.askyesno(
-        "Language Switch Notice", "A restart is highly recommended for the app to work properly. Would you like to restart now?")
+    result = tk.messagebox.askyesno(chosen_lang["language_switch_notice_title"],chosen_lang["language_switch_notice_text"])
     if result:
         window.destroy()
 
@@ -672,6 +673,7 @@ def on_leave(btn):
     if theme == "Classic Light":
         btn.config(bg='light blue')
 
+
 def show_shortcuts():
     shortcuts_window = tk.Toplevel(window)
     shortcuts_window.withdraw()
@@ -704,14 +706,14 @@ def show_shortcuts():
 
     shortcuts_label.place(x=110, y=110)
 
+
 def about():
     version_released = ''
+    version_unreleased = ''
     if is_released != '':
-        version_unreleased = messagebox.askokcancel(title='About This Version',
-                                              message="This is an unreleased version.\nClick Ok to download the latest stable release.")
+        version_unreleased = messagebox.askokcancel(chosen_lang['about_title'],chosen_lang['about_unreleased'])
     else:
-        version_released = messagebox.askokcancel(title='About This Version',
-                                              message=f"This is a stable release v{version}.\nClick the ? button if you encounter any issues.") 
+        version_released = messagebox.askokcancel(chosen_lang['about_title'],chosen_lang['about_released'].format(version=version))
     if version_unreleased:
         download_update()
     elif version_released:
@@ -834,7 +836,7 @@ privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
                         command=safety, bg="#251749", fg="white", font=("Verdana", 8))
 privacy_button.place(x=200, y=300)
 data_type = settings['data_type']
-saving_as_button = Button(text=f"Saving As {data_type}", width=17,
+saving_as_button = Button(text=chosen_lang['saving_as_button'].format(data_type=data_type), width=17,
                           command=change_data_type, bg="#251749", fg="white", font=("Verdana", 8))
 saving_as_button.place(x=353, y=300)
 change_dir_button = Button(
@@ -862,7 +864,7 @@ shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
 shortcuts_button.place(x=200, y=360)
 
-about_button = Button(text="About", width=17, bg="#251749", fg="white", font=("Verdana", 8), command=about)
+about_button = Button(text=chosen_lang["about_button"], width=17, bg="#251749", fg="white", font=("Verdana", 8), command=about)
 about_button.place(x=40, y=330)
 
 buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
