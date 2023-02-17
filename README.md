@@ -1,8 +1,6 @@
 ![read-me-wide](assets/logos/read-me-wide.png)
 
 
-<!-- TODO: update links of assets to actual file links -->
-
 
 # Safe Data
  
@@ -29,7 +27,7 @@
 - After unzipping the source file and navigating to where the main.py file is located, press on the address bar as shown below then type cmd.
 
 
-![how-to](https://user-images.githubusercontent.com/15097797/210027422-77c4abb3-d5a1-4a6d-9eaf-49ccf1466237.png)
+![how-to](assets/ss/how-to.png)
 
 
 

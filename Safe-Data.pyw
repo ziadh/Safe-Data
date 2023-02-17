@@ -892,8 +892,19 @@ if settings['theme'] == 'Classic Dark':
 if settings['theme'] == 'Classic Light':
     Classic_Light_Mode()
 
+
+if language == 'EN':
+    change_dir_button.config(width=17)
+    check_for_update_button.config(width=17)
+    email_label.config(font=("Verdana", 11))
+if language == 'ES':
+    change_dir_button.config(width=19)
+    check_for_update_button.config(width=19)
+    email_label.config(font=("Verdana", 8))
+
 with open('src/settings.json', 'w') as f:
     json.dump(settings, f)
+
 window.mainloop()
 
 
