@@ -111,9 +111,15 @@ class splash():
     if settings['theme'] == 'Light':
         label = tk.Label(ss, text="", bg="light blue")
         image = PhotoImage(file='assets/logos/splash-light.png')
-    elif settings['theme'] == 'Dark':
+    if settings['theme'] == 'Dark':
         label = tk.Label(ss, text="", bg="#2A3990")
         image = PhotoImage(file='assets/logos/splash-dark.png')
+    if settings['theme'] == 'Classic Light':
+        label = tk.Label(ss, text="", bg="light blue")
+        image = PhotoImage(file='assets/logos/classic-splash-light.png')
+    if settings['theme'] == 'Classic Dark':
+        label = tk.Label(ss, text="", bg="#2A3990")
+        image = PhotoImage(file='assets/logos/classic-splash-dark.png')
     label.place(x=-10, y=-10)
     image_label = Label(ss, image=image)
     image_label.place(x=0, y=0)
@@ -298,10 +304,10 @@ def change_data_type():
 def clear_all():
 
     yes_clear = messagebox.askokcancel(
-        title=chosen_lang["confirm_clear_title"], message=chosen_lang["clear_all_confirmation"])
+        chosen_lang["confirm_clear_title"], chosen_lang["clear_all_confirmation"])
     if yes_clear:
         default_settings = {
-            'theme': 'Dark'
+            'theme': 'dark'
         }
 
         with open('src/settings.json', 'r') as f:
@@ -312,14 +318,29 @@ def clear_all():
         website_entry.delete(0, END)
         email_entry.delete(0, END)
         password_entry.delete(0, END)
+
         if settings['theme'] == 'Dark':
+            confirm_changed_dir.config(text="", bg="#13005A", fg="#13005A")
+            pass_check_label.config(text="", bg="#13005A", fg="#13005A")
+            password_saved.config(text="", bg="#13005A", fg="#13005A")
+            version_message.config(text="", bg="#13005A", fg="#13005A")
+            whats_new_label.config(text="", bg="#13005A", fg="#13005A")
+
+        if settings['theme'] == 'Light':
+            confirm_changed_dir.config(text="", bg="#E3F6FF", fg="#E3F6FF")
+            pass_check_label.config(text="", bg="#E3F6FF", fg="#E3F6FF")
+            password_saved.config(text="", bg="#E3F6FF", fg="#E3F6FF")
+            version_message.config(text="", bg="#E3F6FF", fg="#E3F6FF")
+            whats_new_label.config(text="", bg="#E3F6FF", fg="#E3F6FF")
+
+        if settings['theme'] == 'Classic Dark':
             confirm_changed_dir.config(text="", bg="#2A3990", fg="#2A3990")
             pass_check_label.config(text="", bg="#2A3990", fg="#2A3990")
             password_saved.config(text="", bg="#2A3990", fg="#2A3990")
             version_message.config(text="", bg="#2A3990", fg="#2A3990")
             whats_new_label.config(text="", bg="#2A3990", fg="#2A3990")
 
-        if settings['theme'] == 'light':
+        if settings['theme'] == 'Classic Light':
             confirm_changed_dir.config(
                 text="", bg="light blue", fg="light blue")
             pass_check_label.config(
@@ -331,15 +352,78 @@ def clear_all():
             whats_new_label.config(
                 text="", bg="light blue", fg="light blue")
 
-
 def safety():
     message = chosen_lang["""privacy_message"""]
     messagebox.showinfo(title="Safety", message=message)
 
 
+def Dark_Mode():
+    logo_img.config(file="assets/logos/wide.png")
+    window.wm_iconbitmap('assets/logos/logo-dark.ico')
+    window.config(bg="#13005A")
+    canvas.config(bg="#13005A")
+    # LABELS
+    confirm_changed_dir.config(bg="#13005A", fg="white")
+    website_label.config(bg="#13005A", fg="white")
+    email_label.config(bg="#13005A", fg="white")
+    password_label.config(bg="#13005A", fg="white")
+    password_saved.config(bg="#13005A", fg="white")
+    pass_check_label.config(bg="#13005A", fg="light green")
+    version_message.config(bg="#13005A", fg="light green")
+    whats_new_label.config(bg="#13005A", fg="light green")
+    # BUTTONS
+    about_button.config(bg="#7286D3", fg="white")
+    clear_all_button.config(bg="#7286D3", fg="white")
+    change_dir_button.config(bg="#7286D3", fg="white")
+    check_for_update_button.config(bg="#7286D3", fg="white")
+    exit_button.config(bg="#7286D3", fg="white")
+    generate_password_button.config(bg="#7286D3", fg="white")
+    password_check_button.config(bg="#7286D3", fg="white")
+    privacy_button.config(bg="#7286D3", fg="white")
+    help_needed_button.config(bg="#7286D3", fg="white")
+    toggle_language_button.config(bg="#7286D3", fg="white")
+    toggle_theme_button.config(text="\u263C", bg="#7286D3", fg="white")
+    save_button.config(bg="#7286D3", fg="white")
+    saving_as_button.config(bg="#7286D3", fg="white")
+    show_button.config(bg="#7286D3", fg="white")
+    shortcuts_button.config(bg="#7286D3", fg="white")
+
+
 def Light_Mode():
     logo_img.config(file="assets/logos/wide-light.png")
     window.wm_iconbitmap('assets/logos/logo-light.ico')
+    window.config(bg="#E3F6FF")
+    canvas.config(bg="#E3F6FF")
+    # LABELS
+    confirm_changed_dir.config(bg="#E3F6FF", fg="black")
+    email_label.config(bg="#E3F6FF", fg="black")
+    password_label.config(bg="#E3F6FF", fg="black")
+    password_saved.config(bg="#E3F6FF", fg="black")
+    pass_check_label.config(bg="#E3F6FF", fg="black")
+    version_message.config(bg="#E3F6FF", fg="black")
+    whats_new_label.config(bg="#E3F6FF", fg="black")
+    website_label.config(bg="#E3F6FF", fg="black")
+    # BUTTONS
+    password_check_button.config(bg="#AED6F1", fg="black")
+    about_button.config(bg="#AED6F1", fg="black")
+    clear_all_button.config(bg="#AED6F1", fg="black")
+    change_dir_button.config(bg="#AED6F1", fg="black")
+    check_for_update_button.config(bg="#AED6F1", fg="black")
+    exit_button.config(bg="#AED6F1", fg="black")
+    generate_password_button.config(bg="#AED6F1", fg="black")
+    help_needed_button.config(bg="#AED6F1", fg="black")
+    toggle_language_button.config(bg="#AED6F1", fg="black")
+    toggle_theme_button.config(text="\u263E", bg="#AED6F1", fg="black")
+    privacy_button.config(bg="#AED6F1", fg="black")
+    save_button.config(bg="#AED6F1", fg="black")
+    saving_as_button.config(bg="#AED6F1", fg="black")
+    show_button.config(bg="#AED6F1", fg="black")
+    shortcuts_button.config(bg="#AED6F1", fg="black")
+
+
+def Classic_Light_Mode():
+    logo_img.config(file="assets/logos/classic-wide-light.png")
+    window.wm_iconbitmap('assets/logos/classic-logo-light.ico')
     window.config(bg="light blue")
     canvas.config(bg="light blue")
     # LABELS
@@ -353,6 +437,7 @@ def Light_Mode():
     whats_new_label.config(bg="#AED6F1", fg="black")
     website_label.config(bg="light blue", fg="black")
     # BUTTONS
+    about_button.config(bg="#AED6F1", fg="black")
     clear_all_button.config(bg="#AED6F1", fg="black")
     change_dir_button.config(bg="#AED6F1", fg="black")
     check_for_update_button.config(bg="#AED6F1", fg="black")
@@ -360,16 +445,17 @@ def Light_Mode():
     generate_password_button.config(bg="#AED6F1", fg="black")
     help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
-    toggle_theme_button.config(bg="#AED6F1", fg="black")
-    privacy_button.config(bg="#AED6F1", fg="black") 
-    saving_as_button.config(bg="#AED6F1", fg="black")
+    toggle_theme_button.config(text="\u263D", bg="#AED6F1", fg="black")
+    privacy_button.config(bg="#AED6F1", fg="black")
     save_button.config(bg="#AED6F1", fg="black")
+    saving_as_button.config(bg="#AED6F1", fg="black")
     show_button.config(bg="#AED6F1", fg="black")
+    shortcuts_button.config(bg="#AED6F1", fg="black")
 
 
-def Dark_Mode():
-    logo_img.config(file="assets/logos/wide.png")
-    window.wm_iconbitmap('assets/logos/logo-dark.ico')
+def Classic_Dark_Mode():
+    logo_img.config(file="assets/logos/classic-wide.png")
+    window.wm_iconbitmap('assets/logos/classic-logo-dark.ico')
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
     # LABELS
@@ -382,6 +468,7 @@ def Dark_Mode():
     whats_new_label.config(bg="#2A3990", fg="light green")
     website_label.config(bg="#2A3990", fg="white")
     # BUTTONS
+    about_button.config(bg="#251749", fg="white")
     clear_all_button.config(bg="#251749", fg="white")
     change_dir_button.config(bg="#251749", fg="white")
     check_for_update_button.config(bg="#251749", fg="white")
@@ -389,18 +476,18 @@ def Dark_Mode():
     generate_password_button.config(bg="#251749", fg="white")
     password_check_button.config(bg="#251749", fg="white")
     privacy_button.config(bg="#251749", fg="white")
-    saving_as_button.config(bg="#251749", fg="white")
     help_needed_button.config(bg="#251749", fg="white")
     toggle_language_button.config(bg="#251749", fg="white")
-    toggle_theme_button.config(bg="#251749", fg="white")
+    toggle_theme_button.config(text="\u2600", bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
+    saving_as_button.config(bg="#251749", fg="white")
     show_button.config(bg="#251749", fg="white")
+    shortcuts_button.config(bg="#251749", fg="white")
 
 
 def toggle_theme():
-    global settings_window
     default_settings = {
-        'theme': 'Dark'
+        'theme': 'dark'
     }
 
     try:
@@ -416,16 +503,21 @@ def toggle_theme():
 
     if 'theme' not in settings:
         settings['theme'] = default_settings['theme']
-    if settings['theme'] == 'Dark':
-        Light_Mode()
+    elif settings['theme'] == 'Dark':
         settings['theme'] = 'Light'
-
+        Light_Mode()
     elif settings['theme'] == 'Light':
+        Classic_Dark_Mode()
+        settings['theme'] = 'Classic Dark'
+    elif settings['theme'] == 'Classic Dark':
+        Classic_Light_Mode()
+        settings['theme'] = 'Classic Light'
+    elif settings['theme'] == 'Classic Light':
         Dark_Mode()
         settings['theme'] = 'Dark'
-
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
+
 
 
 def help_function():
@@ -531,8 +623,13 @@ def on_enter(e, btn):
     theme = settings['theme']
 
     if theme == "Dark":
+        btn.config(bg='#86A3B8')
+    if theme == "Light":
+        btn.config(bg='#E5E0FF')
+    if theme == "Classic Dark":
         btn.config(bg='black')
-    else:
+    if theme == "Classic Light":
+        btn.config(bg='#ECECEC')
         btn.config(bg='#ECECEC')
 
 
@@ -542,9 +639,14 @@ def on_leave(e, btn):
     theme = settings['theme']
 
     if theme == "Dark":
+        btn.config(bg='#7286D3')
+    if theme == "Light":
+        btn.config(bg='#AED6F1')
+    if theme == "Classic Dark":
         btn.config(bg='#251749')
-    else:
+    if theme == "Classic Light":
         btn.config(bg='light blue')
+
 
 
 def show_shortcuts():
@@ -570,15 +672,29 @@ def show_shortcuts():
         shortcuts_window, text=chosen_lang["shortcuts"], bg="#2A3990", fg="white", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
 
-    shortcuts = """Change Directory: Command + 2\n\nChange File Type: Command + .\n\nClear All: Command + X\n\nRandomize Password: Command + G\n\nHelp: Command + H\n
+    shortcuts = """About This Version: Command + A \n\nChange Directory: Command + 2\n\nChange File Type: Command + .\n\nClear All: Command + X\n\nRandomize Password: Command + G\n\nHelp: Command + H\n
     Evaluate Password: Command + E\n\nIs This Safe?: Command + P\n\nSave: Command + S\n\nShortcuts Window: Command + `\n
     Toggle Language: Command + L\n\nToggle Theme: Command + T"""
     indentend_shortcuts = textwrap.indent(shortcuts, '    ')
     shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
-                            bg="#2A3990", fg="white", font=("Arial", 16), pady=20)
+                            bg="#13005A", fg="white", font=("Arial", 16), pady=20)
 
     shortcuts_label.place(x=110, y=110)
 
+
+def about():
+    version_released = ''
+    version_unreleased = ''
+    if is_released != '':
+        version_unreleased = messagebox.askokcancel(
+            chosen_lang['about_title'], chosen_lang['about_unreleased'])
+    else:
+        version_released = messagebox.askokcancel(
+            chosen_lang['about_title'], chosen_lang['about_released'].format(version=version))
+    if version_unreleased:
+        download_update()
+    elif version_released:
+        open_issues()
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
@@ -590,6 +706,7 @@ window.geometry(f"700x480+{x_coord}+{y_coord}")
 
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
+is_released = settings['is_released?']
 
 version_message = Label(
     text="", fg="blue", cursor="hand2", bg="#2A3990")
@@ -613,6 +730,8 @@ canvas.place(x=200, y=5)
 
 
 #### SHORTCUTS BELOW ####
+window.bind("<Command-A>", lambda _: about_button.invoke())
+window.bind("<Command-a>", lambda _: about_button.invoke())
 window.bind("<Command-S>", lambda _: save_button.invoke())
 window.bind("<Command-s>", lambda _: save_button.invoke())
 window.bind("<Command-G>", lambda _: generate_password_button.invoke())
@@ -695,7 +814,7 @@ privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
 privacy_button.place(x=230, y=300)
 data_type = settings['data_type']
 
-saving_as_button = Button(text=f"Saving As: {data_type}", width=17,
+saving_as_button = Button(text=chosen_lang['saving_as_button'].format(data_type=data_type), width=17,
                           command=change_data_type, bg="#251749", fg="white", font=("Verdana", 8))
 
 saving_as_button.place(x=423, y=330)
@@ -706,14 +825,14 @@ change_dir_button.place(x=423, y=300)
 
 exit_button = Button(text=chosen_lang["exit_button"], width=17,
                      command=on_exit, bg="#251749", fg="white", font=("Verdana", 8))
-exit_button.place(x=230, y=360)
+exit_button.place(x=373, y=360)
 
 password_saved = Label(
     text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
 
 clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
                           command=clear_all, bg="#251749", fg="white", font=("Verdana", 8))
-clear_all_button.place(x=40, y=330)
+clear_all_button.place(x=40, y=360)
 
 pass_check_label = Label(text="", bg="#2A3990")
 pass_check_label.place(x=470, y=10)
@@ -723,18 +842,36 @@ confirm_changed_dir.place(x=40, y=390)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
-shortcuts_button.place(x=40, y=360)
-buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, show_button,
+shortcuts_button.place(x=230, y=360)
+
+about_button = Button(text=chosen_lang["about_button"], width=17,
+                      bg="#251749", fg="white", font=("Verdana", 8), command=about)
+about_button.place(x=40, y=330)
+
+buttons = [generate_password_button, about_button,saving_as_button, clear_all_button, save_button, password_check_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button]
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
     btn.bind("<Leave>", lambda e, btn=btn: on_leave(e, btn))
 
-if settings['theme'] == 'light':
+if settings['theme'] == 'Light':
     Light_Mode()
-else:
+if settings['theme'] == 'Dark':
     Dark_Mode()
-
+if settings['theme'] == 'Classic Dark':
+    Classic_Dark_Mode()
+if settings['theme'] == 'Classic Light':
+    Classic_Light_Mode()
+if language == 'EN':
+    change_dir_button.config(width=17)
+    check_for_update_button.config(width=17)
+    email_label.config(font=("Verdana", 11))
+if language == 'ES':
+    change_dir_button.config(width=19)
+    check_for_update_button.config(width=19)
+    email_label.config(font=("Verdana", 8))
+with open('src/settings.json', 'w') as f:
+    json.dump(settings, f)
 window.mainloop()
 
 
