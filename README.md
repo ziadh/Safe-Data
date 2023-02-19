@@ -52,7 +52,10 @@ When it is finished, close the cmd and simply double click the Safe-Data.pyw fil
 ![data-ss](assets/ss/data-ss.png)
 
 
-- Light mode is also available (for psychos!)
+- Brand new light mode! 
+     * Classic themes can be toggled by simply pressing on the moon icon
+
+
 ![data-ss](assets/ss/lightmode-ss.png)
 
 

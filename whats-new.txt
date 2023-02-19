@@ -1,8 +1,9 @@
-1.90
+2.0
 What's New?
-- Introducing Shortcuts: Improving your experience
-by now supporting shortcuts for every button. 
-Press Control + ' or Command + ' on Mac to access the 
-new Shortcuts page.
-- Added the ability to save your data file as a JSON file
-instead of a TXT file.
+- Added new themes for Dark and Light mode and updated the app elements with the new colors!
+    -You can still access old themes by pressing the theme button couple times
+- Added an about button that indicates if the installed build is stable or still under development
+- Fixed a bug that would prevent themes from saving in the settings.json at certain times
+- Added shortcut for the new about button
+- Fixed a bug that doesn't adjust text sizes if the language is set to Spanish
+- Cleaned the code a bit for better readiblity 
