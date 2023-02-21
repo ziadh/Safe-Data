@@ -701,7 +701,7 @@ def show_shortcuts():
     shortcuts_top_label = Label(
         shortcuts_window, text=chosen_lang["shortcuts"], bg="#13005A", fg="white", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
-    shortcuts = """About This Version: Control + A \n\nChange Directory: Control + D\n\nChange File Type: Control + .\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
+    shortcuts = """About This Version: Control + B \n\nChange Directory: Control + D\n\nChange File Type: Control + .\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
     Evaluate Password: Control + E\n\nIs This Safe?: Control + P\n\nSave: Control + S\n\nShortcuts Window: Control + `\n
     Toggle Language: Control + L\n\nToggle Theme: Control + T"""
     indentend_shortcuts = textwrap.indent(shortcuts, '    ')
@@ -760,8 +760,8 @@ canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
 #### SHORTCUTS BELOW ####
-window.bind("<Control-A>", lambda _: about_button.invoke())
-window.bind("<Control-a>", lambda _: about_button.invoke())
+window.bind("<Control-B>", lambda _: about_button.invoke())
+window.bind("<Control-b>", lambda _: about_button.invoke())
 window.bind("<Control-S>", lambda _: save_button.invoke())
 window.bind("<Control-s>", lambda _: save_button.invoke())
 window.bind("<Control-G>", lambda _: generate_password_button.invoke())
