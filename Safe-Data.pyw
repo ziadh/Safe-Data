@@ -401,6 +401,7 @@ def Dark_Mode():
     check_for_update_button.config(bg="#7286D3", fg="white")
     exit_button.config(bg="#7286D3", fg="white")
     generate_password_button.config(bg="#7286D3", fg="white")
+    github_page_button.config(bg="#7286D3", fg="white")
     password_check_button.config(bg="#7286D3", fg="white")
     privacy_button.config(bg="#7286D3", fg="white")
     help_needed_button.config(bg="#7286D3", fg="white")
@@ -434,6 +435,7 @@ def Light_Mode():
     check_for_update_button.config(bg="#AED6F1", fg="black")
     exit_button.config(bg="#AED6F1", fg="black")
     generate_password_button.config(bg="#AED6F1", fg="black")
+    github_page_button.config(bg="#AED6F1", fg="black")
     help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
     toggle_theme_button.config(text="\u263E", bg="#AED6F1", fg="black")
@@ -466,6 +468,7 @@ def Classic_Light_Mode():
     check_for_update_button.config(bg="#AED6F1", fg="black")
     exit_button.config(bg="#AED6F1", fg="black")
     generate_password_button.config(bg="#AED6F1", fg="black")
+    github_page_button.config(bg="#AED6F1", fg="black")
     help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
     toggle_theme_button.config(text="\u263D", bg="#AED6F1", fg="black")
@@ -497,6 +500,7 @@ def Classic_Dark_Mode():
     check_for_update_button.config(bg="#251749", fg="white")
     exit_button.config(bg="#251749", fg="white")
     generate_password_button.config(bg="#251749", fg="white")
+    github_page_button.config(bg="#251749", fg="white")
     password_check_button.config(bg="#251749", fg="white")
     privacy_button.config(bg="#251749", fg="white")
     help_needed_button.config(bg="#251749", fg="white")
@@ -688,7 +692,7 @@ def show_shortcuts():
     shortcuts_window.resizable(False, False)
     shortcuts_window.config(bg="#13005A")
     main_window_x = window.winfo_x()
-    main_window_y = window.winfo_y()
+    main_window_y = window.winfo_y() + 150
     main_window_width = window.winfo_width()
     main_window_height = window.winfo_height()
     x = main_window_x + main_window_width/2 - shortcuts_window_width/2
@@ -725,6 +729,9 @@ def about():
     elif version_released:
         open_issues()
 
+def open_github_page():
+    link = "https://github.com/ziadh/Safe-Data/"
+    webbrowser.open(link)
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
@@ -877,7 +884,14 @@ about_button = Button(text=chosen_lang["about_button"], width=17,
                       bg="#251749", fg="white", font=("Verdana", 8), command=about)
 about_button.place(x=40, y=330)
 
-buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
+github_logo = PhotoImage(
+    file="assets\logos\GitHubLogo.png")
+github_page_button = Button(
+    image=github_logo, compound='center', bg="#2A3990", fg="white", command = open_github_page)
+github_page_button.place(x=610, y=390)
+
+
+buttons = [github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button, shortcuts_button]
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(btn))
