@@ -674,6 +674,9 @@ def on_leave(btn):
     if theme == "Classic Light":
         btn.config(bg='#AED6F1')
 
+# TODO: Add shortcut to show/hide password
+# TODO: spanish support for shortcuts
+
 
 def show_shortcuts():
     shortcuts_window = tk.Toplevel(window)
@@ -696,16 +699,27 @@ def show_shortcuts():
 
     global shortcuts_top_label, shortcuts_label
     shortcuts_top_label = Label(
-        shortcuts_window, text=chosen_lang["shortcuts"], bg="#13005A", fg="white", font=("Arial", 25))
+        shortcuts_window, text=chosen_lang["shortcuts"], bg="#13005A", fg="#85CDFD", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
-    shortcuts = """About This Version: Control + B \n\nChange Directory: Control + D\n\nChange File Type: Control + .\n\nClear All: Control + X\n\nRandomize Password: Control + G\n\nHelp: Control + H\n
-    Evaluate Password: Control + E\n\nIs This Safe?: Control + P\n\nSave: Control + S\n\nShortcuts Window: Control + `\n
-    Toggle Language: Control + L\n\nToggle Theme: Control + T"""
+    shortcuts = """ About This Version: Control + B \n
+    Change Directory: Control + D\n
+    Change File Type: Control + .\n
+    Clear All: Control + X\n
+    Randomize Password: Control + G\n
+    Show/Hide Password: Control + J \n
+    Evaluate Password: Control + E\n
+    Is This Safe?: Control + P\n
+    Help: Control + H\n
+    Save: Control + S\n
+    Shortcuts Window: Control + `\n
+    Toggle Language: Control + L\n
+    Toggle Theme: Control + T
+    """
     indentend_shortcuts = textwrap.indent(shortcuts, '    ')
     shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
-                            bg="#13005A", fg="white", font=("Arial", 16), pady=20)
+                            bg="#13005A", fg="#D1FFF3", font=("Arial", 16), pady=20)
 
-    shortcuts_label.place(x=110, y=110)
+    shortcuts_label.place(x=110, y=80)
 
 
 def about():
@@ -722,9 +736,11 @@ def about():
     elif version_released:
         open_issues()
 
+
 def open_github_page():
     link = "https://github.com/ziadh/Safe-Data/"
     webbrowser.open(link)
+
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
@@ -760,12 +776,15 @@ canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
 #### SHORTCUTS BELOW ####
+#LETTERS USED: B, S, G, D,U, X, ', E, P,T,H,L,., J
 window.bind("<Control-B>", lambda _: about_button.invoke())
 window.bind("<Control-b>", lambda _: about_button.invoke())
 window.bind("<Control-S>", lambda _: save_button.invoke())
 window.bind("<Control-s>", lambda _: save_button.invoke())
 window.bind("<Control-G>", lambda _: generate_password_button.invoke())
 window.bind("<Control-g>", lambda _: generate_password_button.invoke())
+window.bind("<Control-J>", lambda _: show_button.invoke())
+window.bind("<Control-j>", lambda _: show_button.invoke())
 window.bind("<Control-U>", lambda _: check_for_update_button.invoke())
 window.bind("<Control-u>", lambda _: check_for_update_button.invoke())
 window.bind("<Control-X>", lambda _: clear_all_button.invoke())
@@ -880,7 +899,7 @@ about_button.place(x=40, y=330)
 github_logo = PhotoImage(
     file="assets\logos\GitHubLogo.png")
 github_page_button = Button(
-    image=github_logo, compound='center', bg="#2A3990", fg="white", command = open_github_page)
+    image=github_logo, compound='center', bg="#2A3990", fg="white", command=open_github_page)
 github_page_button.place(x=610, y=390)
 
 
