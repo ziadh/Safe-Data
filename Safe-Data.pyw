@@ -41,8 +41,6 @@ for lang in language_data['languages']:
     if lang['language'] == language:
         chosen_lang = lang
         break
-with open('src/settings.json', 'w') as f:
-    json.dump(settings, f)
 
 
 def version_checker():
@@ -103,9 +101,6 @@ class splash():
     x_coord = int((screen_width / 2) - (500 / 2))
     y_coord = int((screen_height / 2) - (300 / 2))
     ss.geometry(f"500x250+{x_coord}+{y_coord}")
-
-    with open('src/settings.json', 'r') as f:
-        settings = json.load(f)
 
     if settings['theme'] == 'Light':
         label = tk.Label(ss, text="", bg="light blue")
@@ -305,8 +300,6 @@ def change_dir():
 
 
 def change_data_type():
-    with open('src/settings.json', 'r') as f:
-        settings = json.load(f)
     data_type = settings['data_type']
     if data_type == "TXT":
         data_type = "JSON"
