@@ -395,22 +395,22 @@ def Dark_Mode():
     version_message.config(bg="#13005A", fg="light green")
     whats_new_label.config(bg="#13005A", fg="light green")
     # BUTTONS
-    about_button.config(bg="#7286D3", fg="white")
-    clear_all_button.config(bg="#7286D3", fg="white")
-    change_dir_button.config(bg="#7286D3", fg="white")
-    check_for_update_button.config(bg="#7286D3", fg="white")
-    exit_button.config(bg="#7286D3", fg="white")
-    generate_password_button.config(bg="#7286D3", fg="white")
-    github_page_button.config(bg="#7286D3", fg="white")
-    password_check_button.config(bg="#7286D3", fg="white")
-    privacy_button.config(bg="#7286D3", fg="white")
-    help_needed_button.config(bg="#7286D3", fg="white")
-    toggle_language_button.config(bg="#7286D3", fg="white")
-    toggle_theme_button.config(text="\u263C", bg="#7286D3", fg="white")
-    save_button.config(bg="#7286D3", fg="white")
-    saving_as_button.config(bg="#7286D3", fg="white")
-    show_button.config(bg="#7286D3", fg="white")
-    shortcuts_button.config(bg="#7286D3", fg="white")
+    about_button.config(bg="#2F58CD", fg="white")
+    clear_all_button.config(bg="#2F58CD", fg="white")
+    change_dir_button.config(bg="#2F58CD", fg="white")
+    check_for_update_button.config(bg="#2F58CD", fg="white")
+    exit_button.config(bg="#2F58CD", fg="white")
+    generate_password_button.config(bg="#2F58CD", fg="white")
+    github_page_button.config(bg="#2F58CD", fg="white")
+    password_check_button.config(bg="#2F58CD", fg="white")
+    privacy_button.config(bg="#2F58CD", fg="white")
+    help_needed_button.config(bg="#2F58CD", fg="white")
+    toggle_language_button.config(bg="#2F58CD", fg="white")
+    toggle_theme_button.config(text="\u263C", bg="#2F58CD", fg="white")
+    save_button.config(bg="#2F58CD", fg="white")
+    saving_as_button.config(bg="#2F58CD", fg="white")
+    show_button.config(bg="#2F58CD", fg="white")
+    shortcuts_button.config(bg="#2F58CD", fg="white")
 
 
 def Light_Mode():
@@ -673,7 +673,7 @@ def on_leave(btn):
     theme = settings['theme']
 
     if theme == "Dark":
-        btn.config(bg='#7286D3')
+        btn.config(bg='#2F58CD')
     if theme == "Light":
         btn.config(bg='#AED6F1')
     if theme == "Classic Dark":
