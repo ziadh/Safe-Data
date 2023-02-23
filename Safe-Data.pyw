@@ -679,7 +679,7 @@ def on_leave(btn):
     if theme == "Classic Dark":
         btn.config(bg='#251749')
     if theme == "Classic Light":
-        btn.config(bg='light blue')
+        btn.config(bg='#AED6F1')
 
 
 def show_shortcuts():
