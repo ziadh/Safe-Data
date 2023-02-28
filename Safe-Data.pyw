@@ -128,6 +128,7 @@ class splash():
         ss.update_idletasks()
         time.sleep(interval)
     ss.destroy()
+
 def show_or_hide():
     if show_button.cget('text')==chosen_lang['show_button']:
         toggle_password_visibility()
@@ -403,7 +404,6 @@ def Dark_Mode():
     github_page_button.config(bg="#2F58CD", fg="white")
     password_check_button.config(bg="#2F58CD", fg="white")
     privacy_button.config(bg="#2F58CD", fg="white")
-    help_needed_button.config(bg="#2F58CD", fg="white")
     toggle_language_button.config(bg="#2F58CD", fg="white")
     toggle_theme_button.config(text="\u263C", bg="#2F58CD", fg="white")
     save_button.config(bg="#2F58CD", fg="white")
@@ -435,7 +435,6 @@ def Light_Mode():
     exit_button.config(bg="#AED6F1", fg="black")
     generate_password_button.config(bg="#AED6F1", fg="black")
     github_page_button.config(bg="#AED6F1", fg="black")
-    help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
     toggle_theme_button.config(text="\u263E", bg="#AED6F1", fg="black")
     privacy_button.config(bg="#AED6F1", fg="black")
@@ -468,7 +467,6 @@ def Classic_Light_Mode():
     exit_button.config(bg="#AED6F1", fg="black")
     generate_password_button.config(bg="#AED6F1", fg="black")
     github_page_button.config(bg="#AED6F1", fg="black")
-    help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
     toggle_theme_button.config(text="\u263D", bg="#AED6F1", fg="black")
     privacy_button.config(bg="#AED6F1", fg="black")
@@ -502,7 +500,6 @@ def Classic_Dark_Mode():
     github_page_button.config(bg="#251749", fg="white")
     password_check_button.config(bg="#251749", fg="white")
     privacy_button.config(bg="#251749", fg="white")
-    help_needed_button.config(bg="#251749", fg="white")
     toggle_language_button.config(bg="#251749", fg="white")
     toggle_theme_button.config(text="\u2600", bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
@@ -718,13 +715,11 @@ def about():
     version_unreleased = ''
     if is_released != '':
         version_unreleased = messagebox.askokcancel(
-            chosen_lang['about_title'], chosen_lang['about_unreleased'])
+            chosen_lang['about_title'], chosen_lang['about_unreleased'].format(version=version))
     else:
         version_released = messagebox.askokcancel(
             chosen_lang['about_title'], chosen_lang['about_released'].format(version=version))
-    if version_unreleased:
-        download_update()
-    elif version_released:
+    if version_released or version_unreleased:
         open_issues()
 
 
@@ -771,6 +766,7 @@ canvas.place(x=200, y=5)
 window.bind("<Control-B>", lambda _: about_button.invoke())
 window.bind("<Control-b>", lambda _: about_button.invoke())
 window.bind("<Control-S>", lambda _: save_button.invoke())
+window.bind("<Return>", lambda _: save_button.invoke())
 window.bind("<Control-s>", lambda _: save_button.invoke())
 window.bind("<Control-G>", lambda _: generate_password_button.invoke())
 window.bind("<Control-g>", lambda _: generate_password_button.invoke())
@@ -789,8 +785,6 @@ window.bind("<Control-D>", lambda _: change_dir_button.invoke())
 window.bind("<Control-d>", lambda _: change_dir_button.invoke())
 window.bind("<Control-T>", lambda _: toggle_theme_button.invoke())
 window.bind("<Control-t>", lambda _: toggle_theme_button.invoke())
-window.bind("<Control-H>", lambda _: help_needed_button.invoke())
-window.bind("<Control-h>", lambda _: help_needed_button.invoke())
 window.bind("<Control-L>", lambda _: toggle_language_button.invoke())
 window.bind("<Control-l>", lambda _: toggle_language_button.invoke())
 window.bind("<Control-.>", lambda _: saving_as_button.invoke())
@@ -844,9 +838,6 @@ save_button.place(x=200, y=270)
 toggle_theme_button = Button(text="\u263E", width=3,
                              command=toggle_theme, bg="#251749", fg="white")
 toggle_theme_button.place(x=200, y=330)
-help_needed_button = Button(text="?", width=3,
-                            command=help_function, bg="#251749", fg="white", font=("Verdana", 8))
-help_needed_button.place(x=250, y=330)
 toggle_language_button = Button(text="ES", width=3,
                                 command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
 toggle_language_button.place(x=299, y=330)
@@ -895,7 +886,7 @@ github_page_button.place(x=610, y=390)
 
 
 buttons = [github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
-           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button, shortcuts_button]
+           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, shortcuts_button]
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(btn))
     btn.bind("<Leave>", lambda e, btn=btn: on_leave(btn))
