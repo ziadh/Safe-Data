@@ -18,7 +18,8 @@ import textwrap
 
 file_path = None
 language = None
-
+# TODO: spanish support for shortcuts
+# TODO: merge about and ? buttons
 log_folder = "errors_logged"
 log_prefix = "errors_log_from_.txt"
 
@@ -128,7 +129,14 @@ class splash():
         ss.update_idletasks()
         time.sleep(interval)
     ss.destroy()
-
+#TODO spanish translation for show/hide
+def show_or_hide():
+    if show_button.cget('text')==chosen_lang['show_button']:
+        toggle_password_visibility()
+        show_button.configure(text=chosen_lang['hide_button'])
+    else:
+        toggle_password_visibility()
+        show_button.configure(text=chosen_lang['show_button'])
 
 def toggle_password_visibility():
     global is_password_visible
@@ -626,8 +634,9 @@ def toggle_language():
         text=chosen_lang['privacy_button'])
     change_dir_button.config(
         text=chosen_lang['change_dir_button'])
-    exit_button.config(
-        text=chosen_lang['exit_button'])
+    exit_button.config(text=chosen_lang['exit_button'])
+    show_button.config(text=chosen_lang['show_button'])
+
     shortcuts_button.config(text=chosen_lang['shortcuts'])
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
@@ -673,9 +682,6 @@ def on_leave(btn):
         btn.config(bg='#251749')
     if theme == "Classic Light":
         btn.config(bg='#AED6F1')
-
-# TODO: Add shortcut to show/hide password
-# TODO: spanish support for shortcuts
 
 
 def show_shortcuts():
@@ -776,7 +782,7 @@ canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
 #### SHORTCUTS BELOW ####
-#LETTERS USED: B, S, G, D,U, X, ', E, P,T,H,L,., J
+# LETTERS USED: B, S, G, D,U, X, ', E, P,T,H,L,., J
 window.bind("<Control-B>", lambda _: about_button.invoke())
 window.bind("<Control-b>", lambda _: about_button.invoke())
 window.bind("<Control-S>", lambda _: save_button.invoke())
@@ -830,10 +836,10 @@ password_entry.place(x=200, y=240)
 password_saved = Label(
     text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
 
-show_button = tk.Button(window, text="\U0001F441",
-                        command=toggle_password_visibility, bg="#251749", fg="white")
-show_button.bind("<Control-b>", toggle_password_visibility)
-show_button.place(x=350, y=240)
+show_button = tk.Button(window, text=chosen_lang['show_button'],
+                        command=show_or_hide, bg="#251749", fg="white")
+show_button.bind("<Control-b>", show_or_hide)
+show_button.place(x=335, y=240)
 
 generate_password_button = Button(
     text=chosen_lang["generate_button"], command=randomize_password, bg="#251749", fg="white", width=12, font=("Verdana", 8))
