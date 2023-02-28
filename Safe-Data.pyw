@@ -18,7 +18,6 @@ import textwrap
 
 file_path = None
 language = None
-# TODO: spanish support for shortcuts
 # TODO: merge about and ? buttons
 log_folder = "errors_logged"
 log_prefix = "errors_log_from_.txt"
@@ -129,7 +128,6 @@ class splash():
         ss.update_idletasks()
         time.sleep(interval)
     ss.destroy()
-#TODO spanish translation for show/hide
 def show_or_hide():
     if show_button.cget('text')==chosen_lang['show_button']:
         toggle_password_visibility()
@@ -707,20 +705,7 @@ def show_shortcuts():
     shortcuts_top_label = Label(
         shortcuts_window, text=chosen_lang["shortcuts"], bg="#13005A", fg="#85CDFD", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
-    shortcuts = """ About This Version: Control + B \n
-    Change Directory: Control + D\n
-    Change File Type: Control + .\n
-    Clear All: Control + X\n
-    Randomize Password: Control + G\n
-    Show/Hide Password: Control + J \n
-    Evaluate Password: Control + E\n
-    Is This Safe?: Control + P\n
-    Help: Control + H\n
-    Save: Control + S\n
-    Shortcuts Window: Control + `\n
-    Toggle Language: Control + L\n
-    Toggle Theme: Control + T
-    """
+    shortcuts = chosen_lang['shortcuts_text']
     indentend_shortcuts = textwrap.indent(shortcuts, '    ')
     shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
                             bg="#13005A", fg="#D1FFF3", font=("Arial", 16), pady=20)
