@@ -915,7 +915,6 @@ with open('src/settings.json', 'w') as f:
 
 window.mainloop()
 
-
 sys.stderr.close()
 if os.path.getsize(log_path) == 0:
     os.remove(log_path)

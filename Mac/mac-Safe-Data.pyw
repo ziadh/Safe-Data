@@ -851,7 +851,7 @@ about_button = Button(text=chosen_lang["about_button"], width=17,
 about_button.place(x=40, y=330)
 
 buttons = [generate_password_button, about_button,saving_as_button, clear_all_button, save_button, password_check_button, show_button,
-           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button]
+           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button,shortcuts_button]
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
     btn.bind("<Leave>", lambda e, btn=btn: on_leave(e, btn))
