@@ -18,7 +18,7 @@ import textwrap
 
 file_path = None
 language = None
-# TODO: merge about and ? buttons
+
 log_folder = "errors_logged"
 log_prefix = "errors_log_from_.txt"
 
@@ -818,7 +818,7 @@ password_saved = Label(
 show_button = tk.Button(window, text=chosen_lang['show_button'],
                         command=show_or_hide, bg="#251749", fg="white")
 show_button.bind("<Control-b>", show_or_hide)
-show_button.place(x=335, y=240)
+show_button.place(x=340, y=240)
 
 generate_password_button = Button(
     text=chosen_lang["generate_button"], command=randomize_password, bg="#251749", fg="white", width=12, font=("Verdana", 8))

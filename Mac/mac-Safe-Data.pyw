@@ -42,8 +42,8 @@ for lang in language_data['languages']:
     if lang['language'] == language:
         chosen_lang = lang
         break
-with open('src/settings.json', 'w') as f:
-    json.dump(settings, f)
+# with open('src/settings.json', 'w') as f:
+#     json.dump(settings, f)
 
 
 def version_checker():
@@ -53,6 +53,7 @@ def version_checker():
     if float(newest_version) > float(version):
         version_message.config(fg="light green",
                                text=chosen_lang["version_needs_update"].format(newest_version))
+        #mac has its own language value because different layout 
         whats_new_label.config(fg="light green",
                                text=chosen_lang["view_patch_notes_mac"])
     else:
@@ -135,6 +136,13 @@ class splash():
         time.sleep(interval)
     ss.destroy()
 
+def show_or_hide():
+    if show_button.cget('text')==chosen_lang['show_button']:
+        toggle_password_visibility()
+        show_button.configure(text=chosen_lang['hide_button'])
+    else:
+        toggle_password_visibility()
+        show_button.configure(text=chosen_lang['show_button'])
 
 def toggle_password_visibility():
     global is_password_visible
@@ -372,21 +380,20 @@ def Dark_Mode():
     version_message.config(bg="#13005A", fg="light green")
     whats_new_label.config(bg="#13005A", fg="light green")
     # BUTTONS
-    about_button.config(bg="#7286D3", fg="white")
-    clear_all_button.config(bg="#7286D3", fg="white")
-    change_dir_button.config(bg="#7286D3", fg="white")
-    check_for_update_button.config(bg="#7286D3", fg="white")
-    exit_button.config(bg="#7286D3", fg="white")
-    generate_password_button.config(bg="#7286D3", fg="white")
-    password_check_button.config(bg="#7286D3", fg="white")
-    privacy_button.config(bg="#7286D3", fg="white")
-    help_needed_button.config(bg="#7286D3", fg="white")
-    toggle_language_button.config(bg="#7286D3", fg="white")
-    toggle_theme_button.config(text="\u263C", bg="#7286D3", fg="white")
-    save_button.config(bg="#7286D3", fg="white")
-    saving_as_button.config(bg="#7286D3", fg="white")
-    show_button.config(bg="#7286D3", fg="white")
-    shortcuts_button.config(bg="#7286D3", fg="white")
+    about_button.config(bg="#2F58CD", fg="white")
+    clear_all_button.config(bg="#2F58CD", fg="white")
+    change_dir_button.config(bg="#2F58CD", fg="white")
+    check_for_update_button.config(bg="#2F58CD", fg="white")
+    exit_button.config(bg="#2F58CD", fg="white")
+    generate_password_button.config(bg="#2F58CD", fg="white")
+    password_check_button.config(bg="#2F58CD", fg="white")
+    privacy_button.config(bg="#2F58CD", fg="white")
+    toggle_language_button.config(bg="#2F58CD", fg="white")
+    toggle_theme_button.config(text="\u263C", bg="#2F58CD", fg="white")
+    save_button.config(bg="#2F58CD", fg="white")
+    saving_as_button.config(bg="#2F58CD", fg="white")
+    show_button.config(bg="#2F58CD", fg="white")
+    shortcuts_button.config(bg="#2F58CD", fg="white")
 
 
 def Light_Mode():
@@ -411,7 +418,6 @@ def Light_Mode():
     check_for_update_button.config(bg="#AED6F1", fg="black")
     exit_button.config(bg="#AED6F1", fg="black")
     generate_password_button.config(bg="#AED6F1", fg="black")
-    help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
     toggle_theme_button.config(text="\u263E", bg="#AED6F1", fg="black")
     privacy_button.config(bg="#AED6F1", fg="black")
@@ -443,7 +449,6 @@ def Classic_Light_Mode():
     check_for_update_button.config(bg="#AED6F1", fg="black")
     exit_button.config(bg="#AED6F1", fg="black")
     generate_password_button.config(bg="#AED6F1", fg="black")
-    help_needed_button.config(bg="#AED6F1", fg="black")
     toggle_language_button.config(bg="#AED6F1", fg="black")
     toggle_theme_button.config(text="\u263D", bg="#AED6F1", fg="black")
     privacy_button.config(bg="#AED6F1", fg="black")
@@ -476,7 +481,6 @@ def Classic_Dark_Mode():
     generate_password_button.config(bg="#251749", fg="white")
     password_check_button.config(bg="#251749", fg="white")
     privacy_button.config(bg="#251749", fg="white")
-    help_needed_button.config(bg="#251749", fg="white")
     toggle_language_button.config(bg="#251749", fg="white")
     toggle_theme_button.config(text="\u2600", bg="#251749", fg="white")
     save_button.config(bg="#251749", fg="white")
@@ -600,12 +604,14 @@ def toggle_language():
         text=chosen_lang['change_dir_button'])
     exit_button.config(
         text=chosen_lang['exit_button'])
+    show_button.config(text=chosen_lang['show_button'])
+    shortcuts_button.config(text=chosen_lang['shortcuts'])
 
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
 
     result = tk.messagebox.askyesno(
-        "Language Switch Notice", "A restart is highly recommended for the app to work properly. Would you like to restart now?")
+        chosen_lang["language_switch_notice_title"], chosen_lang["language_switch_notice_text"])
     if result:
         window.destroy()
 
@@ -639,7 +645,7 @@ def on_leave(e, btn):
     theme = settings['theme']
 
     if theme == "Dark":
-        btn.config(bg='#7286D3')
+        btn.config(bg='#2F58CD')
     if theme == "Light":
         btn.config(bg='#AED6F1')
     if theme == "Classic Dark":
@@ -672,14 +678,13 @@ def show_shortcuts():
         shortcuts_window, text=chosen_lang["shortcuts"], bg="#2A3990", fg="white", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
 
-    shortcuts = """About This Version: Command + A \n\nChange Directory: Command + 2\n\nChange File Type: Command + .\n\nClear All: Command + X\n\nRandomize Password: Command + G\n\nHelp: Command + H\n
-    Evaluate Password: Command + E\n\nIs This Safe?: Command + P\n\nSave: Command + S\n\nShortcuts Window: Command + `\n
-    Toggle Language: Command + L\n\nToggle Theme: Command + T"""
+    shortcuts = chosen_lang['shortcuts_text']
+
     indentend_shortcuts = textwrap.indent(shortcuts, '    ')
     shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
                             bg="#13005A", fg="white", font=("Arial", 16), pady=20)
 
-    shortcuts_label.place(x=110, y=110)
+    shortcuts_label.place(x=110, y=80)
 
 
 def about():
@@ -734,6 +739,7 @@ window.bind("<Command-A>", lambda _: about_button.invoke())
 window.bind("<Command-a>", lambda _: about_button.invoke())
 window.bind("<Command-S>", lambda _: save_button.invoke())
 window.bind("<Command-s>", lambda _: save_button.invoke())
+window.bind("<Return>", lambda _: save_button.invoke())
 window.bind("<Command-G>", lambda _: generate_password_button.invoke())
 window.bind("<Command-g>", lambda _: generate_password_button.invoke())
 window.bind("<Command-U>", lambda _: check_for_update_button.invoke())
@@ -748,8 +754,6 @@ window.bind("<Command-p>", lambda _: privacy_button.invoke())
 window.bind("<Command-2>", lambda _: change_dir_button.invoke())
 window.bind("<Command-T>", lambda _: toggle_theme_button.invoke())
 window.bind("<Command-t>", lambda _: toggle_theme_button.invoke())
-window.bind("<Command-H>", lambda _: help_needed_button.invoke())
-window.bind("<Command-h>", lambda _: help_needed_button.invoke())
 window.bind("<Command-L>", lambda _: toggle_language_button.invoke())
 window.bind("<Command-l>", lambda _: toggle_language_button.invoke())
 window.bind("<Command-.>", lambda _: saving_as_button.invoke())
@@ -779,9 +783,9 @@ password_entry.place(x=200, y=240)
 password_saved = Label(
     text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
 
-show_button = tk.Button(window, text="\U0001F441",
-                        command=toggle_password_visibility, bg="#251749", fg="white")
-show_button.bind("<Control-b>", toggle_password_visibility)
+show_button = tk.Button(window, text="Show",
+                        command=show_or_hide, bg="#251749", fg="white")
+show_button.bind("<Control-b>", show_or_hide)
 show_button.place(x=410, y=240)
 
 generate_password_button = Button(
@@ -802,9 +806,7 @@ save_button.place(x=240, y=270)
 toggle_theme_button = Button(text="\u263E", width=3,
                              command=toggle_theme, bg="#251749", fg="white", font=("Verdana", 8))
 toggle_theme_button.place(x=230, y=330)
-help_needed_button = Button(text="?", width=3,
-                            command=help_function, bg="#251749", fg="white", font=("Verdana", 8))
-help_needed_button.place(x=290, y=330)
+
 toggle_language_button = Button(text="ES", width=3,
                                 command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
 toggle_language_button.place(x=350, y=330)
@@ -849,7 +851,7 @@ about_button = Button(text=chosen_lang["about_button"], width=17,
 about_button.place(x=40, y=330)
 
 buttons = [generate_password_button, about_button,saving_as_button, clear_all_button, save_button, password_check_button, show_button,
-           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, help_needed_button]
+           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button]
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
     btn.bind("<Leave>", lambda e, btn=btn: on_leave(e, btn))
