@@ -129,13 +129,15 @@ class splash():
         time.sleep(interval)
     ss.destroy()
 
+
 def show_or_hide():
-    if show_button.cget('text')==chosen_lang['show_button']:
+    if show_button.cget('text') == chosen_lang['show_button']:
         toggle_password_visibility()
         show_button.configure(text=chosen_lang['hide_button'])
     else:
         toggle_password_visibility()
         show_button.configure(text=chosen_lang['show_button'])
+
 
 def toggle_password_visibility():
     global is_password_visible
@@ -304,6 +306,9 @@ def change_dir():
     if file_path:
         confirm_changed_dir.config(
             text=chosen_lang["path_set"].format(file_path=file_path), bg="light green", fg="blue")
+    else:
+        confirm_changed_dir.config(
+            text="Changing directory process was not successful.", fg="white")
 
 
 def change_data_type():
@@ -386,14 +391,15 @@ def Dark_Mode():
     window.config(bg="#13005A")
     canvas.config(bg="#13005A")
     for button in buttons:
-        button.config(bg = '#2F58CD',fg = 'white')
+        button.config(bg='#2F58CD', fg='white')
     for label in element_labels:
-        label.config(bg="#13005A",fg = 'white')
+        label.config(bg="#13005A", fg='white')
     toggle_theme_button.config(text="\u263C")
     # HIDDEN LABELS
     pass_check_label.config(bg="#13005A", fg="light green")
     version_message.config(bg="#13005A", fg="light green")
     whats_new_label.config(bg="#13005A", fg="light green")
+
 
 def Light_Mode():
     logo_img.config(file="assets/logos/wide-light.png")
@@ -401,9 +407,9 @@ def Light_Mode():
     window.config(bg="#E3F6FF")
     canvas.config(bg="#E3F6FF")
     for button in buttons:
-        button.config(bg ='#AED6F1', fg = 'black')
+        button.config(bg='#AED6F1', fg='black')
     for label in element_labels:
-        label.config(bg="#E3F6FF",fg = 'black')
+        label.config(bg="#E3F6FF", fg='black')
     # LABELS
     pass_check_label.config(bg="#E3F6FF", fg="black")
     version_message.config(bg="#E3F6FF", fg="black")
@@ -417,9 +423,9 @@ def Classic_Light_Mode():
     window.config(bg="light blue")
     canvas.config(bg="light blue")
     for button in buttons:
-        button.config(bg ='#AED6F1', fg = 'black')
+        button.config(bg='#AED6F1', fg='black')
     for label in element_labels:
-        label.config(bg="light blue",fg = 'black')
+        label.config(bg="light blue", fg='black')
     # LABELS
     pass_check_label.config(bg="#AED6F1", fg="black")
     version_message.config(bg="#AED6F1", fg="black")
@@ -433,9 +439,9 @@ def Classic_Dark_Mode():
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
     for button in buttons:
-        button.config(bg ='#251749', fg = 'white')
+        button.config(bg='#251749', fg='white')
     for label in element_labels:
-        label.config(bg="#2A3990",fg = 'white')
+        label.config(bg="#2A3990", fg='white')
     # LABELS
     pass_check_label.config(bg="#2A3990", fg="light green")
     version_message.config(bg="#2A3990", fg="light green")
@@ -487,6 +493,7 @@ def help_function():
 def open_issues():
     link = "https://github.com/ziadh/Safe-Data/issues/new"
     webbrowser.open(link)
+
 
 def toggle_language():
     default_settings = {
@@ -734,16 +741,19 @@ github_logo = PhotoImage(file="assets\logos\GitHubLogo.png")
 confirm_changed_dir = Label(text="", bg="#2A3990")
 confirm_changed_dir.place(x=40, y=390)
 
-email_label = Label(text=chosen_lang['email_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
+email_label = Label(
+    text=chosen_lang['email_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
 email_label.place(x=40, y=210)
 
 pass_check_label = Label(text="", bg="#2A3990")
 pass_check_label.place(x=485, y=240)
 
-password_label = Label(text=chosen_lang["password_label"], bg="#2A3990", fg="white", font=("Verdana", 11))
+password_label = Label(
+    text=chosen_lang["password_label"], bg="#2A3990", fg="white", font=("Verdana", 11))
 password_label.place(x=40, y=240)
 
-password_saved = Label(text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
+password_saved = Label(
+    text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
 
 website_label = Label(
     text=chosen_lang['website_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
@@ -761,46 +771,57 @@ change_dir_button = Button(
     text=chosen_lang["change_dir_button"], width=17, command=change_dir, bg="#251749", fg="white", font=("Verdana", 8))
 change_dir_button.place(x=353, y=330)
 
-check_for_update_button = Button(text=chosen_lang["check_for_updates_button"], bg="#251749",fg="white", command=version_checker, width=17, font=("Verdana", 8))
+check_for_update_button = Button(text=chosen_lang["check_for_updates_button"],
+                                 bg="#251749", fg="white", command=version_checker, width=17, font=("Verdana", 8))
 check_for_update_button.place(x=40, y=300)
 
 clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
                           command=clear_all, bg="#251749", fg="white", font=("Verdana", 8))
 clear_all_button.place(x=40, y=360)
 
-exit_button = Button(text=chosen_lang["exit_button"], width=17,command=on_exit, bg="#251749", fg="white", font=("Verdana", 8))
+exit_button = Button(text=chosen_lang["exit_button"], width=17,
+                     command=on_exit, bg="#251749", fg="white", font=("Verdana", 8))
 exit_button.place(x=353, y=360)
 
-generate_password_button = Button(text=chosen_lang["generate_button"], command=randomize_password, bg="#251749", fg="white", width=12, font=("Verdana", 8))
+generate_password_button = Button(
+    text=chosen_lang["generate_button"], command=randomize_password, bg="#251749", fg="white", width=12, font=("Verdana", 8))
 generate_password_button.place(x=390, y=240)
 
-github_page_button = Button(image=github_logo, compound='center', bg="#2A3990", fg="white", command=open_github_page)
+github_page_button = Button(image=github_logo, compound='center',
+                            bg="#2A3990", fg="white", command=open_github_page)
 github_page_button.place(x=610, y=390)
 
-password_check_button = Button(text=chosen_lang["check_pass_button"],bg="#251749", fg="white", command=check_pass, width=17, font=("Verdana", 8))
+password_check_button = Button(
+    text=chosen_lang["check_pass_button"], bg="#251749", fg="white", command=check_pass, width=17, font=("Verdana", 8))
 password_check_button.place(x=40, y=270)
 
-privacy_button = Button(text=chosen_lang["privacy_button"], width=17,command=safety, bg="#251749", fg="white", font=("Verdana", 8))
+privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
+                        command=safety, bg="#251749", fg="white", font=("Verdana", 8))
 privacy_button.place(x=200, y=300)
 
-save_button = Button(text=chosen_lang["save_button"], width=39, command=save,bg="#251749", fg="white", font=("Verdana", 8))
+save_button = Button(text=chosen_lang["save_button"], width=39,
+                     command=save, bg="#251749", fg="white", font=("Verdana", 8))
 save_button.place(x=200, y=270)
 
-saving_as_button = Button(text=chosen_lang['saving_as_button'].format(data_type=data_type), width=17,command=change_data_type, bg="#251749", fg="white", font=("Verdana", 8))
+saving_as_button = Button(text=chosen_lang['saving_as_button'].format(
+    data_type=data_type), width=17, command=change_data_type, bg="#251749", fg="white", font=("Verdana", 8))
 saving_as_button.place(x=353, y=300)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
 shortcuts_button.place(x=200, y=360)
 
-show_button = Button(text=chosen_lang['show_button'],command=show_or_hide, bg="#251749", fg="white")
+show_button = Button(
+    text=chosen_lang['show_button'], command=show_or_hide, bg="#251749", fg="white")
 show_button.bind("<Control-b>", show_or_hide)
 show_button.place(x=335, y=240)
 
-toggle_theme_button = Button(text="\u263E", width=3,command=toggle_theme, bg="#251749", fg="white")
+toggle_theme_button = Button(
+    text="\u263E", width=3, command=toggle_theme, bg="#251749", fg="white")
 toggle_theme_button.place(x=200, y=330)
 
-toggle_language_button = Button(text="ES", width=3,command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
+toggle_language_button = Button(
+    text="ES", width=3, command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
 toggle_language_button.place(x=299, y=330)
 
 ### END OF BUTTONS ###
@@ -823,7 +844,8 @@ website_entry.focus()
 buttons = [github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, shortcuts_button]
 
-element_labels = [website_label,password_saved,password_label,email_label,confirm_changed_dir]
+element_labels = [website_label, password_saved,
+                  password_label, email_label, confirm_changed_dir]
 
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(btn))
