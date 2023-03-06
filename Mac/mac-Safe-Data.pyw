@@ -370,61 +370,30 @@ def Dark_Mode():
     window.wm_iconbitmap('assets/logos/logo-dark.ico')
     window.config(bg="#13005A")
     canvas.config(bg="#13005A")
-    # LABELS
-    confirm_changed_dir.config(bg="#13005A", fg="white")
-    website_label.config(bg="#13005A", fg="white")
-    email_label.config(bg="#13005A", fg="white")
-    password_label.config(bg="#13005A", fg="white")
-    password_saved.config(bg="#13005A", fg="white")
+    for button in buttons:
+        button.config(bg = '#2F58CD',fg = 'white')
+    for label in element_labels:
+        label.config(bg="#13005A",fg = 'white')
+    toggle_theme_button.config(text="\u263C")
+    # HIDDEN LABELS
     pass_check_label.config(bg="#13005A", fg="light green")
     version_message.config(bg="#13005A", fg="light green")
     whats_new_label.config(bg="#13005A", fg="light green")
-    # BUTTONS
-    about_button.config(bg="#2F58CD", fg="white")
-    clear_all_button.config(bg="#2F58CD", fg="white")
-    change_dir_button.config(bg="#2F58CD", fg="white")
-    check_for_update_button.config(bg="#2F58CD", fg="white")
-    exit_button.config(bg="#2F58CD", fg="white")
-    generate_password_button.config(bg="#2F58CD", fg="white")
-    password_check_button.config(bg="#2F58CD", fg="white")
-    privacy_button.config(bg="#2F58CD", fg="white")
-    toggle_language_button.config(bg="#2F58CD", fg="white")
-    toggle_theme_button.config(text="\u263C", bg="#2F58CD", fg="white")
-    save_button.config(bg="#2F58CD", fg="white")
-    saving_as_button.config(bg="#2F58CD", fg="white")
-    show_button.config(bg="#2F58CD", fg="white")
-    shortcuts_button.config(bg="#2F58CD", fg="white")
-
 
 def Light_Mode():
     logo_img.config(file="assets/logos/wide-light.png")
     window.wm_iconbitmap('assets/logos/logo-light.ico')
     window.config(bg="#E3F6FF")
     canvas.config(bg="#E3F6FF")
+    for button in buttons:
+        button.config(bg ='#AED6F1', fg = 'black')
+    for label in element_labels:
+        label.config(bg="#E3F6FF",fg = 'black')
     # LABELS
-    confirm_changed_dir.config(bg="#E3F6FF", fg="black")
-    email_label.config(bg="#E3F6FF", fg="black")
-    password_label.config(bg="#E3F6FF", fg="black")
-    password_saved.config(bg="#E3F6FF", fg="black")
     pass_check_label.config(bg="#E3F6FF", fg="black")
     version_message.config(bg="#E3F6FF", fg="black")
     whats_new_label.config(bg="#E3F6FF", fg="black")
-    website_label.config(bg="#E3F6FF", fg="black")
-    # BUTTONS
-    password_check_button.config(bg="#AED6F1", fg="black")
-    about_button.config(bg="#AED6F1", fg="black")
-    clear_all_button.config(bg="#AED6F1", fg="black")
-    change_dir_button.config(bg="#AED6F1", fg="black")
-    check_for_update_button.config(bg="#AED6F1", fg="black")
-    exit_button.config(bg="#AED6F1", fg="black")
-    generate_password_button.config(bg="#AED6F1", fg="black")
-    toggle_language_button.config(bg="#AED6F1", fg="black")
-    toggle_theme_button.config(text="\u263E", bg="#AED6F1", fg="black")
-    privacy_button.config(bg="#AED6F1", fg="black")
-    save_button.config(bg="#AED6F1", fg="black")
-    saving_as_button.config(bg="#AED6F1", fg="black")
-    show_button.config(bg="#AED6F1", fg="black")
-    shortcuts_button.config(bg="#AED6F1", fg="black")
+    toggle_theme_button.config(text="\u263E")
 
 
 def Classic_Light_Mode():
@@ -432,30 +401,15 @@ def Classic_Light_Mode():
     window.wm_iconbitmap('assets/logos/classic-logo-light.ico')
     window.config(bg="light blue")
     canvas.config(bg="light blue")
+    for button in buttons:
+        button.config(bg ='#AED6F1', fg = 'black')
+    for label in element_labels:
+        label.config(bg="light blue",fg = 'black')
     # LABELS
-    confirm_changed_dir.config(bg="#AED6F1", fg="black")
-    email_label.config(bg="light blue", fg="black")
-    password_check_button.config(bg="#AED6F1", fg="black")
-    password_label.config(bg="light blue", fg="black")
-    password_saved.config(bg="#AED6F1", fg="black")
     pass_check_label.config(bg="#AED6F1", fg="black")
     version_message.config(bg="#AED6F1", fg="black")
     whats_new_label.config(bg="#AED6F1", fg="black")
-    website_label.config(bg="light blue", fg="black")
-    # BUTTONS
-    about_button.config(bg="#AED6F1", fg="black")
-    clear_all_button.config(bg="#AED6F1", fg="black")
-    change_dir_button.config(bg="#AED6F1", fg="black")
-    check_for_update_button.config(bg="#AED6F1", fg="black")
-    exit_button.config(bg="#AED6F1", fg="black")
-    generate_password_button.config(bg="#AED6F1", fg="black")
-    toggle_language_button.config(bg="#AED6F1", fg="black")
-    toggle_theme_button.config(text="\u263D", bg="#AED6F1", fg="black")
-    privacy_button.config(bg="#AED6F1", fg="black")
-    save_button.config(bg="#AED6F1", fg="black")
-    saving_as_button.config(bg="#AED6F1", fg="black")
-    show_button.config(bg="#AED6F1", fg="black")
-    shortcuts_button.config(bg="#AED6F1", fg="black")
+    toggle_theme_button.config(text="\u263D")
 
 
 def Classic_Dark_Mode():
@@ -463,31 +417,16 @@ def Classic_Dark_Mode():
     window.wm_iconbitmap('assets/logos/classic-logo-dark.ico')
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
+    for button in buttons:
+        button.config(bg ='#251749', fg = 'white')
+    for label in element_labels:
+        label.config(bg="#2A3990",fg = 'white')
     # LABELS
-    confirm_changed_dir.config(bg="#2A3990", fg="white")
-    email_label.config(bg="#2A3990", fg="white")
-    password_label.config(bg="#2A3990", fg="white")
-    password_saved.config(bg="#2A3990", fg="white")
     pass_check_label.config(bg="#2A3990", fg="light green")
     version_message.config(bg="#2A3990", fg="light green")
     whats_new_label.config(bg="#2A3990", fg="light green")
-    website_label.config(bg="#2A3990", fg="white")
     # BUTTONS
-    about_button.config(bg="#251749", fg="white")
-    clear_all_button.config(bg="#251749", fg="white")
-    change_dir_button.config(bg="#251749", fg="white")
-    check_for_update_button.config(bg="#251749", fg="white")
-    exit_button.config(bg="#251749", fg="white")
-    generate_password_button.config(bg="#251749", fg="white")
-    password_check_button.config(bg="#251749", fg="white")
-    privacy_button.config(bg="#251749", fg="white")
-    toggle_language_button.config(bg="#251749", fg="white")
-    toggle_theme_button.config(text="\u2600", bg="#251749", fg="white")
-    save_button.config(bg="#251749", fg="white")
-    saving_as_button.config(bg="#251749", fg="white")
-    show_button.config(bg="#251749", fg="white")
-    shortcuts_button.config(bg="#251749", fg="white")
-
+    toggle_theme_button.config(text="\u2600")
 
 def toggle_theme():
     default_settings = {
@@ -850,8 +789,9 @@ about_button = Button(text=chosen_lang["about_button"], width=17,
                       bg="#251749", fg="white", font=("Verdana", 8), command=about)
 about_button.place(x=40, y=330)
 
-buttons = [generate_password_button, about_button,saving_as_button, clear_all_button, save_button, password_check_button, show_button,
-           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button,shortcuts_button]
+buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
+           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, shortcuts_button]
+element_labels = [website_label,password_saved,password_label,email_label,confirm_changed_dir]
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
     btn.bind("<Leave>", lambda e, btn=btn: on_leave(e, btn))
