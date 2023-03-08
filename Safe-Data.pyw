@@ -388,6 +388,7 @@ def safety():
 def Dark_Mode():
     logo_img.config(file="assets/logos/wide.png")
     window.wm_iconbitmap('assets/logos/logo-dark.ico')
+    github_page_button.configure(image=github_logo)
     window.config(bg="#13005A")
     canvas.config(bg="#13005A")
     for button in buttons:
@@ -404,6 +405,7 @@ def Dark_Mode():
 def Light_Mode():
     logo_img.config(file="assets/logos/wide-light.png")
     window.wm_iconbitmap('assets/logos/logo-light.ico')
+    github_page_button.configure(image=github_logo)
     window.config(bg="#E3F6FF")
     canvas.config(bg="#E3F6FF")
     for button in buttons:
@@ -422,6 +424,7 @@ def Classic_Light_Mode():
     window.wm_iconbitmap('assets/logos/classic-logo-light.ico')
     window.config(bg="light blue")
     canvas.config(bg="light blue")
+    github_page_button.configure(image=github_logo)
     for button in buttons:
         button.config(bg='#AED6F1', fg='black')
     for label in element_labels:
@@ -436,6 +439,7 @@ def Classic_Light_Mode():
 def Classic_Dark_Mode():
     logo_img.config(file="assets/logos/classic-wide.png")
     window.wm_iconbitmap('assets/logos/classic-logo-dark.ico')
+    github_page_button.configure(image=github_white)
     window.config(bg="#2A3990")
     canvas.config(bg="#2A3990")
     for button in buttons:
@@ -734,7 +738,7 @@ window.bind("<Control-.>", lambda _: saving_as_button.invoke())
 global website_entry
 data_type = settings['data_type']
 github_logo = PhotoImage(file="assets\logos\GitHubLogo.png")
-
+github_white = PhotoImage(file="assets\logos\gitHub_white.png")
 
 ### START OF LABELS ###
 
