@@ -77,20 +77,6 @@ When it is finished, close the cmd and simply double click the Safe-Data.pyw fil
 ![check-pass-ss](assets/ss/spanish-support-ss.png)
 
 
-What's New?
-- Updated buttons in dark mode to look more blue-y
-- About window is now accessed by pressing Control + B (Previously Ctrl + A)
-- Added Github button to open up the project's github page
-- Merged About and Help buttons into one button
-- Added spanish support for shortcuts
-- Updated the show/hide with the actual text instead of symbol (icon would not show properly on some W11 systems)
-- Improved overall look and theme of shortcuts window
-- Added a shortcut for show/hide password
-- Fixed a bug that would change the color of the buttons after hovering over them in classic light mode
-- Shortcuts window should no longer show up in awkward spots at certain times
-- You can now save your logins using ENTER on PC and RETURN on Mac
-**Full Changelog**: https://github.com/ziadh/Safe-Data/compare/2.0...2.10
-
 ## Contributions
 Contributions are appreciated.
 ## License
