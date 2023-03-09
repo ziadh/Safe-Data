@@ -308,7 +308,7 @@ def change_dir():
             text=chosen_lang["path_set"].format(file_path=file_path), bg="light green", fg="blue")
     else:
         confirm_changed_dir.config(
-            text="Changing directory process was not successful.", fg="white")
+            text=chosen_lang["change_dir_unsuccessful"], fg="white",bg='red')
 
 
 def change_data_type():
@@ -576,8 +576,9 @@ def toggle_language():
         text=chosen_lang['change_dir_button'])
     exit_button.config(text=chosen_lang['exit_button'])
     show_button.config(text=chosen_lang['show_button'])
-
     shortcuts_button.config(text=chosen_lang['shortcuts'])
+    about_button.config(text=chosen_lang['about_button'])
+    repair_button.config(text=chosen_lang['repair_button'])
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
 
