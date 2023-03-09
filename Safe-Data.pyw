@@ -225,7 +225,7 @@ def save():
             if file_path == None:
                 is_ok = messagebox.askokcancel(
                     chosen_lang["save_data_title"],
-                    chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+                    chosen_lang["save_data_message"].format(website=website, email=email, password=password,data_type=data_type))
 
                 if is_ok:
                     now = datetime.datetime.now()
@@ -258,7 +258,7 @@ def save():
             if file_path == None:
                 is_ok = messagebox.askokcancel(
                     chosen_lang["save_data_title"],
-                    chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+                    chosen_lang["save_data_message"].format(website=website, email=email, password=password,data_type=data_type))
 
                 if is_ok:
                     now = datetime.datetime.now()
@@ -818,7 +818,7 @@ shortcuts_button.place(x=200, y=360)
 show_button = Button(
     text=chosen_lang['show_button'], command=show_or_hide, bg="#251749", fg="white")
 show_button.bind("<Control-b>", show_or_hide)
-show_button.place(x=335, y=240)
+show_button.place(x=338, y=240)
 
 toggle_theme_button = Button(
     text="\u263E", width=3, command=toggle_theme, bg="#251749", fg="white")
