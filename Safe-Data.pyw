@@ -672,6 +672,10 @@ def open_github_page():
     link = "https://github.com/ziadh/Safe-Data/"
     webbrowser.open(link)
 
+def repair():
+    confirm_repair = messagebox.askokcancel(title=chosen_lang["confirm_repair_title"], message = chosen_lang["confirm_repair"])
+    if confirm_repair:
+        print("okay!")
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
@@ -679,7 +683,7 @@ screen_height = window.winfo_screenheight()
 x_coord = int((screen_width / 2) - (500 / 2))
 y_coord = int((screen_height / 2) - (300))
 window.resizable(True, True)
-window.geometry(f"700x480+{x_coord}+{y_coord}")
+window.geometry(f"700x500+{x_coord}+{y_coord}")
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
 
@@ -707,7 +711,6 @@ canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
 #### SHORTCUTS BELOW ####
-# LETTERS USED: B, S, G, D,U, X, ', E, P,T,H,L,., J
 window.bind("<Control-B>", lambda _: about_button.invoke())
 window.bind("<Control-b>", lambda _: about_button.invoke())
 window.bind("<Control-S>", lambda _: save_button.invoke())
@@ -743,7 +746,7 @@ github_white = PhotoImage(file="assets\logos\gitHub_white.png")
 ### START OF LABELS ###
 
 confirm_changed_dir = Label(text="", bg="#2A3990")
-confirm_changed_dir.place(x=40, y=390)
+confirm_changed_dir.place(x=40, y=420)
 
 email_label = Label(
     text=chosen_lang['email_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
@@ -769,7 +772,7 @@ website_label.place(x=40, y=180)
 
 about_button = Button(text=chosen_lang["about_button"], width=17,
                       bg="#251749", fg="white", font=("Verdana", 8), command=about)
-about_button.place(x=40, y=330)
+about_button.place(x=40, y=360)
 
 change_dir_button = Button(
     text=chosen_lang["change_dir_button"], width=17, command=change_dir, bg="#251749", fg="white", font=("Verdana", 8))
@@ -781,11 +784,11 @@ check_for_update_button.place(x=40, y=300)
 
 clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
                           command=clear_all, bg="#251749", fg="white", font=("Verdana", 8))
-clear_all_button.place(x=40, y=360)
+clear_all_button.place(x=40, y=390)
 
 exit_button = Button(text=chosen_lang["exit_button"], width=17,
                      command=on_exit, bg="#251749", fg="white", font=("Verdana", 8))
-exit_button.place(x=353, y=360)
+exit_button.place(x=353, y=390)
 
 generate_password_button = Button(
     text=chosen_lang["generate_button"], command=randomize_password, bg="#251749", fg="white", width=12, font=("Verdana", 8))
@@ -803,6 +806,8 @@ privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
                         command=safety, bg="#251749", fg="white", font=("Verdana", 8))
 privacy_button.place(x=200, y=300)
 
+repair_button = Button(text=chosen_lang["repair_button"], width = 17, command = repair,bg="#251749", fg="white", font=("Verdana", 8))
+repair_button.place(x=40,y=330)
 save_button = Button(text=chosen_lang["save_button"], width=39,
                      command=save, bg="#251749", fg="white", font=("Verdana", 8))
 save_button.place(x=200, y=270)
@@ -813,7 +818,7 @@ saving_as_button.place(x=353, y=300)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
-shortcuts_button.place(x=200, y=360)
+shortcuts_button.place(x=200, y=390)
 
 show_button = Button(
     text=chosen_lang['show_button'], command=show_or_hide, bg="#251749", fg="white")
@@ -846,7 +851,7 @@ website_entry.focus()
 ### END OF ENTRYBOXES ###
 
 buttons = [github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
-           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, shortcuts_button]
+           privacy_button,  repair_button, change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
                   password_label, email_label, confirm_changed_dir]
