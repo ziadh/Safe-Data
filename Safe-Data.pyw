@@ -35,6 +35,7 @@ version = settings['version']
 language = settings['language']
 
 
+
 with open('src/languages.json', 'r', encoding='utf8') as f:
     language_data = json.load(f)
 for lang in language_data['languages']:
@@ -667,15 +668,9 @@ def about():
     if version_released or version_unreleased:
         open_issues()
 
-
 def open_github_page():
     link = "https://github.com/ziadh/Safe-Data/"
     webbrowser.open(link)
-
-def repair():
-    confirm_repair = messagebox.askokcancel(title=chosen_lang["confirm_repair_title"], message = chosen_lang["confirm_repair"])
-    if confirm_repair:
-        print("okay!")
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
@@ -711,6 +706,7 @@ canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
 #### SHORTCUTS BELOW ####
+
 window.bind("<Control-B>", lambda _: about_button.invoke())
 window.bind("<Control-b>", lambda _: about_button.invoke())
 window.bind("<Control-S>", lambda _: save_button.invoke())
@@ -736,6 +732,8 @@ window.bind("<Control-t>", lambda _: toggle_theme_button.invoke())
 window.bind("<Control-L>", lambda _: toggle_language_button.invoke())
 window.bind("<Control-l>", lambda _: toggle_language_button.invoke())
 window.bind("<Control-.>", lambda _: saving_as_button.invoke())
+
+
 #### SHORTCUTS ABOVE ####
 
 global website_entry
@@ -806,8 +804,6 @@ privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
                         command=safety, bg="#251749", fg="white", font=("Verdana", 8))
 privacy_button.place(x=200, y=300)
 
-repair_button = Button(text="\uD83D\uDD27", width = 3, command = repair,bg="#251749", fg="white", font=("Verdana", 8))
-repair_button.place(x=250,y=330)
 save_button = Button(text=chosen_lang["save_button"], width=39,
                      command=save, bg="#251749", fg="white", font=("Verdana", 8))
 save_button.place(x=200, y=270)
@@ -851,7 +847,7 @@ website_entry.focus()
 ### END OF ENTRYBOXES ###
 
 buttons = [github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
-           privacy_button,  repair_button, change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, shortcuts_button]
+           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
                   password_label, email_label, confirm_changed_dir]
