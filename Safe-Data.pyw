@@ -743,7 +743,7 @@ github_white = PhotoImage(file="assets\logos\gitHub_white.png")
 
 ### START OF LABELS ###
 
-confirm_changed_dir = Label(text="", bg="#2A3990")
+confirm_changed_dir = Label(text="", bg="#2A3990",font=("Verdana", 9))
 confirm_changed_dir.place(x=40, y=390)
 
 email_label = Label(
@@ -758,7 +758,7 @@ password_label = Label(
 password_label.place(x=40, y=240)
 
 password_saved = Label(
-    text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
+    text=chosen_lang["password_saved_label"], bg="light green", fg="blue",font=("Verdana", 9))
 
 website_label = Label(
     text=chosen_lang['website_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
@@ -817,7 +817,7 @@ shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
 shortcuts_button.place(x=200, y=360)
 
 show_button = Button(
-    text=chosen_lang['show_button'], command=show_or_hide, bg="#251749", fg="white")
+    text=chosen_lang['show_button'], command=show_or_hide, bg="#251749", fg="white", font=("Verdana", 8))
 show_button.bind("<Control-b>", show_or_hide)
 show_button.place(x=338, y=240)
 
