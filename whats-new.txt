@@ -1,9 +1,9 @@
-2.0
 What's New?
-- Added new themes for Dark and Light mode and updated the app elements with the new colors!
-    -You can still access old themes by pressing the theme button couple times
-- Added an about button that indicates if the installed build is stable or still under development
-- Fixed a bug that would prevent themes from saving in the settings.json at certain times
-- Added shortcut for the new about button
-- Fixed a bug that doesn't adjust text sizes if the language is set to Spanish
-- Cleaned the code a bit for better readiblity 
+
+- GitHub logo no longer looks darker in Classic Dark Mode
+- Saving file confirmation message now confirms the picked data type as well
+- Added an indicator when a destination folder has not been set successfully
+- Fixed a bug where About button would not translate when switching languages
+- Updated font for all texts
+- Improvements to info message when a changing directory was unsuccessful and added its spanish translation
+- Improved the positioning of the Show button

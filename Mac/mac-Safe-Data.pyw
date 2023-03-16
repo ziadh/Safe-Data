@@ -42,8 +42,7 @@ for lang in language_data['languages']:
     if lang['language'] == language:
         chosen_lang = lang
         break
-# with open('src/settings.json', 'w') as f:
-#     json.dump(settings, f)
+
 
 
 def version_checker():
@@ -137,12 +136,13 @@ class splash():
     ss.destroy()
 
 def show_or_hide():
-    if show_button.cget('text')==chosen_lang['show_button']:
+  if show_button.cget('text') == chosen_lang['show_button']:
         toggle_password_visibility()
         show_button.configure(text=chosen_lang['hide_button'])
-    else:
+  else:
         toggle_password_visibility()
         show_button.configure(text=chosen_lang['show_button'])
+
 
 def toggle_password_visibility():
     global is_password_visible
@@ -209,7 +209,7 @@ def save():
             if file_path == None:
                 is_ok = messagebox.askokcancel(
                     title=chosen_lang["save_data_title"],
-                    message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+                    message=chosen_lang["save_data_message"].format(website=website, email=email, password=password,data_type=data_type))
 
                 if is_ok:
                     now = datetime.datetime.now()
@@ -242,7 +242,8 @@ def save():
                 if file_path == None:
                     is_ok = messagebox.askokcancel(
                         title=chosen_lang["save_data_title"],
-                        message=chosen_lang["save_data_message"].format(website=website, email=email, password=password))
+                        message=chosen_lang["save_data_message"].format(website=website, email=email, password=password,data_type=data_type))
+
         
                     if is_ok:
                         now = datetime.datetime.now()
@@ -290,7 +291,9 @@ def change_dir():
     if file_path:
         confirm_changed_dir.config(
             text=chosen_lang["path_set"].format(file_path=file_path), bg="light green", fg="blue")
-
+    else:
+        confirm_changed_dir.config(
+            text=chosen_lang["change_dir_unsuccessful"], fg="white",bg='red')
 
 def change_data_type():
     with open('src/settings.json', 'r') as f:
@@ -545,7 +548,7 @@ def toggle_language():
         text=chosen_lang['exit_button'])
     show_button.config(text=chosen_lang['show_button'])
     shortcuts_button.config(text=chosen_lang['shortcuts'])
-
+    about_button.config(text=chosen_lang['about_button'])
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
 
@@ -719,11 +722,9 @@ password_label.place(x=40, y=240)
 password_entry = Entry(show="*", width=21)
 password_entry.place(x=200, y=240)
 
-password_saved = Label(
-    text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
+password_saved = Label(text=chosen_lang["password_saved_label"], bg="light green", fg="blue",font=("Verdana", 9))
 
-show_button = tk.Button(window, text="Show",
-                        command=show_or_hide, bg="#251749", fg="white")
+show_button = tk.Button(window,text=chosen_lang['show_button'], command=show_or_hide, bg="#251749", fg="white", font=("Verdana", 8))
 show_button.bind("<Control-b>", show_or_hide)
 show_button.place(x=410, y=240)
 
@@ -778,7 +779,7 @@ clear_all_button.place(x=40, y=360)
 pass_check_label = Label(text="", bg="#2A3990")
 pass_check_label.place(x=470, y=10)
 
-confirm_changed_dir = Label(text="", bg="#2A3990")
+confirm_changed_dir = Label(text="", bg="#2A3990",font=("Verdana", 9))
 confirm_changed_dir.place(x=40, y=390)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
