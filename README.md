@@ -73,7 +73,14 @@ When it is finished, close the cmd and simply double click the Safe-Data.pyw fil
 - Now supports Spanish, more languages to come!
 
 
-![check-pass-ss](assets/ss/spanish-support-ss.png)
+![spanish-support-ss](assets/ss/spanish-support-ss.png)
+
+## Two classic Themes with more to come!
+
+![classic-dark-ss](assets/ss/classic-dark-ss.png)
+
+![classic-light-ss](assets/ss/classic-light-ss.png)
+
 
 
 ## Contributions

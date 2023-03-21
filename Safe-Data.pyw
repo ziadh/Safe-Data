@@ -35,7 +35,6 @@ version = settings['version']
 language = settings['language']
 
 
-
 with open('src/languages.json', 'r', encoding='utf8') as f:
     language_data = json.load(f)
 for lang in language_data['languages']:
@@ -122,7 +121,7 @@ class splash():
     progress.configure(style='orange.Horizontal.TProgressbar')
     progress.place(x=100, y=150)
     progress['value'] = 0
-    interval = 0.01
+    interval = 0.001
     for i in range(100):
         progress['value'] = i
         label['text'] = f"{i}%"
@@ -226,7 +225,7 @@ def save():
             if file_path == None:
                 is_ok = messagebox.askokcancel(
                     chosen_lang["save_data_title"],
-                    chosen_lang["save_data_message"].format(website=website, email=email, password=password,data_type=data_type))
+                    chosen_lang["save_data_message"].format(website=website, email=email, password=password, data_type=data_type))
 
                 if is_ok:
                     now = datetime.datetime.now()
@@ -259,7 +258,7 @@ def save():
             if file_path == None:
                 is_ok = messagebox.askokcancel(
                     chosen_lang["save_data_title"],
-                    chosen_lang["save_data_message"].format(website=website, email=email, password=password,data_type=data_type))
+                    chosen_lang["save_data_message"].format(website=website, email=email, password=password, data_type=data_type))
 
                 if is_ok:
                     now = datetime.datetime.now()
@@ -309,7 +308,7 @@ def change_dir():
             text=chosen_lang["path_set"].format(file_path=file_path), bg="light green", fg="blue")
     else:
         confirm_changed_dir.config(
-            text=chosen_lang["change_dir_unsuccessful"], fg="white",bg='red')
+            text=chosen_lang["change_dir_unsuccessful"], fg="white", bg='red')
 
 
 def change_data_type():
@@ -330,7 +329,6 @@ def change_data_type():
 
 
 def clear_all():
-
     yes_clear = messagebox.askokcancel(
         chosen_lang["confirm_clear_title"], chosen_lang["clear_all_confirmation"])
     if yes_clear:
@@ -668,9 +666,11 @@ def about():
     if version_released or version_unreleased:
         open_issues()
 
+
 def open_github_page():
     link = "https://github.com/ziadh/Safe-Data/"
     webbrowser.open(link)
+
 
 window = Tk()
 screen_width = window.winfo_screenwidth()
@@ -743,7 +743,7 @@ github_white = PhotoImage(file="assets\logos\gitHub_white.png")
 
 ### START OF LABELS ###
 
-confirm_changed_dir = Label(text="", bg="#2A3990",font=("Verdana", 9))
+confirm_changed_dir = Label(text="", bg="#2A3990", font=("Verdana", 9))
 confirm_changed_dir.place(x=40, y=390)
 
 email_label = Label(
@@ -758,7 +758,7 @@ password_label = Label(
 password_label.place(x=40, y=240)
 
 password_saved = Label(
-    text=chosen_lang["password_saved_label"], bg="light green", fg="blue",font=("Verdana", 9))
+    text=chosen_lang["password_saved_label"], bg="light green", fg="blue", font=("Verdana", 9))
 
 website_label = Label(
     text=chosen_lang['website_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
