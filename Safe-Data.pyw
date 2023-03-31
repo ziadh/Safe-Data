@@ -121,7 +121,7 @@ class splash():
     progress.configure(style='orange.Horizontal.TProgressbar')
     progress.place(x=100, y=150)
     progress['value'] = 0
-    interval = 0.001
+    interval = 0.0005
     for i in range(100):
         progress['value'] = i
         label['text'] = f"{i}%"
