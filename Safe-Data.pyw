@@ -191,12 +191,14 @@ def randomize_password():
 
 def check_pass():
     password = password_entry.get().lower()
+    email = email_entry.get().lower()
+    username, domain = email.split('@')
     weak_pass = ["pass", "password", "123456", "123", "000", "qwerty", "1111", "2222", "qwerty123", "abc123", "password123", "!@#%^&*", "qazwsxedcrfv", "qwertyuiopasdfghjklzxcvbnm",
                  "qwertyuio", "qwerasdfzxcv", "1qaz2wsx3edc", "1q2w3e4r5t", "admin", "letmein", "welcome", "monkey", "sunshine", "superman", "666666", "121212", "123123", "abcabc", "aaa111",
                  "password"]
     is_safe = True
     for word in weak_pass:
-        if word in password:
+        if word in password or word in username:
             is_safe = False
             break
     if is_safe:
