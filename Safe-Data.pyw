@@ -198,9 +198,13 @@ def check_pass():
                  "password"]
     is_safe = True
     for word in weak_pass:
-        if word in password or word in username:
+        if word in password:
             is_safe = False
             break
+        elif username in word:
+            is_safe = False
+            break
+
     if is_safe:
         pass_check_label.config(
             text=chosen_lang["check_pass_good"], bg="light green", fg="blue")
