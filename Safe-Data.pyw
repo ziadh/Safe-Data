@@ -671,7 +671,9 @@ def open_github_page():
     link = "https://github.com/ziadh/Safe-Data/"
     webbrowser.open(link)
 
-
+def focus_next_box(event):
+    event.widget.tk_focusNext().focus()
+    return "break"
 window = Tk()
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -832,17 +834,20 @@ toggle_language_button.place(x=299, y=330)
 ### END OF BUTTONS ###
 
 ### START OF ENTRYBOXES ###
-email_entry = Entry(width=46)
-email_entry.place(x=200, y=210)
-email_entry.insert(0, "")
-
-is_password_visible = False
-password_entry = Entry(show="*", width=21)
-password_entry.place(x=200, y=240)
 
 website_entry = Entry(width=46)
 website_entry.place(x=200, y=180)
+website_entry.bind("<Tab>",focus_next_box)
 website_entry.focus()
+email_entry = Entry(width=46)
+email_entry.place(x=200, y=210)
+email_entry.insert(0, "")
+email_entry.bind("<Tab>",focus_next_box)
+is_password_visible = False
+password_entry = Entry(show="*", width=21)
+password_entry.place(x=200, y=240)
+password_entry.bind("<Tab>",focus_next_box)
+
 
 ### END OF ENTRYBOXES ###
 
