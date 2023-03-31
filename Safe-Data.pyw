@@ -668,8 +668,11 @@ def about():
 
 
 def open_github_page():
-    link = "https://github.com/ziadh/Safe-Data/"
-    webbrowser.open(link)
+    open_github = messagebox.askokcancel(
+        chosen_lang["open_github_confirmation_title"], chosen_lang["open_github_confirmation"])
+    if open_github:
+        link = "https://github.com/ziadh/Safe-Data/"
+        webbrowser.open(link)
 
 
 def focus_next_box(event):
