@@ -671,9 +671,12 @@ def open_github_page():
     link = "https://github.com/ziadh/Safe-Data/"
     webbrowser.open(link)
 
+
 def focus_next_box(event):
     event.widget.tk_focusNext().focus()
     return "break"
+
+
 window = Tk()
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -796,7 +799,7 @@ generate_password_button.place(x=390, y=240)
 
 github_page_button = Button(image=github_logo, compound='center',
                             bg="#2A3990", fg="white", command=open_github_page)
-github_page_button.place(x=610, y=390)
+github_page_button.place(x=255, y=330)
 
 password_check_button = Button(
     text=chosen_lang["check_pass_button"], bg="#251749", fg="white", command=check_pass, width=17, font=("Verdana", 8))
@@ -837,16 +840,16 @@ toggle_language_button.place(x=299, y=330)
 
 website_entry = Entry(width=46)
 website_entry.place(x=200, y=180)
-website_entry.bind("<Tab>",focus_next_box)
+website_entry.bind("<Tab>", focus_next_box)
 website_entry.focus()
 email_entry = Entry(width=46)
 email_entry.place(x=200, y=210)
 email_entry.insert(0, "")
-email_entry.bind("<Tab>",focus_next_box)
+email_entry.bind("<Tab>", focus_next_box)
 is_password_visible = False
 password_entry = Entry(show="*", width=21)
 password_entry.place(x=200, y=240)
-password_entry.bind("<Tab>",focus_next_box)
+password_entry.bind("<Tab>", focus_next_box)
 
 
 ### END OF ENTRYBOXES ###
