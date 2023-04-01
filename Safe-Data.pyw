@@ -385,25 +385,40 @@ def clear_all():
         password_entry.delete(0, END)
 
         if settings['theme'] == 'Dark':
-            confirm_changed_dir.config(text="", bg=DEFAULT_DM_LABELS_BG_COLOR, fg=DEFAULT_DM_LABELS_BG_COLOR)
-            pass_check_label.config(text="", bg=DEFAULT_DM_LABELS_BG_COLOR, fg=DEFAULT_DM_LABELS_BG_COLOR)
-            password_saved.config(text="", bg=DEFAULT_DM_LABELS_BG_COLOR, fg=DEFAULT_DM_LABELS_BG_COLOR)
-            version_message.config(text="", bg=DEFAULT_DM_LABELS_BG_COLOR, fg=DEFAULT_DM_LABELS_BG_COLOR)
-            whats_new_label.config(text="", bg=DEFAULT_DM_LABELS_BG_COLOR, fg=DEFAULT_DM_LABELS_BG_COLOR)
+            confirm_changed_dir.config(
+                text="", bg=DEFAULT_DM_LABELS_BG_COLOR, fg=DEFAULT_DM_LABELS_BG_COLOR)
+            pass_check_label.config(
+                text="", bg=DEFAULT_DM_LABELS_BG_COLOR, fg=DEFAULT_DM_LABELS_BG_COLOR)
+            password_saved.config(
+                text="", bg=DEFAULT_DM_LABELS_BG_COLOR, fg=DEFAULT_DM_LABELS_BG_COLOR)
+            version_message.config(
+                text="", bg=DEFAULT_DM_LABELS_BG_COLOR, fg=DEFAULT_DM_LABELS_BG_COLOR)
+            whats_new_label.config(
+                text="", bg=DEFAULT_DM_LABELS_BG_COLOR, fg=DEFAULT_DM_LABELS_BG_COLOR)
 
         if settings['theme'] == 'Light':
-            confirm_changed_dir.config(text="", bg=DEFAULT_LM_LABELS_BG_COLOR, fg=DEFAULT_LM_LABELS_BG_COLOR)
-            pass_check_label.config(text="", bg=DEFAULT_LM_LABELS_BG_COLOR, fg=DEFAULT_LM_LABELS_BG_COLOR)
-            password_saved.config(text="", bg=DEFAULT_LM_LABELS_BG_COLOR, fg=DEFAULT_LM_LABELS_BG_COLOR)
-            version_message.config(text="", bg=DEFAULT_LM_LABELS_BG_COLOR, fg=DEFAULT_LM_LABELS_BG_COLOR)
-            whats_new_label.config(text="", bg=DEFAULT_LM_LABELS_BG_COLOR, fg=DEFAULT_LM_LABELS_BG_COLOR)
+            confirm_changed_dir.config(
+                text="", bg=DEFAULT_LM_LABELS_BG_COLOR, fg=DEFAULT_LM_LABELS_BG_COLOR)
+            pass_check_label.config(
+                text="", bg=DEFAULT_LM_LABELS_BG_COLOR, fg=DEFAULT_LM_LABELS_BG_COLOR)
+            password_saved.config(
+                text="", bg=DEFAULT_LM_LABELS_BG_COLOR, fg=DEFAULT_LM_LABELS_BG_COLOR)
+            version_message.config(
+                text="", bg=DEFAULT_LM_LABELS_BG_COLOR, fg=DEFAULT_LM_LABELS_BG_COLOR)
+            whats_new_label.config(
+                text="", bg=DEFAULT_LM_LABELS_BG_COLOR, fg=DEFAULT_LM_LABELS_BG_COLOR)
 
         if settings['theme'] == 'Classic Dark':
-            confirm_changed_dir.config(text="", bg=DEFAULT_CDM_LABELS_BG_COLOR, fg=DEFAULT_CDM_LABELS_BG_COLOR)
-            pass_check_label.config(text="", bg=DEFAULT_CDM_LABELS_BG_COLOR, fg=DEFAULT_CDM_LABELS_BG_COLOR)
-            password_saved.config(text="", bg=DEFAULT_CDM_LABELS_BG_COLOR, fg=DEFAULT_CDM_LABELS_BG_COLOR)
-            version_message.config(text="", bg=DEFAULT_CDM_LABELS_BG_COLOR, fg=DEFAULT_CDM_LABELS_BG_COLOR)
-            whats_new_label.config(text="", bg=DEFAULT_CDM_LABELS_BG_COLOR, fg=DEFAULT_CDM_LABELS_BG_COLOR)
+            confirm_changed_dir.config(
+                text="", bg=DEFAULT_CDM_LABELS_BG_COLOR, fg=DEFAULT_CDM_LABELS_BG_COLOR)
+            pass_check_label.config(
+                text="", bg=DEFAULT_CDM_LABELS_BG_COLOR, fg=DEFAULT_CDM_LABELS_BG_COLOR)
+            password_saved.config(
+                text="", bg=DEFAULT_CDM_LABELS_BG_COLOR, fg=DEFAULT_CDM_LABELS_BG_COLOR)
+            version_message.config(
+                text="", bg=DEFAULT_CDM_LABELS_BG_COLOR, fg=DEFAULT_CDM_LABELS_BG_COLOR)
+            whats_new_label.config(
+                text="", bg=DEFAULT_CDM_LABELS_BG_COLOR, fg=DEFAULT_CDM_LABELS_BG_COLOR)
 
         if settings['theme'] == 'Classic Light':
             confirm_changed_dir.config(
@@ -424,72 +439,87 @@ def safety():
 
 
 def Dark_Mode():
-    logo_img.config(file="assets/logos/wide.png")
+    logo_img.config(file="assets/logos/wide_dark.png")
     window.wm_iconbitmap('assets/logos/logo-dark.ico')
     github_page_button.configure(image=github_logo)
     window.config(bg=DEFAULT_DM_BG_COLOR)
     canvas.config(bg=DEFAULT_DM_BG_COLOR)
     for button in buttons:
-        button.config(bg= DEFAULT_DM_BUTTONS_BG_COLOR, fg=DEFAULT_DM_BUTTONS_FG_COLOR)
+        button.config(bg=DEFAULT_DM_BUTTONS_BG_COLOR,
+                      fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     for label in element_labels:
         label.config(bg=DEFAULT_DM_BG_COLOR, fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     toggle_theme_button.config(text="\u263C")
     # HIDDEN LABELS
-    pass_check_label.config(bg=DEFAULT_DM_BG_COLOR, fg=DEFAULT_DM_LABELS_FG_COLOR)
-    version_message.config(bg=DEFAULT_DM_BG_COLOR, fg=DEFAULT_DM_LABELS_FG_COLOR)
-    whats_new_label.config(bg=DEFAULT_DM_BG_COLOR, fg=DEFAULT_DM_LABELS_FG_COLOR)
+    pass_check_label.config(bg=DEFAULT_DM_BG_COLOR,
+                            fg=DEFAULT_DM_LABELS_FG_COLOR)
+    version_message.config(bg=DEFAULT_DM_BG_COLOR,
+                           fg=DEFAULT_DM_LABELS_FG_COLOR)
+    whats_new_label.config(bg=DEFAULT_DM_BG_COLOR,
+                           fg=DEFAULT_DM_LABELS_FG_COLOR)
 
 
 def Light_Mode():
-    logo_img.config(file="assets/logos/wide-light.png")
+    logo_img.config(file="assets/logos/wide_light.png")
     window.wm_iconbitmap('assets/logos/logo-light.ico')
     github_page_button.configure(image=github_logo)
     window.config(bg=DEFAULT_LM_BG_COLOR)
     canvas.config(bg=DEFAULT_LM_BG_COLOR)
     for button in buttons:
-        button.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR, fg=DEFAULT_LM_BUTTONS_FG_COLOR)
+        button.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR,
+                      fg=DEFAULT_LM_BUTTONS_FG_COLOR)
     for label in element_labels:
         label.config(bg=DEFAULT_LM_BG_COLOR, fg=DEFAULT_LM_BUTTONS_FG_COLOR)
     # LABELS
-    pass_check_label.config(bg=DEFAULT_LM_BG_COLOR, fg=DEFAULT_LM_BUTTONS_FG_COLOR)
-    version_message.config(bg=DEFAULT_LM_BG_COLOR, fg=DEFAULT_LM_BUTTONS_FG_COLOR)
-    whats_new_label.config(bg=DEFAULT_LM_BG_COLOR, fg=DEFAULT_LM_BUTTONS_FG_COLOR)
+    pass_check_label.config(bg=DEFAULT_LM_BG_COLOR,
+                            fg=DEFAULT_LM_BUTTONS_FG_COLOR)
+    version_message.config(bg=DEFAULT_LM_BG_COLOR,
+                           fg=DEFAULT_LM_BUTTONS_FG_COLOR)
+    whats_new_label.config(bg=DEFAULT_LM_BG_COLOR,
+                           fg=DEFAULT_LM_BUTTONS_FG_COLOR)
     toggle_theme_button.config(text="\u263E")
 
 
 def Classic_Light_Mode():
 
-
-    logo_img.config(file="assets/logos/classic-wide-light.png")
+    logo_img.config(file="assets/logos/wide_light.png")
     window.wm_iconbitmap('assets/logos/classic-logo-light.ico')
     window.config(bg=DEFAULT_CLM_BG_COLOR)
     canvas.config(bg=DEFAULT_CLM_BG_COLOR)
     github_page_button.configure(image=github_logo)
     for button in buttons:
-        button.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR, fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
+        button.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR,
+                      fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
     for label in element_labels:
         label.config(bg=DEFAULT_CLM_BG_COLOR, fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
     # LABELS
-    pass_check_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR, fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
-    version_message.config(bg=DEFAULT_CLM_LABELS_BG_COLOR, fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
-    whats_new_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR, fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
+    pass_check_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR,
+                            fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
+    version_message.config(bg=DEFAULT_CLM_LABELS_BG_COLOR,
+                           fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
+    whats_new_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR,
+                           fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
     toggle_theme_button.config(text="\u263D")
 
 
 def Classic_Dark_Mode():
-    logo_img.config(file="assets/logos/classic-wide.png")
+    logo_img.config(file="assets/logos/wide_dark.png")
     window.wm_iconbitmap('assets/logos/classic-logo-dark.ico')
     github_page_button.configure(image=github_white)
     window.config(bg=DEFAULT_CDM_BG_COLOR)
     canvas.config(bg=DEFAULT_CDM_BG_COLOR)
     for button in buttons:
-        button.config(bg=DEFAULT_CDM_BUTTONS_BG_COLOR, fg=DEFAULT_DM_BUTTONS_FG_COLOR)
+        button.config(bg=DEFAULT_CDM_BUTTONS_BG_COLOR,
+                      fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     for label in element_labels:
         label.config(bg=DEFAULT_CDM_BG_COLOR, fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     # LABELS
-    pass_check_label.config(bg=DEFAULT_CDM_BG_COLOR, fg=DEFAULT_DM_LABELS_FG_COLOR)
-    version_message.config(bg=DEFAULT_CDM_BG_COLOR, fg=DEFAULT_DM_LABELS_FG_COLOR)
-    whats_new_label.config(bg=DEFAULT_CDM_BG_COLOR, fg=DEFAULT_DM_LABELS_FG_COLOR)
+    pass_check_label.config(bg=DEFAULT_CDM_BG_COLOR,
+                            fg=DEFAULT_DM_LABELS_FG_COLOR)
+    version_message.config(bg=DEFAULT_CDM_BG_COLOR,
+                           fg=DEFAULT_DM_LABELS_FG_COLOR)
+    whats_new_label.config(bg=DEFAULT_CDM_BG_COLOR,
+                           fg=DEFAULT_DM_LABELS_FG_COLOR)
     toggle_theme_button.config(text="\u2600")
 
 
@@ -650,7 +680,6 @@ def on_enter(btn):
         btn.config(bg=DEFAULT_CLM_HOVER_BUTTON_COLOR)
 
 
-
 def on_leave(btn):
     with open('src/settings.json', 'r') as f:
         settings = json.load(f)
@@ -752,7 +781,7 @@ window.resizable(width=False, height=False)
 window.wm_iconbitmap('assets/logos/logo-dark.ico')
 
 canvas = Canvas(height=150, width=275)
-logo_img = PhotoImage(file="assets/logos/wide.png")
+logo_img = PhotoImage(file="assets/logos/wide_dark.png")
 canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
