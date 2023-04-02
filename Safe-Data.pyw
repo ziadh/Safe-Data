@@ -15,37 +15,7 @@ import datetime
 import os
 import sys
 import textwrap
-
-
-### DARK MODE ###
-DEFAULT_DM_BG_COLOR = "#13005A"
-DEFAULT_DM_BUTTONS_BG_COLOR = "#2F58CD"
-DEFAULT_DM_BUTTONS_FG_COLOR = "white"
-DEFAULT_DM_LABELS_BG_COLOR = "#13005A"
-DEFAULT_DM_LABELS_FG_COLOR = "light green"
-
-### LIGHT MODE ###
-DEFAULT_LM_BG_COLOR = "#E3F6FF"
-DEFAULT_LM_BUTTONS_BG_COLOR = "#AED6F1"
-DEFAULT_LM_BUTTONS_FG_COLOR = "black"
-DEFAULT_LM_LABELS_BG_COLOR = "#E3F6FF"
-DEFAULT_LM_LABELS_FG_COLOR = "black"
-
-### CLASSIC DARK MODE ###
-DEFAULT_CDM_BG_COLOR = "#2A3990"
-DEFAULT_CDM_BUTTONS_BG_COLOR = "#251749"
-DEFAULT_CDM_LABELS_BG_COLOR = "#2A3990"
-
-### CLASSIC LIGHT MODE ###
-DEFAULT_CLM_BG_COLOR = "light blue"
-DEFAULT_CLM_BUTTONS_FG_COLOR = "black"
-DEFAULT_CLM_LABELS_BG_COLOR = "light blue"
-DEFAULT_CLM_LABELS_FG_COLOR = "black"
-
-DEFAULT_DM_HOVER_BUTTON_COLOR = "#86A3B8"
-DEFAULT_LM_HOVER_BUTTON_COLOR = "#E5E0FF"
-DEFAULT_CDM_HOVER_BUTTON_COLOR = "black"
-DEFAULT_CLM_HOVER_BUTTON_COLOR = "#ECECEC"
+from src.themes import *
 
 
 file_path = None
@@ -224,7 +194,6 @@ def randomize_password():
 def check_pass():
     password = password_entry.get().lower()
     email = email_entry.get().lower()
-    username, domain = email.split('@')
     weak_pass = ["pass", "password", "123456", "123", "000", "qwerty", "1111", "2222", "qwerty123", "abc123", "password123", "!@#%^&*", "qazwsxedcrfv", "qwertyuiopasdfghjklzxcvbnm",
                  "qwertyuio", "qwerasdfzxcv", "1qaz2wsx3edc", "1q2w3e4r5t", "admin", "letmein", "welcome", "monkey", "sunshine", "superman", "666666", "121212", "123123", "abcabc", "aaa111",
                  "password"]
@@ -233,10 +202,6 @@ def check_pass():
         if word in password:
             is_safe = False
             break
-        elif username in word:
-            is_safe = False
-            break
-
     if is_safe:
         pass_check_label.config(
             text=chosen_lang["check_pass_good"], bg="light green", fg="blue")
