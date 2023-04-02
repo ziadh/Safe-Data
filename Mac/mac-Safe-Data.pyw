@@ -16,6 +16,36 @@ import os
 import sys
 import textwrap
 
+### DARK MODE ###
+DEFAULT_DM_BG_COLOR = "#13005A"
+DEFAULT_DM_BUTTONS_BG_COLOR = "#2F58CD"
+DEFAULT_DM_BUTTONS_FG_COLOR = "white"
+DEFAULT_DM_LABELS_BG_COLOR = "#13005A"
+DEFAULT_DM_LABELS_FG_COLOR = "light green"
+
+### LIGHT MODE ###
+DEFAULT_LM_BG_COLOR = "#E3F6FF"
+DEFAULT_LM_BUTTONS_BG_COLOR = "#AED6F1"
+DEFAULT_LM_BUTTONS_FG_COLOR = "black"
+DEFAULT_LM_LABELS_BG_COLOR = "#E3F6FF"
+DEFAULT_LM_LABELS_FG_COLOR = "black"
+
+### CLASSIC DARK MODE ###
+DEFAULT_CDM_BG_COLOR = "#2A3990"
+DEFAULT_CDM_BUTTONS_BG_COLOR = "#251749"
+DEFAULT_CDM_LABELS_BG_COLOR = "#2A3990"
+
+### CLASSIC LIGHT MODE ###
+DEFAULT_CLM_BG_COLOR = "light blue"
+DEFAULT_CLM_BUTTONS_FG_COLOR = "black"
+DEFAULT_CLM_LABELS_BG_COLOR = "light blue"
+DEFAULT_CLM_LABELS_FG_COLOR = "black"
+
+DEFAULT_DM_HOVER_BUTTON_COLOR = "#86A3B8"
+DEFAULT_LM_HOVER_BUTTON_COLOR = "#E5E0FF"
+DEFAULT_CDM_HOVER_BUTTON_COLOR = "black"
+DEFAULT_CLM_HOVER_BUTTON_COLOR = "#ECECEC"
+
 file_path = None
 language = None
 
@@ -105,9 +135,6 @@ class splash():
     y_coord = int((screen_height / 2) - (300 / 2))
     ss.geometry(f"500x250+{x_coord}+{y_coord}")
 
-    with open('src/settings.json', 'r') as f:
-        settings = json.load(f)
-
     if settings['theme'] == 'Light':
         label = tk.Label(ss, text="", bg="light blue")
         image = PhotoImage(file='assets/logos/splash-light.png')
@@ -127,13 +154,19 @@ class splash():
     progress.configure(style='orange.Horizontal.TProgressbar')
     progress.place(x=100, y=150)
     progress['value'] = 0
-    interval = 0.01
+    interval = 0.0005
     for i in range(100):
         progress['value'] = i
         label['text'] = f"{i}%"
         ss.update_idletasks()
         time.sleep(interval)
     ss.destroy()
+
+
+def focus_next_box(event):
+    event.widget.tk_focusNext().focus()
+    return "break"
+
 
 def show_or_hide():
   if show_button.cget('text') == chosen_lang['show_button']:
@@ -176,6 +209,8 @@ def randomize_password():
 
 def check_pass():
     password = password_entry.get().lower()
+    email = email_entry.get().lower()
+    username, domain = email.split('@')
     weak_pass = ["pass", "password", "123456", "123", "000", "qwerty", "1111", "2222", "qwerty123", "abc123", "password123", "!@#%^&*", "qazwsxedcrfv", "qwertyuiopasdfghjklzxcvbnm",
                  "qwertyuio", "qwerasdfzxcv", "1qaz2wsx3edc", "1q2w3e4r5t", "admin", "letmein", "welcome", "monkey", "sunshine", "superman", "666666", "121212", "123123", "abcabc", "aaa111",
                  "password"]
@@ -184,6 +219,10 @@ def check_pass():
         if word in password:
             is_safe = False
             break
+        elif username in word:
+            is_safe = False
+            break
+
     if is_safe:
         pass_check_label.config(
             text=chosen_lang["check_pass_good"], bg="light green", fg="blue")
@@ -369,66 +408,82 @@ def safety():
 
 
 def Dark_Mode():
-    logo_img.config(file="assets/logos/wide.png")
+    logo_img.config(file="assets/logos/wide_dark.png")
     window.wm_iconbitmap('assets/logos/logo-dark.ico')
-    window.config(bg="#13005A")
-    canvas.config(bg="#13005A")
+    window.config(bg=DEFAULT_DM_BG_COLOR)
+    canvas.config(bg=DEFAULT_DM_BG_COLOR)
     for button in buttons:
-        button.config(bg = '#2F58CD',fg = 'white')
+        button.config(bg=DEFAULT_DM_BUTTONS_BG_COLOR,
+                      fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     for label in element_labels:
-        label.config(bg="#13005A",fg = 'white')
+        label.config(bg=DEFAULT_DM_BG_COLOR, fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     toggle_theme_button.config(text="\u263C")
     # HIDDEN LABELS
-    pass_check_label.config(bg="#13005A", fg="light green")
-    version_message.config(bg="#13005A", fg="light green")
-    whats_new_label.config(bg="#13005A", fg="light green")
+    pass_check_label.config(bg=DEFAULT_DM_BG_COLOR,
+                            fg=DEFAULT_DM_LABELS_FG_COLOR)
+    version_message.config(bg=DEFAULT_DM_BG_COLOR,
+                           fg=DEFAULT_DM_LABELS_FG_COLOR)
+    whats_new_label.config(bg=DEFAULT_DM_BG_COLOR,
+                           fg=DEFAULT_DM_LABELS_FG_COLOR)
 
 def Light_Mode():
-    logo_img.config(file="assets/logos/wide-light.png")
+    logo_img.config(file="assets/logos/wide_light.png")
     window.wm_iconbitmap('assets/logos/logo-light.ico')
-    window.config(bg="#E3F6FF")
-    canvas.config(bg="#E3F6FF")
+    window.config(bg=DEFAULT_LM_BG_COLOR)
+    canvas.config(bg=DEFAULT_LM_BG_COLOR)
     for button in buttons:
-        button.config(bg ='#AED6F1', fg = 'black')
+        button.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR,
+                      fg=DEFAULT_LM_BUTTONS_FG_COLOR)
     for label in element_labels:
-        label.config(bg="#E3F6FF",fg = 'black')
+        label.config(bg=DEFAULT_LM_BG_COLOR, fg=DEFAULT_LM_BUTTONS_FG_COLOR)
     # LABELS
-    pass_check_label.config(bg="#E3F6FF", fg="black")
-    version_message.config(bg="#E3F6FF", fg="black")
-    whats_new_label.config(bg="#E3F6FF", fg="black")
+    pass_check_label.config(bg=DEFAULT_LM_BG_COLOR,
+                            fg=DEFAULT_LM_BUTTONS_FG_COLOR)
+    version_message.config(bg=DEFAULT_LM_BG_COLOR,
+                           fg=DEFAULT_LM_BUTTONS_FG_COLOR)
+    whats_new_label.config(bg=DEFAULT_LM_BG_COLOR,
+                           fg=DEFAULT_LM_BUTTONS_FG_COLOR)
     toggle_theme_button.config(text="\u263E")
 
 
 def Classic_Light_Mode():
-    logo_img.config(file="assets/logos/classic-wide-light.png")
+
+    logo_img.config(file="assets/logos/wide_light.png")
     window.wm_iconbitmap('assets/logos/classic-logo-light.ico')
-    window.config(bg="light blue")
-    canvas.config(bg="light blue")
+    window.config(bg=DEFAULT_CLM_BG_COLOR)
+    canvas.config(bg=DEFAULT_CLM_BG_COLOR)
     for button in buttons:
-        button.config(bg ='#AED6F1', fg = 'black')
+        button.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR,
+                      fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
     for label in element_labels:
-        label.config(bg="light blue",fg = 'black')
+        label.config(bg=DEFAULT_CLM_BG_COLOR, fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
     # LABELS
-    pass_check_label.config(bg="#AED6F1", fg="black")
-    version_message.config(bg="#AED6F1", fg="black")
-    whats_new_label.config(bg="#AED6F1", fg="black")
+    pass_check_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR,
+                            fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
+    version_message.config(bg=DEFAULT_CLM_LABELS_BG_COLOR,
+                           fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
+    whats_new_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR,
+                           fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
     toggle_theme_button.config(text="\u263D")
 
 
 def Classic_Dark_Mode():
-    logo_img.config(file="assets/logos/classic-wide.png")
+    logo_img.config(file="assets/logos/wide_dark.png")
     window.wm_iconbitmap('assets/logos/classic-logo-dark.ico')
-    window.config(bg="#2A3990")
-    canvas.config(bg="#2A3990")
+    window.config(bg=DEFAULT_CDM_BG_COLOR)
+    canvas.config(bg=DEFAULT_CDM_BG_COLOR)
     for button in buttons:
-        button.config(bg ='#251749', fg = 'white')
+        button.config(bg=DEFAULT_CDM_BUTTONS_BG_COLOR,
+                      fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     for label in element_labels:
-        label.config(bg="#2A3990",fg = 'white')
+        label.config(bg=DEFAULT_CDM_BG_COLOR, fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     # LABELS
-    pass_check_label.config(bg="#2A3990", fg="light green")
-    version_message.config(bg="#2A3990", fg="light green")
-    whats_new_label.config(bg="#2A3990", fg="light green")
-    # BUTTONS
+    pass_check_label.config(bg=DEFAULT_CDM_BG_COLOR,
+                            fg=DEFAULT_DM_LABELS_FG_COLOR)
+    version_message.config(bg=DEFAULT_CDM_BG_COLOR,
+                           fg=DEFAULT_DM_LABELS_FG_COLOR)
+    whats_new_label.config(bg=DEFAULT_CDM_BG_COLOR,
+                           fg=DEFAULT_DM_LABELS_FG_COLOR)
     toggle_theme_button.config(text="\u2600")
 
 def toggle_theme():
@@ -671,7 +726,7 @@ window.resizable(width=False, height=False)
 window.wm_iconbitmap('assets/logos/logo-dark.ico')
 
 canvas = Canvas(height=150, width=275)
-logo_img = PhotoImage(file="assets/logos/wide.png")
+logo_img = PhotoImage(file="assets/logos/wide_dark.png")
 canvas.create_image(137, 75, image=logo_img, anchor="center")
 canvas.place(x=200, y=5)
 
@@ -686,8 +741,7 @@ window.bind("<Command-G>", lambda _: generate_password_button.invoke())
 window.bind("<Command-g>", lambda _: generate_password_button.invoke())
 window.bind("<Command-U>", lambda _: check_for_update_button.invoke())
 window.bind("<Command-u>", lambda _: check_for_update_button.invoke())
-window.bind("<Command-X>", lambda _: clear_all_button.invoke())
-window.bind("<Command-x>", lambda _: clear_all_button.invoke())
+window.bind("<Command-/>", lambda _: clear_all_button.invoke())
 window.bind("<Command-`>", lambda _: shortcuts_button.invoke())
 window.bind("<Command-E>", lambda _: password_check_button.invoke())
 window.bind("<Command-e>", lambda _: password_check_button.invoke())
@@ -706,12 +760,14 @@ website_label = Label(
     text=chosen_lang['website_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
 website_label.place(x=40, y=180)
 website_entry = Entry(width=46)
+website_entry.bind("<Tab>",focus_next_box)
 website_entry.place(x=200, y=180)
 website_entry.focus()
 
 email_label = Label(text=chosen_lang['email_label'], bg="#2A3990", fg="white", font=("Verdana", 11))
 email_label.place(x=40, y=210)
 email_entry = Entry(width=46)
+email_entry.bind("<Tab>",focus_next_box)
 email_entry.place(x=200, y=210)
 email_entry.insert(0, "")
 
@@ -720,6 +776,7 @@ password_label = Label(
     text=chosen_lang["password_label"], bg="#2A3990", fg="white", font=("Verdana", 11))
 password_label.place(x=40, y=240)
 password_entry = Entry(show="*", width=21)
+password_entry.bind("<Tab>",focus_next_box)
 password_entry.place(x=200, y=240)
 
 password_saved = Label(text=chosen_lang["password_saved_label"], bg="light green", fg="blue",font=("Verdana", 9))
