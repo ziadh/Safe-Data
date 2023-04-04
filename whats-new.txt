@@ -1,9 +1,0 @@
-What's New?
-
-- GitHub logo no longer looks darker in Classic Dark Mode
-- Saving file confirmation message now confirms the picked data type as well
-- Added an indicator when a destination folder has not been set successfully
-- Fixed a bug where About button would not translate when switching languages
-- Updated font for all texts
-- Improvements to info message when a changing directory was unsuccessful and added its spanish translation
-- Improved the positioning of the Show button

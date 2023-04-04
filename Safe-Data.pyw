@@ -739,7 +739,6 @@ whats_new_label.bind(
     "<Button-1>", lambda event: open_patch_notes(language, chosen_lang))
 whats_new_label.place(x=40, y=20)
 
-window.config(bg="#20262E")
 window.title(window_title)
 window.config(padx=50, pady=50)
 window.resizable(width=False, height=False)
