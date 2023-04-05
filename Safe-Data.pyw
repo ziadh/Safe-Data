@@ -475,16 +475,16 @@ def Classic_Dark_Mode():
     canvas.config(bg=DEFAULT_CDM_BG_COLOR)
     for button in buttons:
         button.config(bg=DEFAULT_CDM_BUTTONS_BG_COLOR,
-                      fg=DEFAULT_DM_BUTTONS_FG_COLOR)
+                      fg=DEFAULT_CDM_BUTTONS_FG_COLOR)
     for label in element_labels:
-        label.config(bg=DEFAULT_CDM_BG_COLOR, fg=DEFAULT_DM_BUTTONS_FG_COLOR)
+        label.config(bg=DEFAULT_CDM_BG_COLOR, fg=DEFAULT_CDM_BUTTONS_FG_COLOR)
     # LABELS
     pass_check_label.config(bg=DEFAULT_CDM_BG_COLOR,
-                            fg=DEFAULT_DM_LABELS_FG_COLOR)
+                            fg=DEFAULT_CDM_LABELS_FG_COLOR)
     version_message.config(bg=DEFAULT_CDM_BG_COLOR,
-                           fg=DEFAULT_DM_LABELS_FG_COLOR)
+                           fg=DEFAULT_CDM_LABELS_FG_COLOR)
     whats_new_label.config(bg=DEFAULT_CDM_BG_COLOR,
-                           fg=DEFAULT_DM_LABELS_FG_COLOR)
+                           fg=DEFAULT_CDM_LABELS_FG_COLOR)
     toggle_theme_button.config(text="\u2600")
 
 
