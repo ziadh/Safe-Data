@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import messagebox, Canvas, PhotoImage, Label
 import tkinter as tk
 from tkinter import ttk
+import customtkinter as CTk
 
 import json
 from random import choice, randint, shuffle
@@ -414,7 +415,7 @@ def Dark_Mode():
                       fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     for label in element_labels:
         label.config(bg=DEFAULT_DM_BG_COLOR, fg=DEFAULT_DM_BUTTONS_FG_COLOR)
-    toggle_theme_button.config(text="\u263C")
+    set_theme_button.config(text=chosen_lang["set_theme_button"])
     # HIDDEN LABELS
     pass_check_label.config(bg=DEFAULT_DM_BG_COLOR,
                             fg=DEFAULT_DM_LABELS_FG_COLOR)
@@ -442,7 +443,7 @@ def Light_Mode():
                            fg=DEFAULT_LM_BUTTONS_FG_COLOR)
     whats_new_label.config(bg=DEFAULT_LM_BG_COLOR,
                            fg=DEFAULT_LM_BUTTONS_FG_COLOR)
-    toggle_theme_button.config(text="\u263E")
+    set_theme_button.config(text=chosen_lang["set_theme_button"])
 
 
 def Classic_Light_Mode():
@@ -464,7 +465,7 @@ def Classic_Light_Mode():
                            fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
     whats_new_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR,
                            fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
-    toggle_theme_button.config(text="\u263D")
+    set_theme_button.config(text=chosen_lang["set_theme_button"])
 
 
 def Classic_Dark_Mode():
@@ -485,10 +486,11 @@ def Classic_Dark_Mode():
                            fg=DEFAULT_CDM_LABELS_FG_COLOR)
     whats_new_label.config(bg=DEFAULT_CDM_BG_COLOR,
                            fg=DEFAULT_CDM_LABELS_FG_COLOR)
-    toggle_theme_button.config(text="\u2600")
+    set_theme_button.config(text=chosen_lang["set_theme_button"])
 
 
-def toggle_theme():
+def set_theme():
+    # TODO: Update to set theme from dropdown
     default_settings = {
         'theme': 'dark'
     }
@@ -770,8 +772,6 @@ window.bind("<Control-P>", lambda _: privacy_button.invoke())
 window.bind("<Control-p>", lambda _: privacy_button.invoke())
 window.bind("<Control-D>", lambda _: change_dir_button.invoke())
 window.bind("<Control-d>", lambda _: change_dir_button.invoke())
-window.bind("<Control-T>", lambda _: toggle_theme_button.invoke())
-window.bind("<Control-t>", lambda _: toggle_theme_button.invoke())
 window.bind("<Control-L>", lambda _: toggle_language_button.invoke())
 window.bind("<Control-l>", lambda _: toggle_language_button.invoke())
 window.bind("<Control-.>", lambda _: saving_as_button.invoke())
@@ -837,7 +837,7 @@ generate_password_button.place(x=390, y=240)
 
 github_page_button = Button(image=github_logo, compound='center',
                             bg="#2A3990", fg="white", command=open_github_page)
-github_page_button.place(x=255, y=330)
+github_page_button.place(x=200, y=330)
 
 password_check_button = Button(
     text=chosen_lang["check_pass_button"], bg="#251749", fg="white", command=check_pass, width=17, font=("Verdana", 8))
@@ -864,9 +864,17 @@ show_button = Button(
 show_button.bind("<Control-b>", show_or_hide)
 show_button.place(x=338, y=240)
 
-toggle_theme_button = Button(
-    text="\u263E", width=3, command=toggle_theme, bg="#251749", fg="white")
-toggle_theme_button.place(x=200, y=330)
+theme_label = Label(text=chosen_lang["theme_label"],
+                    bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
+theme_label.place(x=440, y=400)
+theme_selected = StringVar(window)
+theme_dropdown = CTk.CTkOptionMenu(window, values=[
+    "Dark", "Light", "Classic Dark", "Classic Light"], width=80)
+theme_selected.set("Dark")
+theme_dropdown.place(x=490, y=400)
+set_theme_button = Button(
+    text=chosen_lang["set_theme_button"], width=3, command=set_theme, bg="#251749", fg="white")
+set_theme_button.place(x=580, y=400)
 
 toggle_language_button = Button(
     text="ES", width=3, command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
@@ -893,7 +901,7 @@ password_entry.bind("<Tab>", focus_next_box)
 ### END OF ENTRYBOXES ###
 
 buttons = [github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
-           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, shortcuts_button]
+           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, set_theme_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
                   password_label, email_label, confirm_changed_dir]
