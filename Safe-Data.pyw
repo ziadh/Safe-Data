@@ -902,7 +902,7 @@ buttons = [github_page_button, generate_password_button,  clear_all_button, save
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, set_theme_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
-                  password_label, email_label, confirm_changed_dir]
+                  password_label, email_label, confirm_changed_dir,theme_label]
 
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(btn))
