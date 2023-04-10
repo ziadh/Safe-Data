@@ -36,7 +36,7 @@ with open('src/settings.json', 'r') as f:
     settings = json.load(f)
 version = settings['version']
 language = settings['language']
-
+theme= settings['theme']
 
 with open('src/languages.json', 'r', encoding='utf8') as f:
     language_data = json.load(f)
@@ -490,11 +490,11 @@ def Classic_Dark_Mode():
 
 
 def set_theme():
-    # TODO: Update to set theme from dropdown
+    theme_selected = theme_dropdown.get()
     default_settings = {
         'theme': 'dark'
     }
-
+    
     try:
         with open('src/settings.json', 'r') as f:
             try:
@@ -505,24 +505,23 @@ def set_theme():
         with open('src/settings.json', 'w') as f:
             json.dump(default_settings, f)
         settings = default_settings
-
     if 'theme' not in settings:
         settings['theme'] = default_settings['theme']
-    elif settings['theme'] == 'Dark':
-        settings['theme'] = 'Light'
+    elif theme_selected == 'Dark':
+        settings['theme'] = 'Dark'
+        Dark_Mode()
+    elif theme_selected == 'Light':
         Light_Mode()
-    elif settings['theme'] == 'Light':
+        settings['theme'] = 'Light'
+    elif theme_selected == 'Classic Dark':
         Classic_Dark_Mode()
         settings['theme'] = 'Classic Dark'
-    elif settings['theme'] == 'Classic Dark':
+    elif theme_selected == 'Classic Light':
         Classic_Light_Mode()
         settings['theme'] = 'Classic Light'
-    elif settings['theme'] == 'Classic Light':
-        Dark_Mode()
-        settings['theme'] = 'Dark'
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
-
+        theme_selected = settings['theme']
 
 def help_function():
     direct_to_issues = messagebox.askokcancel(chosen_lang["help_title"],
@@ -867,14 +866,13 @@ show_button.place(x=338, y=240)
 theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
 theme_label.place(x=440, y=400)
-theme_selected = StringVar(window)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
     "Dark", "Light", "Classic Dark", "Classic Light"], width=80)
-theme_selected.set("Dark")
+
 theme_dropdown.place(x=490, y=400)
 set_theme_button = Button(
     text=chosen_lang["set_theme_button"], width=3, command=set_theme, bg="#251749", fg="white")
-set_theme_button.place(x=580, y=400)
+set_theme_button.place(x=600, y=400)
 
 toggle_language_button = Button(
     text="ES", width=3, command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
