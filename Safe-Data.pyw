@@ -332,6 +332,12 @@ def change_data_type():
         json.dump(settings, f)
 
 
+def clear_input():
+    website_entry.delete(0, END)
+    email_entry.delete(0, END)
+    password_entry.delete(0, END)
+
+
 def clear_all():
 
     yes_clear = messagebox.askokcancel(
@@ -844,7 +850,7 @@ website_label.place(x=40, y=180)
 
 about_button = Button(text=chosen_lang["about_button"], width=17,
                       bg="#251749", fg="white", font=("Verdana", 8), command=about)
-about_button.place(x=40, y=330)
+about_button.place(x=200, y=330)
 
 change_dir_button = Button(
     text=chosen_lang["change_dir_button"], width=17, command=change_dir, bg="#251749", fg="white", font=("Verdana", 8))
@@ -858,6 +864,9 @@ clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
                           command=clear_all, bg="#251749", fg="white", font=("Verdana", 8))
 clear_all_button.place(x=40, y=360)
 
+clear_input_button = Button(text=chosen_lang["clear_input_button"], width=17,
+                            command=clear_input, bg="#251749", fg="white", font=("Verdana", 8))
+clear_input_button.place(x=40, y=330)
 exit_button = Button(text=chosen_lang["exit_button"], width=17,
                      command=on_exit, bg="#251749", fg="white", font=("Verdana", 8))
 exit_button.place(x=353, y=360)
@@ -894,24 +903,24 @@ show_button.place(x=338, y=240)
 
 theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
-theme_label.place(x=500, y=430)
+theme_label.place(x=480, y=430)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
     chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"]], width=80, command=change_theme)
-theme_dropdown.place(x=560, y=430)
+theme_dropdown.place(x=530, y=430)
 current_theme = get_current_theme()
 theme_dropdown.set(current_theme)
 language_label = Label(text=chosen_lang["language_label"],
                        bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
-language_label.place(x=340, y=430)
+language_label.place(x=320, y=430)
 
 language_dropdown = CTk.CTkOptionMenu(window, values=[
     "English", "Español"], width=80, command=toggle_language)
-language_dropdown.place(x=410, y=430)
+language_dropdown.place(x=390, y=430)
 current_language = get_current_language()
 language_dropdown.set(current_language)
 github_page_button = Button(image=github_logo, compound='center',
                             bg="#2A3990", fg="white", command=open_github_page)
-github_page_button.place(x=310, y=430)
+github_page_button.place(x=290, y=430)
 ### END OF BUTTONS ###
 
 ### START OF ENTRYBOXES ###
@@ -932,7 +941,7 @@ password_entry.bind("<Tab>", focus_next_box)
 
 ### END OF ENTRYBOXES ###
 
-buttons = [github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
+buttons = [clear_input_button, github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
