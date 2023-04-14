@@ -334,7 +334,7 @@ def change_data_type():
 
 def clear_input():
     yes_clear = messagebox.askokcancel(
-    chosen_lang["confirm_clear_input_title"], chosen_lang["clear_input_confirmation"])
+        chosen_lang["confirm_clear_input_title"], chosen_lang["clear_input_confirmation"])
     if yes_clear:
         website_entry.delete(0, END)
         email_entry.delete(0, END)
@@ -853,7 +853,7 @@ website_label.place(x=40, y=180)
 
 about_button = Button(text=chosen_lang["about_button"], width=17,
                       bg="#251749", fg="white", font=("Verdana", 8), command=about)
-about_button.place(x=200, y=330)
+about_button.place(x=200, y=360)
 
 change_dir_button = Button(
     text=chosen_lang["change_dir_button"], width=17, command=change_dir, bg="#251749", fg="white", font=("Verdana", 8))
@@ -897,7 +897,7 @@ saving_as_button.place(x=353, y=300)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
-shortcuts_button.place(x=200, y=360)
+shortcuts_button.place(x=200, y=330)
 
 show_button = Button(
     text=chosen_lang['show_button'], command=show_or_hide, bg="#251749", fg="white", font=("Verdana", 8))
@@ -922,8 +922,8 @@ language_dropdown.place(x=390, y=430)
 current_language = get_current_language()
 language_dropdown.set(current_language)
 github_page_button = Button(image=github_logo, compound='center',
-                            bg="#2A3990", fg="white", command=open_github_page)
-github_page_button.place(x=290, y=430)
+                            bg="#2A3990", fg="white", command=open_github_page, width=30)
+github_page_button.place(x=270, y=430)
 ### END OF BUTTONS ###
 
 ### START OF ENTRYBOXES ###
