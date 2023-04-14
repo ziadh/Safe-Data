@@ -414,6 +414,7 @@ def safety():
 
 def automatic_theme():
     current_hour = datetime.now().hour
+    print(current_hour)
     if 6 <= current_hour < 18:
         Light_Mode()
     else:
@@ -553,20 +554,21 @@ def change_theme(selected_option):
         settings = default_settings
     if 'theme' not in settings:
         settings['theme'] = default_settings['theme']
-    elif theme_selected == 'Dark':
+    elif theme_selected == chosen_lang["Dark_theme"]:
         settings['theme'] = 'Dark'
         Dark_Mode()
-    elif theme_selected == 'Light':
+    elif theme_selected == chosen_lang["Light_theme"]:
         Light_Mode()
         settings['theme'] = 'Light'
-    elif theme_selected == 'Classic Dark':
+    elif theme_selected == chosen_lang["Classic_Dark_theme"]:        
         Classic_Dark_Mode()
         settings['theme'] = 'Classic Dark'
-    elif theme_selected == 'Classic Light':
+    elif theme_selected == chosen_lang["Classic_Light_theme"]:        
         Classic_Light_Mode()
         settings['theme'] = 'Classic Light'
     else:
         automatic_theme()
+        print('automatic!')
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
         theme_selected = settings['theme']
