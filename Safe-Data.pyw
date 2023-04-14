@@ -192,8 +192,6 @@ def randomize_password():
         password_saved.place(x=40, y=120)
 
 
-
-
 def check_pass():
     password = password_entry.get().lower()
     email = email_entry.get().lower()
@@ -486,6 +484,7 @@ def Classic_Dark_Mode():
     whats_new_label.config(bg=DEFAULT_CDM_BG_COLOR,
                            fg=DEFAULT_CDM_LABELS_FG_COLOR)
 
+
 def get_current_theme():
     default_settings = {
         'theme': 'dark'
@@ -502,6 +501,10 @@ def get_current_theme():
             json.dump(default_settings, f)
         settings = default_settings
     return settings.get('theme', default_settings['theme'])
+
+#TODO finish this
+def get_current_language():
+    pass
 
 def change_theme(selected_option):
     theme_selected = selected_option
@@ -537,6 +540,7 @@ def change_theme(selected_option):
         json.dump(settings, f)
         theme_selected = settings['theme']
 
+
 def help_function():
     direct_to_issues = messagebox.askokcancel(chosen_lang["help_title"],
                                               chosen_lang["help_needed"])
@@ -549,7 +553,12 @@ def open_issues():
     webbrowser.open(link)
 
 
-def toggle_language():
+def toggle_language(selected_language):
+    if selected_language == "Español":
+        chosen_lang = "ES"
+    elif selected_language == "English":
+        chosen_lang = "EN"
+
     default_settings = {
         'language': 'EN'
     }
@@ -568,15 +577,14 @@ def toggle_language():
         settings['language'] = default_settings['language']
     with open('src/languages.json', 'r', encoding='utf8') as f:
         language_data = json.load(f)
-    language = settings['language']
+    language = chosen_lang if chosen_lang else settings['language']
 
     for lang in language_data['languages']:
         if lang['language'] == language:
             chosen_lang = lang
             break
 
-    if toggle_language_button.cget("text") == "ES":  # switches lang to EN
-        toggle_language_button.config(text='EN')
+    if selected_language == "Español":
         change_dir_button.config(width=19)
         check_for_update_button.config(width=19)
         email_label.config(font=("Verdana", 8))
@@ -589,8 +597,7 @@ def toggle_language():
                 chosen_lang = lang
                 break
 
-    elif toggle_language_button.cget("text") == "EN":  # switches lang to ES
-        toggle_language_button.config(text='ES')
+    elif selected_language == "English":
         change_dir_button.config(width=17)
         check_for_update_button.config(width=17)
         email_label.config(font=("Verdana", 11))
@@ -879,16 +886,24 @@ show_button.place(x=338, y=240)
 
 theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
-theme_label.place(x=440, y=400)
+theme_label.place(x=470, y=400)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
     "Dark", "Light", "Classic Dark", "Classic Light"], width=80, command=change_theme)
-theme_dropdown.place(x=490, y=400)
+theme_dropdown.place(x=530, y=400)
 current_theme = get_current_theme()
 theme_dropdown.set(current_theme)
+language_label = Label(text=chosen_lang["language_label"],
+                       bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
+language_label.place(x=310, y=400)
+
+language_dropdown = CTk.CTkOptionMenu(window, values=[
+    "English", "Español"], width=80, command=toggle_language)
+language_dropdown.place(x=380, y=400)
 toggle_language_button = Button(
     text="ES", width=3, command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
 toggle_language_button.place(x=299, y=330)
-
+current_language = get_current_language()
+language_dropdown.set(current_language)
 ### END OF BUTTONS ###
 
 ### START OF ENTRYBOXES ###

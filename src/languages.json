@@ -53,8 +53,8 @@
             "website_label": "Website/Service",
             "window_title": "Safe Data v{version}",
             "language_switch_notice_title":"Language Switch Notice",
-            "language_switch_notice_text":"A restart is highly recommended for the app to work properly. Would you like to restart now?"
-
+            "language_switch_notice_text":"A restart is highly recommended for the app to work properly. Would you like to restart now?",
+            "language_label": "Language: "
         },
         {
             "language": "ES",
@@ -108,8 +108,8 @@
             "website_label": "Ssitio Web/Servicio",
             "window_title": "Safe Data v{version}",
             "language_switch_notice_title":"Aviso de cambio de idioma",
-            "language_switch_notice_text":"Se recomienda encarecidamente reiniciar la aplicación para que funcione correctamente. \n¿Desea reiniciar ahora?"
-
+            "language_switch_notice_text":"Se recomienda encarecidamente reiniciar la aplicación para que funcione correctamente. \n¿Desea reiniciar ahora?",
+            "language_label": "Idioma"
         }
     ]
 }
