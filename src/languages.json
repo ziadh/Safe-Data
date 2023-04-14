@@ -97,7 +97,7 @@
             "save_button": "Guardar",
             "saving_as_button": "Guardando Como {data_type}",
             "save_data_message": "Por favor, confirme sus datos: \n\n(Guardando esta información en data.txt guardado localmente) \n\nSitio web/Servicio: {website} \nEmail: {email} \nClave: {password} \n \n¿Confirmar guardlas credenciales?",
-            "set_theme_button":"Establecer Tema",
+            "set_theme_button":"Establecer",
             "shortcuts": "Atajas",
             "shortcuts_text":"Acerca de esta versión: Control + B \n\nCambiar directorio: Control + D\n\nCambiar tipo de archivo: Control + .\n\nBorrar todo: Control + /\n\nGenerar contraseña aleatoria: Control + G\n\n Reparar: Control + R \n\nMostrar/Ocultar contraseña: Control + J \n\nMostrar/Ocultar contraseña: Control + E\n\n¿Es esto seguro? Control + P\n\nGuardar: Control + S\n\nVentana de atajos: Control + `\n\nCambiar idioma: Control + L\n\nCambiar Tema: Control + T\n\n",
             "theme_label":"Tema: ",

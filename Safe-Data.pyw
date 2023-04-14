@@ -491,8 +491,8 @@ def Classic_Dark_Mode():
     set_theme_button.config(text=chosen_lang["set_theme_button"])
 
 
-def set_theme():
-    theme_selected = theme_dropdown.get()
+def change_theme(selected_option):
+    theme_selected = selected_option
     default_settings = {
         'theme': 'dark'
     }
@@ -523,8 +523,8 @@ def set_theme():
         settings['theme'] = 'Classic Light'
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
+        print(f"Saved updated settings to JSON file: {settings}")
         theme_selected = settings['theme']
-
 
 def help_function():
     direct_to_issues = messagebox.askokcancel(chosen_lang["help_title"],
@@ -870,11 +870,10 @@ theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
 theme_label.place(x=440, y=400)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
-    "Dark", "Light", "Classic Dark", "Classic Light"], width=80)
-
+    "Dark", "Light", "Classic Dark", "Classic Light"], width=80, command=change_theme)
 theme_dropdown.place(x=490, y=400)
 set_theme_button = Button(
-    text=chosen_lang["set_theme_button"], width=3, command=set_theme, bg="#251749", fg="white")
+    text=chosen_lang["set_theme_button"], width=3, command=change_theme, bg="#251749", fg="white")
 set_theme_button.place(x=600, y=400)
 
 toggle_language_button = Button(
