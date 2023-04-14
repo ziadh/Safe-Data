@@ -36,7 +36,7 @@ with open('src/settings.json', 'r') as f:
     settings = json.load(f)
 version = settings['version']
 language = settings['language']
-theme= settings['theme']
+theme = settings['theme']
 
 with open('src/languages.json', 'r', encoding='utf8') as f:
     language_data = json.load(f)
@@ -190,6 +190,16 @@ def randomize_password():
         pyperclip.copy(password)
         password_saved.config(text=chosen_lang["password_saved_label"])
         password_saved.place(x=40, y=120)
+        clear_me_label = Label(text="Clear", fg="blue",
+                               bg=DEFAULT_DM_LABELS_BG_COLOR)
+        clear_me_label.bind(
+            "<Button-1>", lambda event: clear_label(password_saved, clear_me_label))
+        clear_me_label.place(x=40, y=150)
+
+
+def clear_label(label, clear_me_label):
+    label.config(text="")
+    clear_me_label.config(text="")
 
 
 def check_pass():
@@ -494,7 +504,7 @@ def set_theme():
     default_settings = {
         'theme': 'dark'
     }
-    
+
     try:
         with open('src/settings.json', 'r') as f:
             try:
@@ -522,6 +532,7 @@ def set_theme():
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
         theme_selected = settings['theme']
+
 
 def help_function():
     direct_to_issues = messagebox.askokcancel(chosen_lang["help_title"],
@@ -902,7 +913,7 @@ buttons = [github_page_button, generate_password_button,  clear_all_button, save
            privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, set_theme_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
-                  password_label, email_label, confirm_changed_dir,theme_label]
+                  password_label, email_label, confirm_changed_dir, theme_label]
 
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(btn))
