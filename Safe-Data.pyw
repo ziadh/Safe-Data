@@ -502,8 +502,6 @@ def get_current_theme():
         settings = default_settings
     return settings.get('theme', default_settings['theme'])
 
-# TODO finish this
-
 
 def get_current_language():
     default_settings = {
@@ -520,7 +518,7 @@ def get_current_language():
         with open('src/settings.json', 'w') as f:
             json.dump(default_settings, f)
         settings = default_settings
-    
+
     return settings.get('language', default_settings['language'])
 
 
@@ -868,9 +866,6 @@ generate_password_button = Button(
     text=chosen_lang["generate_button"], command=randomize_password, bg="#251749", fg="white", width=12, font=("Verdana", 8))
 generate_password_button.place(x=390, y=240)
 
-github_page_button = Button(image=github_logo, compound='center',
-                            bg="#2A3990", fg="white", command=open_github_page)
-github_page_button.place(x=280, y=430)
 
 password_check_button = Button(
     text=chosen_lang["check_pass_button"], bg="#251749", fg="white", command=check_pass, width=17, font=("Verdana", 8))
@@ -899,21 +894,24 @@ show_button.place(x=338, y=240)
 
 theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
-theme_label.place(x=470, y=430)
+theme_label.place(x=500, y=430)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
-    "Dark", "Light", "Classic Dark", "Classic Light"], width=80, command=change_theme)
-theme_dropdown.place(x=530, y=430)
+    chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"]], width=80, command=change_theme)
+theme_dropdown.place(x=560, y=430)
 current_theme = get_current_theme()
 theme_dropdown.set(current_theme)
 language_label = Label(text=chosen_lang["language_label"],
                        bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
-language_label.place(x=310, y=430)
+language_label.place(x=340, y=430)
 
 language_dropdown = CTk.CTkOptionMenu(window, values=[
     "English", "Español"], width=80, command=toggle_language)
-language_dropdown.place(x=380, y=430)
+language_dropdown.place(x=410, y=430)
 current_language = get_current_language()
 language_dropdown.set(current_language)
+github_page_button = Button(image=github_logo, compound='center',
+                            bg="#2A3990", fg="white", command=open_github_page)
+github_page_button.place(x=310, y=430)
 ### END OF BUTTONS ###
 
 ### START OF ENTRYBOXES ###
@@ -938,7 +936,7 @@ buttons = [github_page_button, generate_password_button,  clear_all_button, save
            privacy_button,  change_dir_button, exit_button, check_for_update_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
-                  password_label, email_label, confirm_changed_dir, theme_label]
+                  password_label, email_label, confirm_changed_dir, theme_label, language_label]
 
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(btn))
