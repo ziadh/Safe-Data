@@ -486,6 +486,22 @@ def Classic_Dark_Mode():
     whats_new_label.config(bg=DEFAULT_CDM_BG_COLOR,
                            fg=DEFAULT_CDM_LABELS_FG_COLOR)
 
+def get_current_theme():
+    default_settings = {
+        'theme': 'dark'
+    }
+
+    try:
+        with open('src/settings.json', 'r') as f:
+            try:
+                settings = json.load(f)
+            except json.decoder.JSONDecodeError:
+                settings = default_settings
+    except FileNotFoundError:
+        with open('src/settings.json', 'w') as f:
+            json.dump(default_settings, f)
+        settings = default_settings
+    return settings.get('theme', default_settings['theme'])
 
 def change_theme(selected_option):
     theme_selected = selected_option
@@ -867,7 +883,8 @@ theme_label.place(x=440, y=400)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
     "Dark", "Light", "Classic Dark", "Classic Light"], width=80, command=change_theme)
 theme_dropdown.place(x=490, y=400)
-
+current_theme = get_current_theme()
+theme_dropdown.set(current_theme)
 toggle_language_button = Button(
     text="ES", width=3, command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
 toggle_language_button.place(x=299, y=330)
