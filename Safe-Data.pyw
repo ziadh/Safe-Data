@@ -417,7 +417,6 @@ def Dark_Mode():
                       fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     for label in element_labels:
         label.config(bg=DEFAULT_DM_BG_COLOR, fg=DEFAULT_DM_BUTTONS_FG_COLOR)
-    set_theme_button.config(text=chosen_lang["set_theme_button"])
     # HIDDEN LABELS
     pass_check_label.config(bg=DEFAULT_DM_BG_COLOR,
                             fg=DEFAULT_DM_LABELS_FG_COLOR)
@@ -445,7 +444,6 @@ def Light_Mode():
                            fg=DEFAULT_LM_BUTTONS_FG_COLOR)
     whats_new_label.config(bg=DEFAULT_LM_BG_COLOR,
                            fg=DEFAULT_LM_BUTTONS_FG_COLOR)
-    set_theme_button.config(text=chosen_lang["set_theme_button"])
 
 
 def Classic_Light_Mode():
@@ -467,7 +465,6 @@ def Classic_Light_Mode():
                            fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
     whats_new_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR,
                            fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
-    set_theme_button.config(text=chosen_lang["set_theme_button"])
 
 
 def Classic_Dark_Mode():
@@ -488,7 +485,6 @@ def Classic_Dark_Mode():
                            fg=DEFAULT_CDM_LABELS_FG_COLOR)
     whats_new_label.config(bg=DEFAULT_CDM_BG_COLOR,
                            fg=DEFAULT_CDM_LABELS_FG_COLOR)
-    set_theme_button.config(text=chosen_lang["set_theme_button"])
 
 
 def change_theme(selected_option):
@@ -523,7 +519,6 @@ def change_theme(selected_option):
         settings['theme'] = 'Classic Light'
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
-        print(f"Saved updated settings to JSON file: {settings}")
         theme_selected = settings['theme']
 
 def help_function():
@@ -872,9 +867,6 @@ theme_label.place(x=440, y=400)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
     "Dark", "Light", "Classic Dark", "Classic Light"], width=80, command=change_theme)
 theme_dropdown.place(x=490, y=400)
-set_theme_button = Button(
-    text=chosen_lang["set_theme_button"], width=3, command=change_theme, bg="#251749", fg="white")
-set_theme_button.place(x=600, y=400)
 
 toggle_language_button = Button(
     text="ES", width=3, command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
@@ -901,7 +893,7 @@ password_entry.bind("<Tab>", focus_next_box)
 ### END OF ENTRYBOXES ###
 
 buttons = [github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
-           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, set_theme_button, shortcuts_button]
+           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
                   password_label, email_label, confirm_changed_dir, theme_label]
