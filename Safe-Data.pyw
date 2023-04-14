@@ -502,9 +502,12 @@ def get_current_theme():
         settings = default_settings
     return settings.get('theme', default_settings['theme'])
 
-#TODO finish this
+# TODO finish this
+
+
 def get_current_language():
     pass
+
 
 def change_theme(selected_option):
     theme_selected = selected_option
@@ -792,8 +795,6 @@ window.bind("<Control-P>", lambda _: privacy_button.invoke())
 window.bind("<Control-p>", lambda _: privacy_button.invoke())
 window.bind("<Control-D>", lambda _: change_dir_button.invoke())
 window.bind("<Control-d>", lambda _: change_dir_button.invoke())
-window.bind("<Control-L>", lambda _: toggle_language_button.invoke())
-window.bind("<Control-l>", lambda _: toggle_language_button.invoke())
 window.bind("<Control-.>", lambda _: saving_as_button.invoke())
 
 
@@ -857,7 +858,7 @@ generate_password_button.place(x=390, y=240)
 
 github_page_button = Button(image=github_logo, compound='center',
                             bg="#2A3990", fg="white", command=open_github_page)
-github_page_button.place(x=200, y=330)
+github_page_button.place(x=280, y=400)
 
 password_check_button = Button(
     text=chosen_lang["check_pass_button"], bg="#251749", fg="white", command=check_pass, width=17, font=("Verdana", 8))
@@ -899,9 +900,6 @@ language_label.place(x=310, y=400)
 language_dropdown = CTk.CTkOptionMenu(window, values=[
     "English", "Español"], width=80, command=toggle_language)
 language_dropdown.place(x=380, y=400)
-toggle_language_button = Button(
-    text="ES", width=3, command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
-toggle_language_button.place(x=299, y=330)
 current_language = get_current_language()
 language_dropdown.set(current_language)
 ### END OF BUTTONS ###
@@ -925,7 +923,7 @@ password_entry.bind("<Tab>", focus_next_box)
 ### END OF ENTRYBOXES ###
 
 buttons = [github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
-           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, shortcuts_button]
+           privacy_button,  change_dir_button, exit_button, check_for_update_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
                   password_label, email_label, confirm_changed_dir, theme_label]
