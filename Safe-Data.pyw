@@ -748,7 +748,7 @@ screen_height = window.winfo_screenheight()
 x_coord = int((screen_width / 2) - (500 / 2))
 y_coord = int((screen_height / 2) - (300))
 window.resizable(True, True)
-window.geometry(f"700x480+{x_coord}+{y_coord}")
+window.geometry(f"700x510+{x_coord}+{y_coord}")
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
 
@@ -858,7 +858,7 @@ generate_password_button.place(x=390, y=240)
 
 github_page_button = Button(image=github_logo, compound='center',
                             bg="#2A3990", fg="white", command=open_github_page)
-github_page_button.place(x=280, y=400)
+github_page_button.place(x=280, y=430)
 
 password_check_button = Button(
     text=chosen_lang["check_pass_button"], bg="#251749", fg="white", command=check_pass, width=17, font=("Verdana", 8))
@@ -887,19 +887,19 @@ show_button.place(x=338, y=240)
 
 theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
-theme_label.place(x=470, y=400)
+theme_label.place(x=470, y=430)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
     "Dark", "Light", "Classic Dark", "Classic Light"], width=80, command=change_theme)
-theme_dropdown.place(x=530, y=400)
+theme_dropdown.place(x=530, y=430)
 current_theme = get_current_theme()
 theme_dropdown.set(current_theme)
 language_label = Label(text=chosen_lang["language_label"],
                        bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
-language_label.place(x=310, y=400)
+language_label.place(x=310, y=430)
 
 language_dropdown = CTk.CTkOptionMenu(window, values=[
     "English", "Español"], width=80, command=toggle_language)
-language_dropdown.place(x=380, y=400)
+language_dropdown.place(x=380, y=430)
 current_language = get_current_language()
 language_dropdown.set(current_language)
 ### END OF BUTTONS ###
