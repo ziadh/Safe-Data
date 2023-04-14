@@ -530,7 +530,7 @@ def get_current_language():
 
     return settings.get('language', default_settings['language'])
 
-
+#TODO add an automatic theme switching feature
 def change_theme(selected_option):
     theme_selected = selected_option
     default_settings = {
@@ -561,6 +561,8 @@ def change_theme(selected_option):
     elif theme_selected == 'Classic Light':
         Classic_Light_Mode()
         settings['theme'] = 'Classic Light'
+    else:
+        print("automatic")
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
         theme_selected = settings['theme']
@@ -908,7 +910,7 @@ theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
 theme_label.place(x=480, y=430)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
-    chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"]], width=80, command=change_theme)
+    chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"], chosen_lang["Automatic_Theme"]], width=80, command=change_theme)
 theme_dropdown.place(x=530, y=430)
 current_theme = get_current_theme()
 theme_dropdown.set(current_theme)
