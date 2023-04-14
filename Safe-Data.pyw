@@ -333,9 +333,12 @@ def change_data_type():
 
 
 def clear_input():
-    website_entry.delete(0, END)
-    email_entry.delete(0, END)
-    password_entry.delete(0, END)
+    yes_clear = messagebox.askokcancel(
+    chosen_lang["confirm_clear_input_title"], chosen_lang["clear_input_confirmation"])
+    if yes_clear:
+        website_entry.delete(0, END)
+        email_entry.delete(0, END)
+        password_entry.delete(0, END)
 
 
 def clear_all():
