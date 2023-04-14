@@ -190,16 +190,8 @@ def randomize_password():
         pyperclip.copy(password)
         password_saved.config(text=chosen_lang["password_saved_label"])
         password_saved.place(x=40, y=120)
-        clear_me_label = Label(text="Clear", fg="blue",
-                               bg=DEFAULT_DM_LABELS_BG_COLOR)
-        clear_me_label.bind(
-            "<Button-1>", lambda event: clear_label(password_saved, clear_me_label))
-        clear_me_label.place(x=40, y=150)
 
 
-def clear_label(label, clear_me_label):
-    label.config(text="")
-    clear_me_label.config(text="")
 
 
 def check_pass():
