@@ -506,7 +506,22 @@ def get_current_theme():
 
 
 def get_current_language():
-    pass
+    default_settings = {
+        'language': 'English'
+    }
+
+    try:
+        with open('src/settings.json', 'r') as f:
+            try:
+                settings = json.load(f)
+            except json.decoder.JSONDecodeError:
+                settings = default_settings
+    except FileNotFoundError:
+        with open('src/settings.json', 'w') as f:
+            json.dump(default_settings, f)
+        settings = default_settings
+    
+    return settings.get('language', default_settings['language'])
 
 
 def change_theme(selected_option):
@@ -557,13 +572,10 @@ def open_issues():
 
 
 def toggle_language(selected_language):
-    if selected_language == "Español":
-        chosen_lang = "ES"
-    elif selected_language == "English":
-        chosen_lang = "EN"
+    chosen_lang = selected_language
 
     default_settings = {
-        'language': 'EN'
+        'language': 'English'
     }
     try:
         with open('src/settings.json', 'r') as f:
@@ -592,7 +604,7 @@ def toggle_language(selected_language):
         check_for_update_button.config(width=19)
         email_label.config(font=("Verdana", 8))
 
-        settings['language'] = 'ES'
+        settings['language'] = 'Español'
         with open('src/languages.json', 'r', encoding='utf8') as f:
             language_data = json.load(f)
         for lang in language_data['languages']:
@@ -605,7 +617,7 @@ def toggle_language(selected_language):
         check_for_update_button.config(width=17)
         email_label.config(font=("Verdana", 11))
 
-        settings['language'] = 'EN'
+        settings['language'] = 'English'
         with open('src/languages.json', 'r', encoding='utf8') as f:
             language_data = json.load(f)
         for lang in language_data['languages']:
@@ -942,11 +954,11 @@ if settings['theme'] == 'Classic Light':
     Classic_Light_Mode()
 
 
-if language == 'EN':
+if language == 'English':
     change_dir_button.config(width=17)
     check_for_update_button.config(width=17)
     email_label.config(font=("Verdana", 11))
-if language == 'ES':
+if language == 'Español':
     change_dir_button.config(width=19)
     check_for_update_button.config(width=19)
     email_label.config(font=("Verdana", 8))

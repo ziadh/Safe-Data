@@ -1,7 +1,7 @@
 {
     "languages": [
         {
-            "language": "EN",
+            "language": "English",
             "about_button":"About",
             "about_title":"About This Version",
             "about_unreleased":"This is an unreleased version v{version}.\nClick the GitHub icon (or go to github.com/ziadh/Safe-Data) and download the latest stable release.\n\nRunning into errors or need to submit feedback? \nClick Ok to open the Issues page on Github and make sure to include the error log located in the errors_logged folder, click Cancel to go back.",
@@ -57,7 +57,7 @@
             "language_label": "Language: "
         },
         {
-            "language": "ES",
+            "language": "Español",
             "about_button":"Acerca de",
             "about_title":"Acerca de esta versión", 
             "about_unreleased":"Esta es una versión no lanzada v{version}.\nHaga clic en el icono de GitHub (o vaya a github.com/ziadh/Safe-Data) y descargue la última versión estable.\n\n¿Tiene errores o necesita enviar comentarios?\nHaga clic en Aceptar para abrir la página de Problemas en Github y asegúrese de incluir el registro de errores ubicado en la carpeta errors_logged, haga clic en Cancelar para volver.",
