@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import messagebox, Canvas, PhotoImage, Label
 import tkinter as tk
 from tkinter import ttk
+import customtkinter as CTk
 
 import json
 from random import choice, randint, shuffle
@@ -321,6 +322,13 @@ def change_data_type():
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
 
+def clear_input():
+    yes_clear = messagebox.askokcancel(
+        chosen_lang["confirm_clear_input_title"], chosen_lang["clear_input_confirmation"])
+    if yes_clear:
+        website_entry.delete(0, END)
+        email_entry.delete(0, END)
+        password_entry.delete(0, END)
 
 def clear_all():
 
@@ -377,6 +385,12 @@ def safety():
     message = chosen_lang["""privacy_message"""]
     messagebox.showinfo(title="Safety", message=message)
 
+def automatic_theme():
+    current_hour = datetime.datetime.now().hour
+    if 6 <= current_hour < 18:
+        Light_Mode()
+    else:
+        Dark_Mode()
 
 def Dark_Mode():
     logo_img.config(file="assets/logos/wide_dark.png")
@@ -388,7 +402,6 @@ def Dark_Mode():
                       fg=DEFAULT_DM_BUTTONS_FG_COLOR)
     for label in element_labels:
         label.config(bg=DEFAULT_DM_BG_COLOR, fg=DEFAULT_DM_BUTTONS_FG_COLOR)
-    toggle_theme_button.config(text="\u263C")
     # HIDDEN LABELS
     pass_check_label.config(bg=DEFAULT_DM_BG_COLOR,
                             fg=DEFAULT_DM_LABELS_FG_COLOR)
@@ -414,7 +427,6 @@ def Light_Mode():
                            fg=DEFAULT_LM_BUTTONS_FG_COLOR)
     whats_new_label.config(bg=DEFAULT_LM_BG_COLOR,
                            fg=DEFAULT_LM_BUTTONS_FG_COLOR)
-    toggle_theme_button.config(text="\u263E")
 
 
 def Classic_Light_Mode():
@@ -435,7 +447,6 @@ def Classic_Light_Mode():
                            fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
     whats_new_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR,
                            fg=DEFAULT_CLM_BUTTONS_FG_COLOR)
-    toggle_theme_button.config(text="\u263D")
 
 
 def Classic_Dark_Mode():
@@ -455,9 +466,8 @@ def Classic_Dark_Mode():
                            fg=DEFAULT_DM_LABELS_FG_COLOR)
     whats_new_label.config(bg=DEFAULT_CDM_BG_COLOR,
                            fg=DEFAULT_DM_LABELS_FG_COLOR)
-    toggle_theme_button.config(text="\u2600")
 
-def toggle_theme():
+def get_current_theme():
     default_settings = {
         'theme': 'dark'
     }
@@ -472,24 +482,62 @@ def toggle_theme():
         with open('src/settings.json', 'w') as f:
             json.dump(default_settings, f)
         settings = default_settings
+    return settings.get('theme', default_settings['theme'])
 
+
+def get_current_language():
+    default_settings = {
+        'language': 'English'
+    }
+
+    try:
+        with open('src/settings.json', 'r') as f:
+            try:
+                settings = json.load(f)
+            except json.decoder.JSONDecodeError:
+                settings = default_settings
+    except FileNotFoundError:
+        with open('src/settings.json', 'w') as f:
+            json.dump(default_settings, f)
+        settings = default_settings
+
+    return settings.get('language', default_settings['language'])
+
+def change_theme(selected_option):  
+    theme_selected = selected_option
+    default_settings = {
+        'theme': 'dark'
+    }
+
+    try:
+        with open('src/settings.json', 'r') as f:
+            try:
+                settings = json.load(f)
+            except json.decoder.JSONDecodeError:
+                settings = default_settings
+    except FileNotFoundError:
+        with open('src/settings.json', 'w') as f:
+            json.dump(default_settings, f)
+        settings = default_settings
     if 'theme' not in settings:
         settings['theme'] = default_settings['theme']
-    elif settings['theme'] == 'Dark':
-        settings['theme'] = 'Light'
+    elif theme_selected == chosen_lang["Dark_theme"]:
+        settings['theme'] = 'Dark'
+        Dark_Mode()
+    elif theme_selected == chosen_lang["Light_theme"]:
         Light_Mode()
-    elif settings['theme'] == 'Light':
+        settings['theme'] = 'Light'
+    elif theme_selected == chosen_lang["Classic_Dark_theme"]:
         Classic_Dark_Mode()
         settings['theme'] = 'Classic Dark'
-    elif settings['theme'] == 'Classic Dark':
+    elif theme_selected == chosen_lang["Classic_Light_theme"]:
         Classic_Light_Mode()
         settings['theme'] = 'Classic Light'
-    elif settings['theme'] == 'Classic Light':
-        Dark_Mode()
-        settings['theme'] = 'Dark'
+    else:
+        automatic_theme()
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
-
+        theme_selected = settings['theme']
 
 
 def help_function():
@@ -504,10 +552,11 @@ def open_issues():
     webbrowser.open(link)
 
 
-def toggle_language():
+def toggle_language(selected_language):
+    chosen_lang = selected_language
 
     default_settings = {
-        'language': 'EN'
+        'language': 'English'
     }
     try:
         with open('src/settings.json', 'r') as f:
@@ -524,16 +573,19 @@ def toggle_language():
         settings['language'] = default_settings['language']
     with open('src/languages.json', 'r', encoding='utf8') as f:
         language_data = json.load(f)
-    language = settings['language']
+    language = chosen_lang if chosen_lang else settings['language']
 
     for lang in language_data['languages']:
         if lang['language'] == language:
             chosen_lang = lang
             break
 
-    if toggle_language_button.cget("text") == "ES":  # switches lang to EN
-        toggle_language_button.config(text='EN')
-        settings['language'] = 'ES'
+    if selected_language == "Español":
+        change_dir_button.config(width=19)
+        check_for_update_button.config(width=19)
+        email_label.config(font=("Verdana", 8))
+
+        settings['language'] = 'Español'
         with open('src/languages.json', 'r', encoding='utf8') as f:
             language_data = json.load(f)
         for lang in language_data['languages']:
@@ -541,9 +593,12 @@ def toggle_language():
                 chosen_lang = lang
                 break
 
-    elif toggle_language_button.cget("text") == "EN":  # switches lang to ES
-        toggle_language_button.config(text='ES')
-        settings['language'] = 'EN'
+    elif selected_language == "English":
+        change_dir_button.config(width=17)
+        check_for_update_button.config(width=17)
+        email_label.config(font=("Verdana", 11))
+
+        settings['language'] = 'English'
         with open('src/languages.json', 'r', encoding='utf8') as f:
             language_data = json.load(f)
         for lang in language_data['languages']:
@@ -560,18 +615,20 @@ def toggle_language():
         text=chosen_lang['check_pass_button'])
     check_for_update_button.config(
         text=chosen_lang['check_for_updates_button'])
+    clear_input_button.config(text=chosen_lang["clear_input_button"])
     clear_all_button.config(
         text=chosen_lang['clear_all_button'])
     generate_password_button.config(
         text=chosen_lang['generate_button'])
     save_button.config(
         text=chosen_lang['save_button'])
+    saving_as_button.config(
+        text=chosen_lang['saving_as_button'].format(data_type=data_type))
     privacy_button.config(
         text=chosen_lang['privacy_button'])
     change_dir_button.config(
         text=chosen_lang['change_dir_button'])
-    exit_button.config(
-        text=chosen_lang['exit_button'])
+    exit_button.config(text=chosen_lang['exit_button'])
     show_button.config(text=chosen_lang['show_button'])
     shortcuts_button.config(text=chosen_lang['shortcuts'])
     about_button.config(text=chosen_lang['about_button'])
@@ -675,7 +732,7 @@ screen_height = window.winfo_screenheight()
 x_coord = int((screen_width / 2) - (500 / 2))
 y_coord = int((screen_height / 2) - (300))
 window.resizable(True, True)
-window.geometry(f"700x480+{x_coord}+{y_coord}")
+window.geometry(f"700x510+{x_coord}+{y_coord}")
 
 with open('src/settings.json', 'r') as f:
     settings = json.load(f)
@@ -719,10 +776,6 @@ window.bind("<Command-e>", lambda _: password_check_button.invoke())
 window.bind("<Command-P>", lambda _: privacy_button.invoke())
 window.bind("<Command-p>", lambda _: privacy_button.invoke())
 window.bind("<Command-2>", lambda _: change_dir_button.invoke())
-window.bind("<Command-T>", lambda _: toggle_theme_button.invoke())
-window.bind("<Command-t>", lambda _: toggle_theme_button.invoke())
-window.bind("<Command-L>", lambda _: toggle_language_button.invoke())
-window.bind("<Command-l>", lambda _: toggle_language_button.invoke())
 window.bind("<Command-.>", lambda _: saving_as_button.invoke())
 
 #### SHORTCUTS ABOVE ####
@@ -771,13 +824,6 @@ save_button = Button(text=chosen_lang["save_button"], width=39, command=save,
                      bg="#251749", fg="white", font=("Verdana", 8))
 save_button.place(x=240, y=270)
 
-toggle_theme_button = Button(text="\u263E", width=3,
-                             command=toggle_theme, bg="#251749", fg="white", font=("Verdana", 8))
-toggle_theme_button.place(x=230, y=330)
-
-toggle_language_button = Button(text="ES", width=3,
-                                command=toggle_language, bg="#251749", fg="white", font=("Verdana", 8))
-toggle_language_button.place(x=350, y=330)
 
 privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
                         command=safety, bg="#251749", fg="white", font=("Verdana", 8))
@@ -799,6 +845,9 @@ exit_button.place(x=373, y=360)
 
 password_saved = Label(
     text=chosen_lang["password_saved_label"], bg="light green", fg="blue")
+clear_input_button = Button(text=chosen_lang["clear_input_button"], width=17,
+                            command=clear_input, bg="#251749", fg="white", font=("Verdana", 8))
+clear_input_button.place(x=40, y=330)
 
 clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
                           command=clear_all, bg="#251749", fg="white", font=("Verdana", 8))
@@ -816,10 +865,28 @@ shortcuts_button.place(x=230, y=360)
 
 about_button = Button(text=chosen_lang["about_button"], width=17,
                       bg="#251749", fg="white", font=("Verdana", 8), command=about)
-about_button.place(x=40, y=330)
+about_button.place(x=200, y=330)
+
+theme_label = Label(text=chosen_lang["theme_label"],
+                    bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
+theme_label.place(x=353, y=430)
+theme_dropdown = CTk.CTkOptionMenu(window, values=[
+    chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"], chosen_lang["Automatic_Theme"]], width=80, command=change_theme)
+theme_dropdown.place(x=410, y=430)
+current_theme = get_current_theme()
+theme_dropdown.set(current_theme)
+language_label = Label(text=chosen_lang["language_label"],
+                       bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
+language_label.place(x=200, y=430)
+
+language_dropdown = CTk.CTkOptionMenu(window, values=[
+    "English", "Español"], width=80, command=toggle_language)
+language_dropdown.place(x=270, y=430)
+current_language = get_current_language()
+language_dropdown.set(current_language)
 
 buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
-           privacy_button,  change_dir_button, exit_button, check_for_update_button, toggle_language_button, toggle_theme_button, shortcuts_button]
+           privacy_button,  change_dir_button, exit_button, check_for_update_button, shortcuts_button]
 element_labels = [website_label,password_saved,password_label,email_label,confirm_changed_dir]
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
