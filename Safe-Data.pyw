@@ -413,8 +413,7 @@ def safety():
     messagebox.showinfo(chosen_lang["privacy_title"], message)
 
 def automatic_theme():
-    current_hour = datetime.now().hour
-    print(current_hour)
+    current_hour = datetime.datetime.now().hour
     if 6 <= current_hour < 18:
         Light_Mode()
     else:
@@ -535,7 +534,6 @@ def get_current_language():
         settings = default_settings
 
     return settings.get('language', default_settings['language'])
-
 def change_theme(selected_option):
     theme_selected = selected_option
     default_settings = {
@@ -568,7 +566,6 @@ def change_theme(selected_option):
         settings['theme'] = 'Classic Light'
     else:
         automatic_theme()
-        print('automatic!')
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
         theme_selected = settings['theme']
