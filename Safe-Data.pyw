@@ -651,6 +651,7 @@ def toggle_language(selected_language):
         text=chosen_lang['check_pass_button'])
     check_for_update_button.config(
         text=chosen_lang['check_for_updates_button'])
+    clear_input_button.config(text=chosen_lang["clear_input_button"])
     clear_all_button.config(
         text=chosen_lang['clear_all_button'])
     generate_password_button.config(
