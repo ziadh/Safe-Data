@@ -412,7 +412,12 @@ def safety():
     message = chosen_lang["""privacy_message"""]
     messagebox.showinfo(chosen_lang["privacy_title"], message)
 
-
+def automatic_theme():
+    current_hour = datetime.now().hour
+    if 6 <= current_hour < 18:
+        Light_Mode()
+    else:
+        Dark_Mode()
 def Dark_Mode():
     logo_img.config(file="assets/logos/wide_dark.png")
     window.wm_iconbitmap('assets/logos/logo-dark.ico')
@@ -530,7 +535,6 @@ def get_current_language():
 
     return settings.get('language', default_settings['language'])
 
-#TODO add an automatic theme switching feature
 def change_theme(selected_option):
     theme_selected = selected_option
     default_settings = {
@@ -562,7 +566,7 @@ def change_theme(selected_option):
         Classic_Light_Mode()
         settings['theme'] = 'Classic Light'
     else:
-        print("automatic")
+        automatic_theme()
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
         theme_selected = settings['theme']
