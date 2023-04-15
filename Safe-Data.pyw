@@ -412,12 +412,15 @@ def safety():
     message = chosen_lang["""privacy_message"""]
     messagebox.showinfo(chosen_lang["privacy_title"], message)
 
+
 def automatic_theme():
     current_hour = datetime.datetime.now().hour
     if 6 <= current_hour < 18:
         Light_Mode()
     else:
         Dark_Mode()
+
+
 def Dark_Mode():
     logo_img.config(file="assets/logos/wide_dark.png")
     window.wm_iconbitmap('assets/logos/logo-dark.ico')
@@ -534,6 +537,8 @@ def get_current_language():
         settings = default_settings
 
     return settings.get('language', default_settings['language'])
+
+
 def change_theme(selected_option):
     theme_selected = selected_option
     default_settings = {
@@ -558,10 +563,10 @@ def change_theme(selected_option):
     elif theme_selected == chosen_lang["Light_theme"]:
         Light_Mode()
         settings['theme'] = 'Light'
-    elif theme_selected == chosen_lang["Classic_Dark_theme"]:        
+    elif theme_selected == chosen_lang["Classic_Dark_theme"]:
         Classic_Dark_Mode()
         settings['theme'] = 'Classic Dark'
-    elif theme_selected == chosen_lang["Classic_Light_theme"]:        
+    elif theme_selected == chosen_lang["Classic_Light_theme"]:
         Classic_Light_Mode()
         settings['theme'] = 'Classic Light'
     else:
@@ -911,24 +916,24 @@ show_button.place(x=338, y=240)
 
 theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
-theme_label.place(x=480, y=430)
+theme_label.place(x=353, y=430)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
     chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"], chosen_lang["Automatic_Theme"]], width=80, command=change_theme)
-theme_dropdown.place(x=530, y=430)
+theme_dropdown.place(x=410, y=430)
 current_theme = get_current_theme()
 theme_dropdown.set(current_theme)
 language_label = Label(text=chosen_lang["language_label"],
                        bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
-language_label.place(x=320, y=430)
+language_label.place(x=200, y=430)
 
 language_dropdown = CTk.CTkOptionMenu(window, values=[
     "English", "Español"], width=80, command=toggle_language)
-language_dropdown.place(x=390, y=430)
+language_dropdown.place(x=270, y=430)
 current_language = get_current_language()
 language_dropdown.set(current_language)
 github_page_button = Button(image=github_logo, compound='center',
                             bg="#2A3990", fg="white", command=open_github_page, width=30)
-github_page_button.place(x=270, y=430)
+github_page_button.place(x=40, y=430)
 ### END OF BUTTONS ###
 
 ### START OF ENTRYBOXES ###
