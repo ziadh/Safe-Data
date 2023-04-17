@@ -194,7 +194,6 @@ def randomize_password():
 
 def check_pass():
     password = password_entry.get().lower()
-    email = email_entry.get().lower()
     weak_pass = ["pass", "password", "123456", "123", "000", "qwerty", "1111", "2222", "qwerty123", "abc123", "password123", "!@#%^&*", "qazwsxedcrfv", "qwertyuiopasdfghjklzxcvbnm",
                  "qwertyuio", "qwerasdfzxcv", "1qaz2wsx3edc", "1q2w3e4r5t", "admin", "letmein", "welcome", "monkey", "sunshine", "superman", "666666", "121212", "123123", "abcabc", "aaa111",
                  "password"]
@@ -414,6 +413,7 @@ def safety():
 
 
 def automatic_theme():
+    automatic_help_button.place(x=540, y=430)
     current_hour = datetime.datetime.now().hour
     if 6 <= current_hour < 18:
         Light_Mode()
@@ -772,6 +772,11 @@ def focus_next_box(event):
     return "break"
 
 
+def show_auto_help():
+    auto_help = messagebox.showinfo(chosen_lang["automatic_help_title"],chosen_lang["automatic_help_message"])
+    
+
+
 window = Tk()
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -935,6 +940,9 @@ language_dropdown.set(current_language)
 github_page_button = Button(image=github_logo, compound='center',
                             bg="#2A3990", fg="white", command=open_github_page, width=30)
 github_page_button.place(x=40, y=430)
+
+automatic_help_button = Button(text='?', command=show_auto_help, width=5)
+
 ### END OF BUTTONS ###
 
 ### START OF ENTRYBOXES ###
@@ -955,7 +963,7 @@ password_entry.bind("<Tab>", focus_next_box)
 
 ### END OF ENTRYBOXES ###
 
-buttons = [clear_input_button, github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
+buttons = [automatic_help_button, clear_input_button, github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
