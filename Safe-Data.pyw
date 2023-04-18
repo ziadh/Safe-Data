@@ -462,7 +462,6 @@ def Light_Mode():
 
 
 def Classic_Light_Mode():
-
     logo_img.config(file="assets/logos/wide_light.png")
     window.wm_iconbitmap('assets/logos/classic-logo-light.ico')
     window.config(bg=DEFAULT_CLM_BG_COLOR)
@@ -540,6 +539,7 @@ def get_current_language():
 
 
 def change_theme(selected_option):
+    automatic_help_button.place_forget()
     theme_selected = selected_option
     default_settings = {
         'theme': 'dark'
