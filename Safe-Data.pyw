@@ -412,7 +412,10 @@ def safety():
     messagebox.showinfo(chosen_lang["privacy_title"], message)
 
 
+
 def automatic_theme():
+    global theme,current_hour
+    theme = "Automatic"
     automatic_help_button.place(x=540, y=430)
     current_hour = datetime.datetime.now().hour
     if 6 <= current_hour < 18:
@@ -685,10 +688,12 @@ def on_exit():
 
 
 def on_enter(btn):
-
-    with open('src/settings.json', 'r') as f:
-        settings = json.load(f)
-    theme = settings['theme']
+    # print(current_hour)
+    if theme == "Automatic":
+        if 6 <= current_hour < 18:
+            btn.config(bg=DEFAULT_LM_HOVER_BUTTON_COLOR)
+        else:
+            btn.config(bg=DEFAULT_DM_HOVER_BUTTON_COLOR)
 
     if theme == "Dark":
         btn.config(bg=DEFAULT_DM_HOVER_BUTTON_COLOR)
@@ -701,10 +706,11 @@ def on_enter(btn):
 
 
 def on_leave(btn):
-    with open('src/settings.json', 'r') as f:
-        settings = json.load(f)
-    theme = settings['theme']
-
+    if theme == "Automatic":
+        if 6 <= current_hour < 18:
+            btn.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR)
+        else:
+            btn.config(bg=DEFAULT_DM_BUTTONS_BG_COLOR)
     if theme == "Dark":
         btn.config(bg=DEFAULT_DM_BUTTONS_BG_COLOR)
     if theme == "Light":
