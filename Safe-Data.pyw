@@ -396,15 +396,15 @@ def clear_all():
 
         if settings['theme'] == 'Classic Light':
             confirm_changed_dir.config(
-                text="", bg="DEFAULT_CLM_LABELS_BG_COLOR", fg="DEFAULT_CLM_LABELS_BG_COLOR")
+                text="", bg=DEFAULT_CLM_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
             pass_check_label.config(
-                text="", bg="DEFAULT_CLM_LABELS_BG_COLOR", fg="DEFAULT_CLM_LABELS_BG_COLOR")
+                text="", bg=DEFAULT_CLM_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
             password_saved.config(
-                text="", bg="DEFAULT_CLM_LABELS_BG_COLOR", fg="DEFAULT_CLM_LABELS_BG_COLOR")
+                text="", bg=DEFAULT_CLM_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
             version_message.config(
-                text="", bg="DEFAULT_CLM_LABELS_BG_COLOR", fg="DEFAULT_CLM_LABELS_BG_COLOR")
+                text="", bg=DEFAULT_CLM_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
             whats_new_label.config(
-                text="", bg="DEFAULT_CLM_LABELS_BG_COLOR", fg="DEFAULT_CLM_LABELS_BG_COLOR")
+                text="", bg=DEFAULT_CLM_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
 
 
 def safety():
@@ -680,21 +680,12 @@ def toggle_language(selected_language):
         window.destroy()
 
 
-def on_exit():
-    result = messagebox.askquestion(
-        "Confirm", chosen_lang["confirm_exit"])
-    if result == 'yes':
-        window.destroy()
-
-
 def on_enter(btn):
-    # print(current_hour)
     if theme == "Automatic":
         if 6 <= current_hour < 18:
             btn.config(bg=DEFAULT_LM_HOVER_BUTTON_COLOR)
         else:
             btn.config(bg=DEFAULT_DM_HOVER_BUTTON_COLOR)
-
     if theme == "Dark":
         btn.config(bg=DEFAULT_DM_HOVER_BUTTON_COLOR)
     if theme == "Light":
@@ -703,6 +694,14 @@ def on_enter(btn):
         btn.config(bg=DEFAULT_CDM_HOVER_BUTTON_COLOR)
     if theme == "Classic Light":
         btn.config(bg=DEFAULT_CLM_HOVER_BUTTON_COLOR)
+
+def on_exit():
+    result = messagebox.askquestion(
+        "Confirm", chosen_lang["confirm_exit"])
+    if result == 'yes':
+        window.destroy()
+
+
 
 
 def on_leave(btn):
@@ -719,7 +718,6 @@ def on_leave(btn):
         btn.config(bg=DEFAULT_CDM_BUTTONS_BG_COLOR)
     if theme == "Classic Light":
         btn.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR)
-
 
 def show_shortcuts():
     shortcuts_window = tk.Toplevel(window)
