@@ -413,15 +413,6 @@ def safety():
 
 
 
-def automatic_theme():
-    global theme,current_hour
-    theme = "Automatic"
-    automatic_help_button.place(x=540, y=430)
-    current_hour = datetime.datetime.now().hour
-    if 6 <= current_hour < 18:
-        Light_Mode()
-    else:
-        Dark_Mode()
 
 
 def Dark_Mode():
@@ -572,8 +563,6 @@ def change_theme(selected_option):
     elif theme_selected == chosen_lang["Classic_Light_theme"]:
         Classic_Light_Mode()
         settings['theme'] = 'Classic Light'
-    else:
-        automatic_theme()
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
         theme_selected = settings['theme']
@@ -681,11 +670,6 @@ def toggle_language(selected_language):
 
 
 def on_enter(btn):
-    if theme == "Automatic":
-        if 6 <= current_hour < 18:
-            btn.config(bg=DEFAULT_LM_HOVER_BUTTON_COLOR)
-        else:
-            btn.config(bg=DEFAULT_DM_HOVER_BUTTON_COLOR)
     if theme == "Dark":
         btn.config(bg=DEFAULT_DM_HOVER_BUTTON_COLOR)
     if theme == "Light":
@@ -705,11 +689,6 @@ def on_exit():
 
 
 def on_leave(btn):
-    if theme == "Automatic":
-        if 6 <= current_hour < 18:
-            btn.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR)
-        else:
-            btn.config(bg=DEFAULT_DM_BUTTONS_BG_COLOR)
     if theme == "Dark":
         btn.config(bg=DEFAULT_DM_BUTTONS_BG_COLOR)
     if theme == "Light":
@@ -928,7 +907,7 @@ theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
 theme_label.place(x=353, y=430)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
-    chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"], chosen_lang["Automatic_Theme"]], width=80, command=change_theme)
+    chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"]], width=80, command=change_theme)
 theme_dropdown.place(x=410, y=430)
 current_theme = get_current_theme()
 theme_dropdown.set(current_theme)
