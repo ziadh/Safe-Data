@@ -670,6 +670,10 @@ def toggle_language(selected_language):
 
 
 def on_enter(btn):
+    with open('src/settings.json', 'r') as f:
+        settings = json.load(f)
+    theme = settings['theme']
+
     if theme == "Dark":
         btn.config(bg=DEFAULT_DM_HOVER_BUTTON_COLOR)
     if theme == "Light":
@@ -679,16 +683,10 @@ def on_enter(btn):
     if theme == "Classic Light":
         btn.config(bg=DEFAULT_CLM_HOVER_BUTTON_COLOR)
 
-def on_exit():
-    result = messagebox.askquestion(
-        "Confirm", chosen_lang["confirm_exit"])
-    if result == 'yes':
-        window.destroy()
-
-
-
-
 def on_leave(btn):
+    with open('src/settings.json', 'r') as f:
+        settings = json.load(f)
+    theme = settings['theme']
     if theme == "Dark":
         btn.config(bg=DEFAULT_DM_BUTTONS_BG_COLOR)
     if theme == "Light":
@@ -697,7 +695,11 @@ def on_leave(btn):
         btn.config(bg=DEFAULT_CDM_BUTTONS_BG_COLOR)
     if theme == "Classic Light":
         btn.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR)
-
+def on_exit():
+    result = messagebox.askquestion(
+        "Confirm", chosen_lang["confirm_exit"])
+    if result == 'yes':
+        window.destroy()
 def show_shortcuts():
     shortcuts_window = tk.Toplevel(window)
     shortcuts_window.withdraw()
