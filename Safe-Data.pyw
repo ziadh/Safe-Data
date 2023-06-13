@@ -194,6 +194,9 @@ def randomize_password():
         pyperclip.copy(password)
         password_saved.config(text=chosen_lang["password_saved_label"])
         password_saved.place(x=40, y=120)
+    if show_button.cget('text') == chosen_lang['show_button']:
+        show_button.configure(text=chosen_lang['hide_button'])
+    toggle_password_visibility()
 
 
 def check_pass():
