@@ -117,6 +117,10 @@ class splash():
     if settings['theme'] == 'Classic Dark':
         label = tk.Label(ss, text="", bg="#2A3990")
         image = PhotoImage(file='assets/logos/classic-splash-dark.png')
+    # TODO Change the asset image later
+    if settings['theme'] == 'Majestic Blush':
+        label = tk.Label(ss, text="", bg="#2A3990")
+        image = PhotoImage(file='assets/logos/classic-splash-dark.png')
     label.place(x=-10, y=-10)
     image_label = Label(ss, image=image)
     image_label.place(x=0, y=0)
@@ -405,6 +409,17 @@ def clear_all():
                 text="", bg=DEFAULT_CLM_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
             whats_new_label.config(
                 text="", bg=DEFAULT_CLM_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
+        if settings['theme'] == 'Majestic Blush':
+            confirm_changed_dir.config(
+                text="", bg=DEFAULT_MB_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
+            pass_check_label.config(
+                text="", bg=DEFAULT_MB_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
+            password_saved.config(
+                text="", bg=DEFAULT_MB_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
+            version_message.config(
+                text="", bg=DEFAULT_MB_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
+            whats_new_label.config(
+                text="", bg=DEFAULT_MB_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
 
 
 def safety():
@@ -412,7 +427,25 @@ def safety():
     messagebox.showinfo(chosen_lang["privacy_title"], message)
 
 
-
+def Majestic_Blush_Mode():
+    # TODO change asset image later
+    logo_img.config(file="assets/logos/wide_dark.png")
+    window.wm_iconbitmap('assets/logos/logo-dark.ico')
+    github_page_button.configure(image=github_logo)
+    window.config(bg=DEFAULT_MB_BG_COLOR)
+    canvas.config(bg=DEFAULT_MB_BG_COLOR)
+    for button in buttons:
+        button.config(bg=DEFAULT_MB_BUTTONS_BG_COLOR,
+                      fg=DEFAULT_MB_BUTTONS_FG_COLOR)
+    for label in element_labels:
+        label.config(bg=DEFAULT_MB_BG_COLOR, fg=DEFAULT_MB_BUTTONS_FG_COLOR)
+    # HIDDEN LABELS
+    pass_check_label.config(bg=DEFAULT_MB_BG_COLOR,
+                            fg=DEFAULT_MB_LABELS_FG_COLOR)
+    version_message.config(bg=DEFAULT_MB_BG_COLOR,
+                           fg=DEFAULT_MB_LABELS_FG_COLOR)
+    whats_new_label.config(bg=DEFAULT_MB_BG_COLOR,
+                           fg=DEFAULT_MB_LABELS_FG_COLOR)
 
 
 def Dark_Mode():
@@ -563,6 +596,9 @@ def change_theme(selected_option):
     elif theme_selected == chosen_lang["Classic_Light_theme"]:
         Classic_Light_Mode()
         settings['theme'] = 'Classic Light'
+    elif theme_selected == chosen_lang["Majestic_Blush"]:
+        Majestic_Blush_Mode()
+        settings['theme'] = 'Majestic Blush'
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
         theme_selected = settings['theme']
@@ -682,6 +718,9 @@ def on_enter(btn):
         btn.config(bg=DEFAULT_CDM_HOVER_BUTTON_COLOR)
     if theme == "Classic Light":
         btn.config(bg=DEFAULT_CLM_HOVER_BUTTON_COLOR)
+    if theme == "Majestic Blush":
+        btn.config(bg=DEFAULT_MB_HOVER_BUTTON_COLOR)
+
 
 def on_leave(btn):
     with open('src/settings.json', 'r') as f:
@@ -695,11 +734,17 @@ def on_leave(btn):
         btn.config(bg=DEFAULT_CDM_BUTTONS_BG_COLOR)
     if theme == "Classic Light":
         btn.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR)
+    if theme == "Majestic Blush":
+        btn.config(bg=DEFAULT_MB_BUTTONS_BG_COLOR)
+
+
 def on_exit():
     result = messagebox.askquestion(
         "Confirm", chosen_lang["confirm_exit"])
     if result == 'yes':
         window.destroy()
+
+
 def show_shortcuts():
     shortcuts_window = tk.Toplevel(window)
     shortcuts_window.withdraw()
@@ -758,8 +803,8 @@ def focus_next_box(event):
 
 
 def show_auto_help():
-    auto_help = messagebox.showinfo(chosen_lang["automatic_help_title"],chosen_lang["automatic_help_message"])
-    
+    auto_help = messagebox.showinfo(
+        chosen_lang["automatic_help_title"], chosen_lang["automatic_help_message"])
 
 
 window = Tk()
@@ -909,7 +954,7 @@ theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
 theme_label.place(x=353, y=430)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
-    chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"]], width=80, command=change_theme)
+    chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Majestic_Blush"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"]], width=80, command=change_theme)
 theme_dropdown.place(x=410, y=430)
 current_theme = get_current_theme()
 theme_dropdown.set(current_theme)
@@ -966,6 +1011,8 @@ if settings['theme'] == 'Classic Dark':
     Classic_Dark_Mode()
 if settings['theme'] == 'Classic Light':
     Classic_Light_Mode()
+if settings['theme'] == 'Majestic Blush':
+    Majestic_Blush_Mode()
 
 
 if language == 'English':
