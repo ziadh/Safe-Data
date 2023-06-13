@@ -11,7 +11,7 @@
 
  Python project that stores your logins LOCALLY. Nothing is being sent to the cloud or any online database. The main inspiration behind this project was me getting fed up with large password storing companies getting breached and having to worry if my data got compromised. 
  
- I am constantly looking for ways to add unique features and make the user experience better; Please if you have any ideas or suggestions let me know in the [Issues](https://github.com/ziadh/Safe-Data/issues) section.
+ I am constantly looking for ways to add unique features and make the user experience better; Please if you have any ideas or suggestions let me know in [Issues](https://github.com/ziadh/Safe-Data/issues).
 - [Safe Data](#safe-data)
   - [How to Install](#how-to-install)
   - [Features](#features)
@@ -21,8 +21,8 @@
 
 ## How to Install 
 
-- Download [Python](https://www.python.org/downloads/) from here
-- Download the [source file](https://github.com/ziadh/Safe-Data/archive/refs/heads/main.zip) from here
+- Download [Python](https://www.python.org/downloads/) if you don't already have it
+- Download the [source file](https://github.com/ziadh/Safe-Data/archive/refs/heads/main.zip)
 - After unzipping the source file and navigating to where the main.py file is located, press on the address bar as shown below then type cmd.
 
 
@@ -75,7 +75,7 @@ When it is finished, close the cmd and simply double click the Safe-Data.pyw fil
 
 ![spanish-support-ss](assets/ss/spanish-support-ss.png)
 
-## Two classic Themes with more to come!
+## Two classic Themes!
 
 ![classic-dark-ss](assets/ss/classic-dark-ss.png)
 
