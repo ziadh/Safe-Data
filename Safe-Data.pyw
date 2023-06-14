@@ -749,6 +749,8 @@ def on_exit():
 
 
 def show_shortcuts():
+    global shortcuts_top_label, shortcuts_label
+    shortcuts = chosen_lang['shortcuts_text']
     shortcuts_window = tk.Toplevel(window)
     shortcuts_window.withdraw()
     shortcuts_window.title("Shortcuts")
@@ -756,7 +758,34 @@ def show_shortcuts():
     shortcuts_window_height = 750
     shortcuts_window_width = 600
     shortcuts_window.resizable(False, False)
-    shortcuts_window.config(bg="#13005A")
+    indentend_shortcuts = textwrap.indent(shortcuts, '    ')
+    shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
+                             font=("Arial", 16), pady=20)
+    shortcuts_top_label = Label(
+        shortcuts_window, text=chosen_lang["shortcuts"], font=("Arial", 25))
+    with open('src/settings.json', 'r') as f:
+        settings = json.load(f)
+    theme = settings['theme']
+    if theme == "Dark":
+        shortcuts_window.config(bg=DEFAULT_DM_BG_COLOR)
+        shortcuts_label.config(bg = DEFAULT_DM_LABELS_BG_COLOR, fg = "#D1FFF3" )
+    if theme == "Light":
+        shortcuts_top_label.config(bg = DEFAULT_LM_LABELS_BG_COLOR, fg = "black" )
+        shortcuts_label.config(bg = DEFAULT_LM_LABELS_BG_COLOR, fg = "black" )
+        shortcuts_window.config(bg=DEFAULT_LM_BG_COLOR)
+    if theme == "Classic Dark":
+        shortcuts_window.config(bg=DEFAULT_CDM_BG_COLOR)
+        shortcuts_top_label.config(bg = DEFAULT_CDM_LABELS_BG_COLOR, fg = "white" )
+        shortcuts_label.config(bg = DEFAULT_CDM_LABELS_BG_COLOR, fg = "white" )
+    if theme == "Classic Light":
+        shortcuts_label.config(bg = DEFAULT_CLM_LABELS_BG_COLOR, fg = "black" )
+        shortcuts_top_label.config(bg = DEFAULT_CLM_LABELS_BG_COLOR, fg = "black" )
+        shortcuts_window.config(bg=DEFAULT_CLM_BG_COLOR)
+    if theme == "Majestic Blush":
+        shortcuts_window.config(bg=DEFAULT_MB_BG_COLOR)
+        shortcuts_label.config(bg = DEFAULT_MB_LABELS_BG_COLOR, fg = "black" )
+        shortcuts_top_label.config(bg = DEFAULT_MB_LABELS_BG_COLOR, fg = "black" )
+
     main_window_x = window.winfo_x()
     main_window_y = window.winfo_y() + 150
     main_window_width = window.winfo_width()
@@ -767,15 +796,8 @@ def show_shortcuts():
         f"{shortcuts_window_width}x{shortcuts_window_height}+{int(x)}+{int(y)}")
     shortcuts_window.deiconify()
 
-    global shortcuts_top_label, shortcuts_label
-    shortcuts_top_label = Label(
-        shortcuts_window, text=chosen_lang["shortcuts"], bg="#13005A", fg="#85CDFD", font=("Arial", 25))
-    shortcuts_top_label.place(x=220, y=30)
-    shortcuts = chosen_lang['shortcuts_text']
-    indentend_shortcuts = textwrap.indent(shortcuts, '    ')
-    shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
-                            bg="#13005A", fg="#D1FFF3", font=("Arial", 16), pady=20)
 
+    shortcuts_top_label.place(x=220, y=30)
     shortcuts_label.place(x=110, y=80)
 
 
