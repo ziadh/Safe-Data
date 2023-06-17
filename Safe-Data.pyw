@@ -117,10 +117,9 @@ class splash():
     if settings['theme'] == 'Classic Dark':
         label = tk.Label(ss, text="", bg="#2A3990")
         image = PhotoImage(file='assets/logos/classic-splash-dark.png')
-    # TODO Change the asset image later
     if settings['theme'] == 'Majestic Blush':
         label = tk.Label(ss, text="", bg="#2A3990")
-        image = PhotoImage(file='assets/logos/classic-splash-dark.png')
+        image = PhotoImage(file='assets/logos/mb-splash.png')
     label.place(x=-10, y=-10)
     image_label = Label(ss, image=image)
     image_label.place(x=0, y=0)
@@ -431,9 +430,8 @@ def safety():
 
 
 def Majestic_Blush_Mode():
-    # TODO change asset image later
     logo_img.config(file="assets/logos/wide_dark.png")
-    window.wm_iconbitmap('assets/logos/logo-dark.ico')
+    window.wm_iconbitmap('assets/logos/mb-ico.ico')
     github_page_button.configure(image=github_logo)
     window.config(bg=DEFAULT_MB_BG_COLOR)
     canvas.config(bg=DEFAULT_MB_BG_COLOR)
@@ -760,7 +758,7 @@ def show_shortcuts():
     shortcuts_window.resizable(False, False)
     indentend_shortcuts = textwrap.indent(shortcuts, '    ')
     shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
-                             font=("Arial", 16), pady=20)
+                            font=("Arial", 16), pady=20)
     shortcuts_top_label = Label(
         shortcuts_window, text=chosen_lang["shortcuts"], font=("Arial", 25))
     with open('src/settings.json', 'r') as f:
@@ -768,23 +766,23 @@ def show_shortcuts():
     theme = settings['theme']
     if theme == "Dark":
         shortcuts_window.config(bg=DEFAULT_DM_BG_COLOR)
-        shortcuts_label.config(bg = DEFAULT_DM_LABELS_BG_COLOR, fg = "#D1FFF3" )
+        shortcuts_label.config(bg=DEFAULT_DM_LABELS_BG_COLOR, fg="#D1FFF3")
     if theme == "Light":
-        shortcuts_top_label.config(bg = DEFAULT_LM_LABELS_BG_COLOR, fg = "black" )
-        shortcuts_label.config(bg = DEFAULT_LM_LABELS_BG_COLOR, fg = "black" )
+        shortcuts_top_label.config(bg=DEFAULT_LM_LABELS_BG_COLOR, fg="black")
+        shortcuts_label.config(bg=DEFAULT_LM_LABELS_BG_COLOR, fg="black")
         shortcuts_window.config(bg=DEFAULT_LM_BG_COLOR)
     if theme == "Classic Dark":
+        shortcuts_top_label.config(bg=DEFAULT_CDM_LABELS_BG_COLOR, fg="white")
+        shortcuts_label.config(bg=DEFAULT_CDM_LABELS_BG_COLOR, fg="white")
         shortcuts_window.config(bg=DEFAULT_CDM_BG_COLOR)
-        shortcuts_top_label.config(bg = DEFAULT_CDM_LABELS_BG_COLOR, fg = "white" )
-        shortcuts_label.config(bg = DEFAULT_CDM_LABELS_BG_COLOR, fg = "white" )
     if theme == "Classic Light":
-        shortcuts_label.config(bg = DEFAULT_CLM_LABELS_BG_COLOR, fg = "black" )
-        shortcuts_top_label.config(bg = DEFAULT_CLM_LABELS_BG_COLOR, fg = "black" )
+        shortcuts_top_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR, fg="black")
+        shortcuts_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR, fg="black")
         shortcuts_window.config(bg=DEFAULT_CLM_BG_COLOR)
     if theme == "Majestic Blush":
+        shortcuts_top_label.config(bg=DEFAULT_MB_LABELS_BG_COLOR, fg="black")
+        shortcuts_label.config(bg=DEFAULT_MB_LABELS_BG_COLOR, fg="black")
         shortcuts_window.config(bg=DEFAULT_MB_BG_COLOR)
-        shortcuts_label.config(bg = DEFAULT_MB_LABELS_BG_COLOR, fg = "black" )
-        shortcuts_top_label.config(bg = DEFAULT_MB_LABELS_BG_COLOR, fg = "black" )
 
     main_window_x = window.winfo_x()
     main_window_y = window.winfo_y() + 150
@@ -795,7 +793,6 @@ def show_shortcuts():
     shortcuts_window.geometry(
         f"{shortcuts_window_width}x{shortcuts_window_height}+{int(x)}+{int(y)}")
     shortcuts_window.deiconify()
-
 
     shortcuts_top_label.place(x=220, y=30)
     shortcuts_label.place(x=110, y=80)
@@ -936,7 +933,7 @@ check_for_update_button.place(x=40, y=300)
 
 clear_all_button = Button(text=chosen_lang["clear_all_button"], width=17,
                           command=clear_all, bg="#251749", fg="white", font=("Verdana", 8))
-clear_all_button.place(x=40, y=360)
+clear_all_button.place(x=200, y=330)
 
 clear_input_button = Button(text=chosen_lang["clear_input_button"], width=17,
                             command=clear_input, bg="#251749", fg="white", font=("Verdana", 8))
@@ -956,7 +953,7 @@ password_check_button.place(x=40, y=270)
 
 privacy_button = Button(text=chosen_lang["privacy_button"], width=17,
                         command=safety, bg="#251749", fg="white", font=("Verdana", 8))
-privacy_button.place(x=200, y=300)
+privacy_button.place(x=40, y=360)
 
 save_button = Button(text=chosen_lang["save_button"], width=39,
                      command=save, bg="#251749", fg="white", font=("Verdana", 8))
@@ -968,7 +965,7 @@ saving_as_button.place(x=353, y=300)
 
 shortcuts_button = Button(text=chosen_lang["shortcuts"], width=17,
                           command=show_shortcuts, bg="#251749", fg="white", font=("Verdana", 8))
-shortcuts_button.place(x=200, y=330)
+shortcuts_button.place(x=200, y=300)
 
 show_button = Button(
     text=chosen_lang['show_button'], command=show_or_hide, bg="#251749", fg="white", font=("Verdana", 8))
