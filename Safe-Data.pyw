@@ -266,7 +266,7 @@ def save():
         if data_type == "JSON":
             if file_path == None:
                 is_ok = messagebox.askokcancel(
-                    chosen_lang["save_data_title"],
+G                    chosen_lang["save_data_title"],
                     chosen_lang["save_data_message"].format(website=website, email=email, password=password, data_type=data_type))
 
                 if is_ok:

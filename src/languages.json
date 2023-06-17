@@ -107,6 +107,7 @@
             "release_link": "https://github.com/ziadh/Safe-Data/releases/tag/{newest_version}",
             "save_button": "Guardar",
             "saving_as_button": "Guardando Como {data_type}",
+            "save_data_title": "¿guardar datos?",
             "save_data_message": "Por favor, confirme sus datos: \n\n(Guardando esta información en data.txt guardado localmente) \n\nSitio web/Servicio: {website} \nEmail: {email} \nClave: {password} \n \n¿Confirmar guardlas credenciales?",
             "shortcuts": "Atajas",
             "shortcuts_text": "Acerca de esta versión: Control + B \n\nCambiar directorio: Control + D\n\nCambiar tipo de archivo: Control + .\n\nBorrar todo: Control + /\n\nGenerar contraseña aleatoria: Control + G\n\n Reparar: Control + R \n\nMostrar/Ocultar contraseña: Control + J \n\nMostrar/Ocultar contraseña: Control + E\n\n¿Es esto seguro? Control + P\n\nGuardar: Control + S\n\nVentana de atajos: Control + `\n\n",
