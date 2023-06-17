@@ -41,7 +41,7 @@
             "privacy_message": "Safe Data is a program that allows you to save your logins locally so you won't have to panic when a major password database gets breached through. We do not store your data anywhere on our database nor do we want to. The code is open-source for everyone on github.com/ziadh/Safe-Data and you can check the code yourself.",
             "release_link": "https://github.com/ziadh/Safe-Data/releases/tag/{newest_version}",
             "save_button": "Save",
-            "save_data_message": "Por favor confirme sus detalles: \n\n(Guardando esta información en el archivo de guardado local predeterminado como un archivo {data_type} \n\n Sitio web/Servicio: {website} \nCorreo electrónico: {email} \nContraseña: {password} \n \n¿Confirma guardar las credenciales? \n \nSi espera un tipo de datos diferente, es posible que deba reiniciar la aplicación.",
+            "save_data_message": "Please confirm your details: \n\n(Saving this info to the default local saving file as a {data_type} file \n\nWebsite/Service: {website} \nEmail: {email} \nPassword: {password} \n \nConfirm saving credentials? \n \nIf you are expecting a different data type, you might need to restart the app.",
             "save_data_title": "Save data?",
             "saved_data_txt": "Service/Website: {website} | Email: {email} | Password: {password} | Saved on: {date_string}  \n",
             "saving_as_button": "Saving As {data_type}",
