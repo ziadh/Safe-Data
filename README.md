@@ -36,7 +36,7 @@ Run the following command to download all the required packages
 pip install -r requirements.txt
 ```
 
-When it is finished, close the cmd and simply double click the Safe-Data.pyw file or the .exe file.
+When it is finished, close the cmd and simply double click the Safe-Data.pyw file.
 
 ![safe-data-ss](assets/ss/safe-data-ss.png)
 
@@ -74,7 +74,9 @@ When it is finished, close the cmd and simply double click the Safe-Data.pyw fil
 
 
 ![spanish-support-ss](assets/ss/spanish-support-ss.png)
+## Brand new Majestic Blush Theme!
 
+![majestic-blush-ss](assets/ss/majestic-blush-ss.png)
 ## Two classic Themes!
 
 ![classic-dark-ss](assets/ss/classic-dark-ss.png)
