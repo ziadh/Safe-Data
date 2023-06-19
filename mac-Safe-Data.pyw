@@ -119,6 +119,9 @@ class splash():
     if settings['theme'] == 'Classic Dark':
         label = tk.Label(ss, text="", bg="#2A3990")
         image = PhotoImage(file='assets/logos/classic-splash-dark.png')
+    if settings['theme'] == 'Majestic Blush':
+        label = tk.Label(ss, text="", bg="#2A3990")
+        image = PhotoImage(file='assets/logos/mb-splash.png')
     label.place(x=-10, y=-10)
     image_label = Label(ss, image=image)
     image_label.place(x=0, y=0)
@@ -178,6 +181,7 @@ def randomize_password():
     pyperclip.copy(password)
     password_saved.config(text=chosen_lang["password_saved_label"])
     password_saved.place(x=40, y=120)
+    toggle_password_visibility()
 
 def check_pass():
     password = password_entry.get().lower()
@@ -380,17 +384,39 @@ def clear_all():
                 text="", bg="light blue", fg="light blue")
             whats_new_label.config(
                 text="", bg="light blue", fg="light blue")
+        if settings['theme'] == 'Majestic Blush':
+                confirm_changed_dir.config(
+                    text="", bg=DEFAULT_MB_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
+                pass_check_label.config(
+                    text="", bg=DEFAULT_MB_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
+                password_saved.config(
+                    text="", bg=DEFAULT_MB_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
+                version_message.config(
+                    text="", bg=DEFAULT_MB_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
+                whats_new_label.config(
+                    text="", bg=DEFAULT_MB_LABELS_BG_COLOR, fg=DEFAULT_CLM_LABELS_BG_COLOR)
 
 def safety():
     message = chosen_lang["""privacy_message"""]
     messagebox.showinfo(title="Safety", message=message)
 
-def automatic_theme():
-    current_hour = datetime.datetime.now().hour
-    if 6 <= current_hour < 18:
-        Light_Mode()
-    else:
-        Dark_Mode()
+def Majestic_Blush_Mode():
+    logo_img.config(file="assets/logos/wide_dark.png")
+    window.wm_iconbitmap('assets/logos/mb-ico.ico')
+    window.config(bg=DEFAULT_MB_BG_COLOR)
+    canvas.config(bg=DEFAULT_MB_BG_COLOR)
+    for button in buttons:
+        button.config(bg=DEFAULT_MB_BUTTONS_BG_COLOR,
+                      fg=DEFAULT_MB_BUTTONS_FG_COLOR)
+    for label in element_labels:
+        label.config(bg=DEFAULT_MB_BG_COLOR, fg=DEFAULT_MB_BUTTONS_FG_COLOR)
+    # HIDDEN LABELS
+    pass_check_label.config(bg=DEFAULT_MB_BG_COLOR,
+                            fg=DEFAULT_MB_LABELS_FG_COLOR)
+    version_message.config(bg=DEFAULT_MB_BG_COLOR,
+                           fg=DEFAULT_MB_LABELS_FG_COLOR)
+    whats_new_label.config(bg=DEFAULT_MB_BG_COLOR,
+                           fg=DEFAULT_MB_LABELS_FG_COLOR)
 
 def Dark_Mode():
     logo_img.config(file="assets/logos/wide_dark.png")
@@ -503,7 +529,7 @@ def get_current_language():
 
     return settings.get('language', default_settings['language'])
 
-def change_theme(selected_option):  
+def change_theme(selected_option):
     theme_selected = selected_option
     default_settings = {
         'theme': 'dark'
@@ -533,8 +559,9 @@ def change_theme(selected_option):
     elif theme_selected == chosen_lang["Classic_Light_theme"]:
         Classic_Light_Mode()
         settings['theme'] = 'Classic Light'
-    else:
-        automatic_theme()
+    elif theme_selected == chosen_lang["Majestic_Blush"]:
+        Majestic_Blush_Mode()
+        settings['theme'] = 'Majestic Blush'
     with open('src/settings.json', 'w') as f:
         json.dump(settings, f)
         theme_selected = settings['theme']
@@ -647,50 +674,79 @@ def on_exit():
     if result == 'yes':
         window.destroy()
 
-
-def on_enter(e, btn):
+def on_enter(btn):
     with open('src/settings.json', 'r') as f:
         settings = json.load(f)
     theme = settings['theme']
 
     if theme == "Dark":
-        btn.config(bg='#86A3B8')
+        btn.config(bg=DEFAULT_DM_HOVER_BUTTON_COLOR)
     if theme == "Light":
-        btn.config(bg='#E5E0FF')
+        btn.config(bg=DEFAULT_LM_HOVER_BUTTON_COLOR)
     if theme == "Classic Dark":
-        btn.config(bg='black')
+        btn.config(bg=DEFAULT_CDM_HOVER_BUTTON_COLOR)
     if theme == "Classic Light":
-        btn.config(bg='#ECECEC')
-        btn.config(bg='#ECECEC')
+        btn.config(bg=DEFAULT_CLM_HOVER_BUTTON_COLOR)
+    if theme == "Majestic Blush":
+        btn.config(bg=DEFAULT_MB_HOVER_BUTTON_COLOR)
 
-
-def on_leave(e, btn):
+def on_leave(btn):
     with open('src/settings.json', 'r') as f:
         settings = json.load(f)
     theme = settings['theme']
-
     if theme == "Dark":
-        btn.config(bg='#2F58CD')
+        btn.config(bg=DEFAULT_DM_BUTTONS_BG_COLOR)
     if theme == "Light":
-        btn.config(bg='#AED6F1')
+        btn.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR)
     if theme == "Classic Dark":
-        btn.config(bg='#251749')
+        btn.config(bg=DEFAULT_CDM_BUTTONS_BG_COLOR)
     if theme == "Classic Light":
-        btn.config(bg='light blue')
+        btn.config(bg=DEFAULT_LM_BUTTONS_BG_COLOR)
+    if theme == "Majestic Blush":
+        btn.config(bg=DEFAULT_MB_BUTTONS_BG_COLOR)
 
 
 
 def show_shortcuts():
+    global shortcuts_top_label, shortcuts_label
+    shortcuts = chosen_lang['shortcuts_text']
     shortcuts_window = tk.Toplevel(window)
     shortcuts_window.withdraw()
     shortcuts_window.title("Shortcuts")
     shortcuts_window.wm_iconbitmap('assets/logos/logo-dark.ico')
-    shortcuts_window_height = 650
+    shortcuts_window_height = 750
     shortcuts_window_width = 600
     shortcuts_window.resizable(False, False)
-    shortcuts_window.config(bg="#2A3990")
+    indentend_shortcuts = textwrap.indent(shortcuts, '    ')
+    shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
+                            font=("Arial", 16), pady=20)
+    shortcuts_top_label = Label(
+        shortcuts_window, text=chosen_lang["shortcuts"], font=("Arial", 25))
+    with open('src/settings.json', 'r') as f:
+        settings = json.load(f)
+    theme = settings['theme']
+    if theme == "Dark":
+        shortcuts_window.config(bg=DEFAULT_DM_BG_COLOR)
+        shortcuts_label.config(bg=DEFAULT_DM_LABELS_BG_COLOR, fg="#D1FFF3")
+    if theme == "Light":
+        shortcuts_top_label.config(bg=DEFAULT_LM_LABELS_BG_COLOR, fg="black")
+        shortcuts_label.config(bg=DEFAULT_LM_LABELS_BG_COLOR, fg="black")
+        shortcuts_window.config(bg=DEFAULT_LM_BG_COLOR)
+    if theme == "Classic Dark":
+        shortcuts_top_label.config(bg=DEFAULT_CDM_LABELS_BG_COLOR, fg="white")
+        shortcuts_label.config(bg=DEFAULT_CDM_LABELS_BG_COLOR, fg="white")
+        shortcuts_window.config(bg=DEFAULT_CDM_BG_COLOR)
+    if theme == "Classic Light":
+        shortcuts_top_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR, fg="black")
+        shortcuts_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR, fg="black")
+        shortcuts_window.config(bg=DEFAULT_CLM_BG_COLOR)
+    if theme == "Majestic Blush":
+        shortcuts_top_label.config(bg=DEFAULT_MB_LABELS_BG_COLOR, fg="black")
+        shortcuts_label.config(bg=DEFAULT_MB_LABELS_BG_COLOR, fg="black")
+        shortcuts_window.config(bg=DEFAULT_MB_BG_COLOR)
+
     main_window_x = window.winfo_x()
-    main_window_y = window.winfo_y()
+    main_window_y = window.winfo_y() + 150
     main_window_width = window.winfo_width()
     main_window_height = window.winfo_height()
     x = main_window_x + main_window_width/2 - shortcuts_window_width/2
@@ -699,16 +755,7 @@ def show_shortcuts():
         f"{shortcuts_window_width}x{shortcuts_window_height}+{int(x)}+{int(y)}")
     shortcuts_window.deiconify()
 
-    shortcuts_top_label = Label(
-        shortcuts_window, text=chosen_lang["shortcuts"], bg="#2A3990", fg="white", font=("Arial", 25))
     shortcuts_top_label.place(x=220, y=30)
-
-    shortcuts = chosen_lang['shortcuts_text']
-
-    indentend_shortcuts = textwrap.indent(shortcuts, '    ')
-    shortcuts_label = Label(shortcuts_window, text=indentend_shortcuts,
-                            bg="#13005A", fg="white", font=("Arial", 16), pady=20)
-
     shortcuts_label.place(x=110, y=80)
 
 
@@ -871,7 +918,7 @@ theme_label = Label(text=chosen_lang["theme_label"],
                     bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white", font=("Verdana", 8))
 theme_label.place(x=353, y=430)
 theme_dropdown = CTk.CTkOptionMenu(window, values=[
-    chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"], chosen_lang["Automatic_Theme"]], width=80, command=change_theme)
+    chosen_lang["Dark_theme"], chosen_lang["Light_theme"], chosen_lang["Classic_Dark_theme"], chosen_lang["Classic_Light_theme"], chosen_lang["Majestic_Blush"]], width=80, command=change_theme)
 theme_dropdown.place(x=410, y=430)
 current_theme = get_current_theme()
 theme_dropdown.set(current_theme)
@@ -900,6 +947,9 @@ if settings['theme'] == 'Classic Dark':
     Classic_Dark_Mode()
 if settings['theme'] == 'Classic Light':
     Classic_Light_Mode()
+if settings['theme'] == 'Majestic Blush':
+    Majestic_Blush_Mode()
+
 if language == 'EN':
     change_dir_button.config(width=17)
     check_for_update_button.config(width=17)

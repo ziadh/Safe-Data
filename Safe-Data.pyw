@@ -567,7 +567,6 @@ def get_current_language():
 
 
 def change_theme(selected_option):
-    automatic_help_button.place_forget()
     theme_selected = selected_option
     default_settings = {
         'theme': 'dark'
@@ -824,11 +823,6 @@ def focus_next_box(event):
     return "break"
 
 
-def show_auto_help():
-    auto_help = messagebox.showinfo(
-        chosen_lang["automatic_help_title"], chosen_lang["automatic_help_message"])
-
-
 window = Tk()
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -993,7 +987,6 @@ github_page_button = Button(image=github_logo, compound='center',
                             bg="#2A3990", fg="white", command=open_github_page, width=30)
 github_page_button.place(x=40, y=430)
 
-automatic_help_button = Button(text='?', command=show_auto_help, width=5)
 
 ### END OF BUTTONS ###
 
@@ -1015,7 +1008,7 @@ password_entry.bind("<Tab>", focus_next_box)
 
 ### END OF ENTRYBOXES ###
 
-buttons = [automatic_help_button, clear_input_button, github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
+buttons = [clear_input_button, github_page_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, shortcuts_button]
 
 element_labels = [website_label, password_saved,
