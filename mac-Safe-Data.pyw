@@ -932,9 +932,9 @@ language_dropdown.place(x=270, y=430)
 current_language = get_current_language()
 language_dropdown.set(current_language)
 
-buttons = [generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
+buttons = [clear_input_button, generate_password_button,  clear_all_button, save_button, password_check_button, about_button, saving_as_button, show_button,
            privacy_button,  change_dir_button, exit_button, check_for_update_button, shortcuts_button]
-element_labels = [website_label,password_saved,password_label,email_label,confirm_changed_dir]
+element_labels = [website_label,password_saved,password_label,email_label,confirm_changed_dir,language_label,theme_label]
 for btn in buttons:
     btn.bind("<Enter>", lambda e, btn=btn: on_enter(e, btn))
     btn.bind("<Leave>", lambda e, btn=btn: on_leave(e, btn))
