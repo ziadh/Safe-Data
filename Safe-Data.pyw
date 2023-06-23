@@ -751,7 +751,6 @@ def show_shortcuts():
     shortcuts_window = tk.Toplevel(window)
     shortcuts_window.withdraw()
     shortcuts_window.title("Shortcuts")
-    shortcuts_window.wm_iconbitmap('assets/logos/logo-dark.ico')
     shortcuts_window_height = 750
     shortcuts_window_width = 600
     shortcuts_window.resizable(False, False)
@@ -764,22 +763,27 @@ def show_shortcuts():
         settings = json.load(f)
     theme = settings['theme']
     if theme == "Dark":
+        shortcuts_window.wm_iconbitmap('assets/logos/logo-dark.ico')
         shortcuts_top_label.config(bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white")
         shortcuts_window.config(bg=DEFAULT_DM_BG_COLOR)
         shortcuts_label.config(bg=DEFAULT_DM_LABELS_BG_COLOR, fg="#D1FFF3")
     if theme == "Light":
+        shortcuts_window.wm_iconbitmap('assets/logos/logo-light.ico')
         shortcuts_top_label.config(bg=DEFAULT_LM_LABELS_BG_COLOR, fg="black")
         shortcuts_label.config(bg=DEFAULT_LM_LABELS_BG_COLOR, fg="black")
         shortcuts_window.config(bg=DEFAULT_LM_BG_COLOR)
     if theme == "Classic Dark":
+        shortcuts_window.wm_iconbitmap('assets/logos/classic-logo-dark.ico')
         shortcuts_top_label.config(bg=DEFAULT_CDM_LABELS_BG_COLOR, fg="white")
         shortcuts_label.config(bg=DEFAULT_CDM_LABELS_BG_COLOR, fg="white")
         shortcuts_window.config(bg=DEFAULT_CDM_BG_COLOR)
     if theme == "Classic Light":
+        shortcuts_window.wm_iconbitmap('assets/logos/classic-logo-light.ico')
         shortcuts_top_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR, fg="black")
         shortcuts_label.config(bg=DEFAULT_CLM_LABELS_BG_COLOR, fg="black")
         shortcuts_window.config(bg=DEFAULT_CLM_BG_COLOR)
     if theme == "Majestic Blush":
+        shortcuts_window.wm_iconbitmap('assets/logos/mb-ico.ico')
         shortcuts_top_label.config(bg=DEFAULT_MB_LABELS_BG_COLOR, fg="black")
         shortcuts_label.config(bg=DEFAULT_MB_LABELS_BG_COLOR, fg="black")
         shortcuts_window.config(bg=DEFAULT_MB_BG_COLOR)
