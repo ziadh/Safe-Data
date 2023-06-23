@@ -764,6 +764,7 @@ def show_shortcuts():
         settings = json.load(f)
     theme = settings['theme']
     if theme == "Dark":
+        shortcuts_top_label.config(bg=DEFAULT_DM_LABELS_BG_COLOR, fg="white")
         shortcuts_window.config(bg=DEFAULT_DM_BG_COLOR)
         shortcuts_label.config(bg=DEFAULT_DM_LABELS_BG_COLOR, fg="#D1FFF3")
     if theme == "Light":
